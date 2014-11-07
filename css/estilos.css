@@ -1,0 +1,377 @@
+
+body {
+    background-color: #fff;
+    margin: 0px;
+    background-repeat: no-repeat;
+    font: 11px Verdana, Arial, Helvetica, sans-serif;
+    color: #4F5155;
+}
+
+a {
+    color: #003399;
+    background-color: transparent;
+    font-weight: normal;
+}
+
+.Table_Class{
+    font-family: 11px Verdana, Arial, Helvetica, sans-serif;
+}
+
+.Table_Class td {
+    border-bottom: 1px solid #000000;
+    border-right: 1px solid transparent;
+    border-left: 1px solid #000000;
+    border-top: 1px solid transparent;
+    color: #666699;
+    text-align: center;
+    font-size: 11px;
+}
+
+.Table_Class tr:hover {
+    background: none repeat scroll 0 0   #E8EDFF;
+}
+
+h1 {
+    color: #444;
+    background-color: transparent;
+    border-bottom: 1px solid #D0D0D0;
+    font-size: 19px;
+    font-weight: normal;
+    margin: 0 0 14px 0;
+    padding: 14px 15px 10px 15px;
+    text-align: center;
+}
+
+code {
+    font-family: Consolas, Monaco, Courier New, Courier, monospace;
+    font-size: 12px;
+    background-color: #f9f9f9;
+    border: 1px solid #D0D0D0;
+    color: #002166;
+    display: block;
+    margin: 14px 0 14px 0;
+    padding: 12px 10px 12px 10px;
+}
+
+#cuerpo {
+    margin: 0 15px 0 15px;
+}
+
+p.footer {
+    text-align: right;
+    font-size: 11px;
+    border-top: 1px solid #D0D0D0;
+    line-height: 32px;
+    padding: 0 10px 0 10px;
+    margin: 20px 0 0 0;
+}
+
+#contenedor {
+    margin: 10px;
+    border: 1px solid #D0D0D0;
+    -webkit-box-shadow: 0 0 8px #D0D0D0;
+}
+
+table {
+    font: 11px Verdana, Arial, Helvetica, sans-serif;
+}
+.cabeceraTabla {
+    background-color:#5f5f5f;
+    color:#fff;
+    font-weight:bold;
+    text-align:center;
+    text-transform:uppercase;
+}
+.fuente8 {
+    font: 10px Verdana, Arial, Helvetica, sans-serif;
+}
+.caja {
+    background-color: #fff;
+    font: 8pt helvetica;
+    text-transform: uppercase;
+    color: #000;
+    width: 150px;
+    border-color: #696969;
+    border-style: solid;
+    border-width:1px;
+    height: 15pt;
+}
+
+#anchoPagina {
+    width: 934px;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+
+#salir {
+    float: right;
+}
+
+.header {
+    background-color: #1494DD;
+    color: #fff;
+    line-height: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    height: 20px;
+    vertical-align: middle;
+    border-radius: 5px 5px 0px 0px;
+}
+
+/* botonera */
+#botonera {
+    position: relative;
+    top: 0px;
+    width: 934px;
+    text-align: right;
+    overflow: hidden;
+}
+
+.lista_botones {
+    list-style: none;
+    padding: 0px;
+    float: right; 
+    margin: 0px 0px 0px 5px;
+}
+
+/* ubicacion de las imagenes en los botones */
+.lista_botones li {
+    background-position: 2px 2px;
+    background-color: #DCDCDC;
+    background-repeat: no-repeat;
+    padding: 2px 4px 4px 20px;
+    font-weight: bold;
+    border: 1px solid #000000;
+    margin: 0px;
+}
+
+.lista_botones li:hover {
+    background-color: #CACACA;
+    cursor: pointer;
+}
+
+.lista_botones #buscar {
+    background-image: url(../img/buscar.png);
+}
+.lista_botones #nuevo {
+    background-image: url(../img/add_celeste.png);
+}
+.lista_botones #aceptar {
+    background-image: url(../img/grabar.gif);
+}
+.lista_botones #limpiar {
+    background-image: url(../img/limpiar.png);
+}
+#inicio{
+    background-image: url(../img/fondo_login.jpg);
+    height: 700px;
+    width: 1000px;
+    margin: auto;
+}
+.cajaCenter{
+    text-align: center;
+    margin: 5px;
+}
+
+label {
+    color: white;
+    padding: 5px;
+    margin-top: 20px;
+    font-weight: bold;
+    height: 30px;
+}
+
+.cargar{
+    border-radius: 4px;
+    padding: 4px 10px;
+    background-color: #828282;
+    color: #FFF;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 4px 0px;
+    float:right;
+    text-decoration:none;
+}
+.cargar:hover{
+    background-color: #1494DD;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+
+    font-family: Arial;
+    font-size: 11px;
+    font-style: italic;
+    color:    grey;
+    text-transform: none
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    font-family: Arial;
+    font-size: 11px;
+    font-style: italic;
+    color:    grey;
+    text-transform: none
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    font-family: Arial;
+    font-size: 11px;
+    font-style: italic;
+    color:    grey;
+    text-transform: none
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    font-family: Arial;
+    font-size: 11px;
+    font-style: italic;
+    color:    grey;
+    text-transform: none
+}
+.cajaCalendar{
+    cursor: pointer;
+    background: url(../img/calendar.png) 132px center no-repeat;
+}
+
+.cajaPequena {
+    background-color:#fff;
+    font:8pt helvetica;	
+    color:#000;
+    width:70px;
+    border-color:#828282;	
+    border-style :solid;
+    border-width :1px;
+    height:21px;
+    /*text-transform:uppercase;*/
+}
+
+.cajaMedia {
+    background-color:#fff;
+    font:8pt helvetica;
+    /*text-transform:uppercase;*/
+    color:#000;
+    width:150px;
+    border-color:#828282;
+    border-style :solid;
+    border-width :1px;
+    height:21px;
+}
+
+.cajaCentrada {
+    background-color:#fff;
+    font:8pt helvetica;
+    /*text-transform:uppercase;*/
+    color:#000;
+    width:150px;
+    border-color:#828282;
+    border-style :solid;
+    border-width :1px;
+    height:21px;
+    text-align: center;
+}
+
+.cajaGrande {
+    background-color:#fff;
+    font:8pt helvetica;
+    /*text-transform:uppercase;*/
+    color:#000;
+    width: 285px;
+    padding-right: 10px;
+    border-color:#828282;
+    border-style :solid;
+    border-width :1px;
+    height:21px;
+}
+
+.itemParTabla {
+    background-color:#EBEBEB;
+}
+.itemImparTabla {
+    background-color:#f5f5f5;
+}
+#frmResultado {
+    position:relative;
+    top:10px;
+    width:934px;
+    background-color: #f5f5f5
+}
+
+/* estilos de fancybox */
+#ventana_fancy {
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    font-family: arial;
+}
+#t1 {
+    margin: auto;
+    width: 98%;
+    background-color:#0063DC;
+    text-align: left;
+    background: #DCDCDC;
+    border: 1px solid silver;
+    font-family: helvetica;
+    font-size: 12px
+}
+ventana_fancy.tr:nth-child(2n+1) {
+    background-color: #CCC;
+    color: #000;
+}
+
+.divBorderResumen {
+    border: 1px solid #111;
+    width: 550px;
+    background-color: white;
+    font-family: verdana,arial;
+    font-size: 11px;
+}
+
+.divBorderSimple {
+    border: 1px solid #111;
+    width: 924px;
+    background-color: white;
+    font-family: verdana,arial;
+    font-size: 11px;
+}
+
+.cabeceraTablaInicio {
+    background-color: #696969;
+    color: white;
+}
+
+.tablaLineaSimple {
+    border-collapse: collapse;
+    border: solid black 1px;
+}
+
+.planificado {
+    background-color: #55DDFF;
+    /*color: white;*/
+}
+
+.real {
+    background-color: peachpuff;
+    /*background-color: wheat;*/
+    /*color: white;*/
+}
+
+.pronostico {
+    /*background-color: yellow;*/
+}
+
+.stockSeguridad {
+    /*background-color: yellow;*/
+}
+
+.error {
+    color: red;
+}
+
+.azul {
+    color: blue;
+}
+
+.cajaNota {
+    width: 20px;
+    text-align: center;
+}

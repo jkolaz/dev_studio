@@ -1,0 +1,3 @@
+
+- Restricciones en la creacion, modificacion y eliminado de usuarios.
+
