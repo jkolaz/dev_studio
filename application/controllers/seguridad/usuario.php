@@ -9,6 +9,7 @@ class Usuario extends CI_Controller {
         $this->load->model('seguridad/usuario_model');
         $this->load->model('educacion/curso_model');
         $this->load->model('educacion/documento_model');
+        $this->load->model('educacion/nivel_model');
         $this->load->library('layout', 'layout');
     }
 
@@ -30,7 +31,6 @@ class Usuario extends CI_Controller {
             foreach ($lista as $profesor) {
                 $idProfesor = $profesor->USUA_id;
                 $listaCursos = $this->curso_model->listar_cursos_por_profesor($idProfesor);
-//                $profesor->cursos = $listaCursos;
                 $profesor->cursos = $this->pasar_lista_cursos_a_cadena($listaCursos);
             }
         }
@@ -303,7 +303,32 @@ class Usuario extends CI_Controller {
         $this->usuario_model->eliminar_usuario($codigoUsuario);
         redirect('3_lecturas/usuario/listar');
     }
-
+    public function alumnonuevo(){
+        $data['nivel'] = $this->nivel_model->listar_niveles();
+        $data['titulo'] = "NUEVO ALUMNO";
+        $this->layout->view('persona/alumno_nuevo',$data);
+    }
+    public function insertAlumno(){
+        $post = $this->input->post();
+        $ObjAlumno = new stdClass();
+        $ObjAlumno->nombre = $post['nombre'];
+        $ObjAlumno->paterno = $post['paterno'];
+        $ObjAlumno->materno = $post['materno'];
+        $ObjAlumno->dni = $post['dni'];
+        $ObjAlumno->email = $post['email'];
+        $ObjAlumno->sexo = $post['sexo'];
+        $ObjAlumno->grado = $post['grado'];
+        $alumno = $this->usuario_model->insert($ObjAlumno);
+        
+        $ObjPadre = new stdClass();
+        $ObjPadre->dni = $post['padre_dni'];
+        $ObjPadre->nombre = $post['padre_nombre'];
+        $ObjPadre->paterno = $post['padre_paterno'];
+        $ObjPadre->materno = $post['padre_materno'];
+        $ObjPadre->telefono = $post['padre_fono'];
+        $padre = $this->usuario_model->insert($ObjPadre);
+        
+    }
 }
 
 ?>

@@ -135,6 +135,16 @@ class Curso_Model extends CI_Model {
         $this->db->where('ROL_codigo', $codigo);
         $this->db->delete(self::$tabla);
     }
+    public function getCursoGrado($grado){
+        $where = array("curso.GRAD_id"=>$grado,"grado.GRAD_flagActivo"=>"A");
+        $this->db->where($where);
+        $this->db->join('grado', 'grado.GRAD_id = ' . self::$tabla . '.GRAD_id');
+        $this->db->order_by('CURS_nombre');
+        $query = $this->db->get(self::$tabla);
+        if ($query->num_rows > 0)
+            return $query->result();
+        return null;
+    }
 
 }
 

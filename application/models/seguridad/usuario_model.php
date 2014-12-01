@@ -191,7 +191,43 @@ class Usuario_Model extends CI_Model {
             return $query->result();
         return null;
     }
-
+    public function insert($insert){
+        $insertar = array("USUA_codigo" => $insert->dni,
+                        "USUA_nombres"=>$insert->nombre,
+                        "USUA_apellidoPaterno"=>$insert->paterno,
+                        "USUA_apellidoMaterno"=>$insert->materno,
+                        "USUA_login"=>$insert->dni,
+                        "USUA_clave"=>  md5($insert->dni),
+                        "USUA_dni"=>$insert->dni,
+                        "USUA_flagActivo"=>"A",
+                        "USUA_estado"=>"AC");
+        if(isset($insert->email) && $insert->email!=""){
+            $insertar['USUA_email'] = $insert->email;
+        }
+        if(isset($insert->sexo) && $insert->sexo!=""){
+            $insertar['USUA_sexo'] = $insert->sexo;
+        }
+        if(isset($insert->grado) && $insert->grado!=""){
+            $insertar['ROL_id'] = $insert->grado;
+        }else{
+            $insertar['ROL_id'] = 0;
+        }
+        $query = $this->db->insert(self::$tabla, $insertar);
+        if($query){
+            $id = $this->db->insert_id();
+        }else{
+            $id = 0;
+        }
+        return $id;
+    }
+    public function searchUsuarioDni($dni){
+        $where = array('USUA_flagActivo' => 'A',
+                        'USUA_dni'=>$dni);
+        $query = $this->db->get(self::$tabla);
+        if ($query->num_rows > 0)
+            return $query->result();
+        return null;
+    }
 }
 
 ?>

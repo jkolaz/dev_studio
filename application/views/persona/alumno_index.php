@@ -11,13 +11,10 @@
 <script type="text/javascript">
     $(document).ready( function() {
         base_url   = $("#base_url").val();
-        $("#nuevo_usuario").fancybox( {
-            'width'          : 500,
-            'height'         : 350,
-            'transitionIn'   : 'elastic',
-            'transitionOut'  : 'elastic',
-            'type'	     : 'iframe'
-        } );
+        $("#nuevo_usuario").click( function(){
+            var url = $(this).attr('href');
+            location.href = url;
+        });
         $(".editar_usuario").fancybox( {
             'width'          : 500,
             'height'         : 350,
@@ -51,7 +48,7 @@
 
 <br><br>
 <div id="botonera">
-    <ul href="<?php echo base_url() ?>index.php/seguridad/usuario/mostrar_nuevo" id="nuevo_usuario" 
+    <ul href="<?php echo base_url() ?>index.php/seguridad/usuario/alumnonuevo" id="nuevo_usuario" 
         class="lista_botones">
         <li id="nuevo"> Agregar Alumno </li>
     </ul>

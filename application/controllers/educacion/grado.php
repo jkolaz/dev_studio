@@ -7,6 +7,7 @@ class Grado extends CI_Controller {
         $this->load->helper(array('url', 'form', 'utilitarios'));
         $this->load->library('form_validation', 'pagination', 'html');
         $this->load->model('educacion/grado_model');
+        $this->load->model('educacion/curso_model');
         $this->load->model('layout/menu_model');
         $this->load->library('layout', 'layout');
     }
@@ -121,7 +122,31 @@ class Grado extends CI_Controller {
         $this->rol_model->eliminar_rol($idRol);
         redirect('seguridad/rol/listar');
     }
-
+    
+    public function getGradoAjax($nivel){
+        $objGrado = $this->grado_model->listar_grados_por_nivel($nivel);
+        $option = '<option value="0">--Seleccione Grado--</option>';
+        if(is_array($objGrado)){
+            foreach ($objGrado as $value){
+                $option .= '<option value="'.$value->GRAD_id.'">'.$value->GRAD_nombre.'</option>';
+            }
+        }
+        echo $option;
+    }
+    public function getCursoGrado($grado){
+        $curso = $this->curso_model->getCursoGrado($grado);
+        $table = "";
+        if(is_array($curso)){
+            $table .= '<td colspan ="2">CURSOS A LLEVAR:<ul>';
+            foreach ($curso as $i=>$value){
+                $table .= '<li>'.  utf8_encode($value->CURS_nombre).'</li>';
+                
+            }
+            $table .= '</ul></td>';
+        }else{
+            $table = "<td>Seleccione un grado</td>";
+        }
+        echo $table;
+    }
 }
-
 ?>
