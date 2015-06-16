@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
+  <head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+    
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -25,12 +25,10 @@
     <div class="col-md-3"   >
     </br>
     <ul class="list-group">
-  <li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-search"></span> Localización: Dirección Pro 
-.</li>
+  <li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-search"></span> Localizacion: Av Cordialidad Mz ZZ �C 2 Lote 17</li>
   <li style="text-align: left;" class="list-group-item list-group-item-warning"> <span class="glyphicon glyphicon-envelope"></span> Contactenos a : www.jkolaz.com/tesis </li>
-  <li class="list-group-item list-group-item-success"> <span class="glyphicon glyphicon-warning-sign"></span> FAX 666
-. </li>
-  <li class="list-group-item list-group-item-danger"> <span class="glyphicon glyphicon-earphone"></span> Telefono: 01 551 666</li>
+
+  <li class="list-group-item list-group-item-danger"> <span class="glyphicon glyphicon-earphone"></span> Telefono: 997243562</li>
 </ul>
 
 
@@ -40,7 +38,7 @@
     <form name="frmLogin" method="post" action="<?php echo base_url() . 'index.php/index/ingresar_sistema' ?>">
 
 
-           <?php echo $campos[0] ?> 
+        <h1 style="color:white">I. E. P. Mi Jazmincito</h1>
         <div class="input-group">
         <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
         <?php echo $valores[0] ?>

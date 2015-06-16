@@ -29,6 +29,62 @@
                 }
             });
         });
+        $('.relacion').keyup(function(e){
+            //e.preventDefault();
+            var tipo = $(this).attr('tipo');
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "<?=base_url() ?>index.php/seguridad/usuario/relacion",
+                data: {tipo: tipo, value: $(this).val()},
+                dataType: 'json',
+                success: function(data)
+                {
+                    if(data.return == "1"){
+                        $("#padre_mensaje_"+data.tipo).hide();
+                        $("#padre_id_"+data.tipo).val(data.key);
+                        $("#padre_nombre_"+data.tipo).val(data.nombre);
+                        $("#padre_paterno_"+data.tipo).val(data.paterno);
+                        $("#padre_materno_"+data.tipo).val(data.materno);
+                        $("#padre_fono_"+data.tipo).val(data.telefono);
+                        
+                        
+                        $("#padre_nombre_"+data.tipo).attr('readonly','readonly');
+                        $("#padre_paterno_"+data.tipo).attr('readonly','readonly');
+                        $("#padre_materno_"+data.tipo).attr('readonly','readonly');
+                        $("#padre_fono_"+data.tipo).attr('readonly','readonly');
+                        $("#padre_nombre_"+data.tipo).attr('style','background-color: #E8E9EC');
+                        $("#padre_paterno_"+data.tipo).attr('style','background-color: #E8E9EC');
+                        $("#padre_materno_"+data.tipo).attr('style','background-color: #E8E9EC');
+                        $("#padre_fono_"+data.tipo).attr('style','background-color: #E8E9EC');
+                    }else{
+                        $("#padre_mensaje_"+data.tipo).show();
+                        $("#padre_id_"+data.tipo).val("");
+                        $("#padre_nombre_"+data.tipo).val("");
+                        $("#padre_paterno_"+data.tipo).val("");
+                        $("#padre_materno_"+data.tipo).val("");
+                        $("#padre_fono_"+data.tipo).val("");
+                        
+                        $("#padre_nombre_"+data.tipo).removeAttr('readonly');
+                        $("#padre_paterno_"+data.tipo).removeAttr('readonly');
+                        $("#padre_materno_"+data.tipo).removeAttr('readonly');
+                        $("#padre_fono_"+data.tipo).removeAttr('readonly');
+                        $("#padre_nombre_"+data.tipo).removeAttr('style');
+                        $("#padre_paterno_"+data.tipo).removeAttr('style');
+                        $("#padre_materno_"+data.tipo).removeAttr('style');
+                        $("#padre_fono_"+data.tipo).removeAttr('style');
+                    }
+                    
+                }
+            });
+        });
+        $('#guardar').click(function(e){
+            if($('#nombre').val() == ""){
+                $('#nombre').attr('style','border-color: red;');
+                return false;
+            }
+        });
+            
     } );
 </script>
 <style>
@@ -37,9 +93,10 @@
     }
 </style>
 <br><br>
-<div class="header"><?php echo $titulo ?></div>
+<div class="header">MATRICULA</div>
 <div id="container">
     <div class="demo_jui">
+    <!-- asa -->
         <form name="form1" id="form1" action="<?=base_url() ?>index.php/seguridad/usuario/insertAlumno" method="post">
             <table class="tabla" id="usuarios">
                 <tbody>
@@ -70,47 +127,52 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Nivel</td>
                         <td>
-                            <select name="nivel" id="nivel" class="combo">
-                                <option value="0">--Seleccione Nivel--</option>
-                                <?php
-                                foreach ($nivel as $value){
-                                ?>
-                                <option value="<?=$value->NIVE_id?>"><?=$value->NIVE_nombre?></option>
-                                <?php    
-                                }
-                                ?>
-                            </select>
+                            Datos del Padre
+                            <input type="hidden" name="padre_id[0]" id="padre_id_0" value=""/>
                         </td>
-                        <td>Grado</td>
-                        <td>
-                            <select name="grado" id="grado" class="combo">
-                                <option value="0">--Seleccione Grado--</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr id="cursos">
-                        <td>Seleccione un grado</td>
-                    </tr>
-                    <tr>
-                        <td>Datos de los Padres</td>
                     </tr>
                     <tr>
                         <td>D.N.I :</td>
-                        <td><input type="input" name="padre_dni" id="padre_dni"/></td>
+                        <td><input type="input" name="padre_dni[0]" id="padre_dni_0" class="relacion" tipo="PAD" maxlength="8" autocomplete="off"/></td>
+                        <td><span id="padre_mensaje_0" style="display:none; color: red; font-family: initial, sans-serif; font-size: 9px;">No se encontro ningun registro</span></td>
+                    </tr>
                     <tr>
                         <td>Nombre del padre o tutor</td>
-                        <td><input type="input" name="padre_nombre" id="padre_nombre"/></td>
+                        <td><input type="input" name="padre_nombre[0]" id="padre_nombre_0"/></td>
                     </tr>
                     <tr>
                         <td>Apellidos del padre o tutor</td>
-                        <td><input type="input" name="padre_paterno" id="padre_paterno"/>
-                            <input type="input" name="padre_materno" id="padre_materno"/></td>
+                        <td><input type="input" name="padre_paterno[0]" id="padre_paterno_0"/>
+                            <input type="input" name="padre_materno[0]" id="padre_materno_0"/></td>
                     </tr>
                     <tr>
                         <td>Número de Telefono</td>
-                        <td><input type="input" name="padre_fono" id="padre_fono"/></td>
+                        <td><input type="input" name="padre_fono[0]" id="padre_fono_0"/></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Datos de la Madre
+                            <input type="hidden" name="padre_id[1]" id="padre_id_1" value=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>D.N.I :</td>
+                        <td><input type="input" name="padre_dni[1]" id="padre_dni_1" class="relacion" tipo="MAD" maxlength="8" autocomplete="off"/></td>
+                        <td><span id="padre_mensaje_1" style="display:none; color: red; font-family: initial, sans-serif; font-size: 9px;">No se encontro ningun registro</span></td>
+                    </tr>
+                    <tr>
+                        <td>Nombre del madre</td>
+                        <td><input type="input" name="padre_nombre[1]" id="padre_nombre_1"/></td>
+                    </tr>
+                    <tr>
+                        <td>Apellidos del Madre</td>
+                        <td><input type="input" name="padre_paterno[1]" id="padre_paterno_1"/>
+                            <input type="input" name="padre_materno[1]" id="padre_materno_1"/></td>
+                    </tr>
+                    <tr>
+                        <td>Número de Telefono</td>
+                        <td><input type="input" name="padre_fono[1]" id="padre_fono_1"/></td>
                     </tr>
                     <tr>
                         <td><input type="submit" class="btn add" name="guardar" id="guardar" value="Guardar"></td>

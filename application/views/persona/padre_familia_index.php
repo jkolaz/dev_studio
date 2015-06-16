@@ -16,32 +16,27 @@
             'height'         : 350,
             'transitionIn'   : 'elastic',
             'transitionOut'  : 'elastic',
-            'type'	     : 'iframe'
+            'type'       : 'iframe'
         } );
         $(".editar_usuario").fancybox( {
             'width'          : 500,
             'height'         : 350,
             'transitionIn'   : 'elastic',
             'transitionOut'  : 'elastic',
-            'type'	     : 'iframe'
+            'type'       : 'iframe'
         } );
         $(".ver_usuario").fancybox( {
             'width'          : 500,
             'height'         : 350,
             'transitionIn'   : 'elastic',
             'transitionOut'  : 'elastic',
-            'type'	     : 'iframe'
+            'type'       : 'iframe'
         } );
     } );
 </script>
 
 <br><br>
-<div id="botonera">
-    <ul href="<?php echo base_url() ?>index.php/seguridad/usuario/mostrar_nuevo" id="nuevo_usuario" 
-        class="lista_botones">
-        <li id="nuevo"> Agregar PadreFamilia </li>
-    </ul>
-</div>
+
 
 <br>
 <div class="header"><?php echo $titulo ?></div>

@@ -14,7 +14,7 @@ $this->load->model('3_lecturas/permiso_model');
                 <div align="center">
 
                     <div id="tituloForm" class="header"><?php echo $titulo ?></div>
-
+			<!-- asa -->
                     <div id="frmResultado" style="width:100%; height:90%; overflow: auto; background-color: #f5f5f5">
                         <form id="frmRol" name="frmRol" method="post" 
                               action="<?php echo base_url() ?>index.php/3_lecturas/rol/insertar">

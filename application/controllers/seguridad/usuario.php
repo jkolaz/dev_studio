@@ -65,6 +65,25 @@ class Usuario extends CI_Controller {
         $data['lista'] = $lista;
         $this->layout->view('persona/alumno_index', $data);
     }
+    public function estudiante($tipo = "ALL") {
+        $data['titulo'] = 'ALUMNOS';
+        if($tipo == "ALL"){
+            $lista = $this->usuario_model->listar_usuarios_alumnos();
+        }else{
+            $lista = $this->usuario_model->listar_usuarios_alumnos_matriculados();
+        }
+        
+        if ($lista) {
+            foreach ($lista as $alumno) {
+                $idAlumno = $alumno->USUA_id;
+                // listamos los padres (apoderados) declarados para este usuario (alumno)
+                $listaPadres = $this->usuario_model->listar_parientes_por_usuario_minimo($idAlumno, 'A');
+                $alumno->padres = pasar_lista_usuarios_a_cadena($listaPadres);
+            }
+        }
+        $data['lista'] = $lista;
+        $this->layout->view('persona/alumno_index', $data);
+    }
 
     public function listar_padres_familia() {
         $data['titulo'] = 'PADRES DE FAMILIA';
@@ -311,23 +330,84 @@ class Usuario extends CI_Controller {
     public function insertAlumno(){
         $post = $this->input->post();
         $ObjAlumno = new stdClass();
+        $ObjAlumno->tipo = "ALU";
         $ObjAlumno->nombre = $post['nombre'];
         $ObjAlumno->paterno = $post['paterno'];
+        $ObjAlumno->materno = $post['materno'];
         $ObjAlumno->materno = $post['materno'];
         $ObjAlumno->dni = $post['dni'];
         $ObjAlumno->email = $post['email'];
         $ObjAlumno->sexo = $post['sexo'];
-        $ObjAlumno->grado = $post['grado'];
+        $ObjAlumno->grado = 1;
         $alumno = $this->usuario_model->insert($ObjAlumno);
+        $tipo = "PAD";
+        $sexo = "M";
+        for($cont = 0; $cont < 2; $cont++){
+            if($cont == 1){
+                $tipo = "MAD";
+                $sexo = "F";
+            }
+            $padre = $post['padre_id'][$cont];
+            if($padre==""){
+                $ObjPadre           = new stdClass();
+                $ObjPadre->tipo     = $tipo;
+                $ObjPadre->dni      = $post['padre_dni'][$cont];
+                $ObjPadre->nombre   = $post['padre_nombre'][$cont];
+                $ObjPadre->paterno  = $post['padre_paterno'][$cont];
+                $ObjPadre->materno  = $post['padre_materno'][$cont];
+                $ObjPadre->telefono = $post['padre_fono'][$cont];
+                $ObjPadre->sexo     = $sexo;
+                $ObjPadre->grado    = 3;
+                $padre = $this->usuario_model->insert($ObjPadre);
+            }
+            $this->load->model('usuario/pariente_model', 'Pariente');
+            $relacion           = new stdClass();
+            $relacion->alumno   = $alumno;
+            $relacion->padre    = $padre;
+            $relacion->relacion = $tipo;
+            $this->Pariente->insert($relacion);
+        }        
         
-        $ObjPadre = new stdClass();
-        $ObjPadre->dni = $post['padre_dni'];
-        $ObjPadre->nombre = $post['padre_nombre'];
-        $ObjPadre->paterno = $post['padre_paterno'];
-        $ObjPadre->materno = $post['padre_materno'];
-        $ObjPadre->telefono = $post['padre_fono'];
-        $padre = $this->usuario_model->insert($ObjPadre);
         
+    }
+    public function relacion(){
+        $tipo = $_POST['tipo'];
+        $dni = $_POST['value'];
+        $datos = array();
+        $datos['return']    = 0;
+        switch ($tipo){
+            case "MAD":
+                $datos['tipo'] = 1;
+                break;
+            case "PAD":
+                $datos['tipo'] = 0;
+                break;
+            case "TUT":
+                break;
+        }
+        if(strlen(trim($dni)) == 8){
+            switch ($tipo){
+                case "MAD":
+                    $data = $this->usuario_model->buscar_dni($dni, $tipo);
+                    break;
+                case "PAD":
+                    $data = $this->usuario_model->buscar_dni($dni, $tipo);
+                    break;
+                case "TUT":
+                    break;
+            }
+            if($data){
+                foreach ($data as $value){
+                    $datos['return'] = 1;
+                    $datos['key'] = $value->USUA_id;
+                    $datos['nombre'] = $value->USUA_nombres;
+                    $datos['paterno'] = $value->USUA_apellidoPaterno;
+                    $datos['materno'] = $value->USUA_apellidoMaterno;
+                    $datos['telefono'] = $value->USUA_telefonos;
+                }
+            }
+        }
+        echo json_encode($datos);
     }
 }
 
