@@ -67,10 +67,18 @@ class Usuario extends CI_Controller {
     }
     public function estudiante($tipo = "ALL") {
         $data['titulo'] = 'ALUMNOS';
-        if($tipo == "ALL"){
-            $lista = $this->usuario_model->listar_usuarios_alumnos();
-        }else{
-            $lista = $this->usuario_model->listar_usuarios_alumnos_matriculados();
+        switch ($tipo){
+            case "ALL":
+                $lista = $this->usuario_model->listar_usuarios_alumnos();
+                break;
+            case "M":
+                $lista = $this->usuario_model->listar_usuarios_alumnos_matriculados();
+                break;
+            case "R":
+                $lista = $this->usuario_model->getEstudiantes();
+                break;
+            default:
+                 $lista = $this->usuario_model->listar_usuarios_alumnos();
         }
         
         if ($lista) {
@@ -82,7 +90,20 @@ class Usuario extends CI_Controller {
             }
         }
         $data['lista'] = $lista;
-        $this->layout->view('persona/alumno_index', $data);
+        
+        switch ($tipo){
+            case "ALL":
+                $this->layout->view('persona/alumno_index', $data);
+                break;
+            case "M":
+                $this->layout->view('persona/alumno_index', $data);
+                break;
+            case "R":
+                $this->layout->view('persona/alumno_index_reg', $data);
+                break;
+            default:
+                $this->layout->view('persona/alumno_index', $data);
+        }
     }
 
     public function listar_padres_familia() {
@@ -368,7 +389,7 @@ class Usuario extends CI_Controller {
             $this->Pariente->insert($relacion);
         }        
         
-        
+        redirect('seguridad/usuario/estudiante/R');
     }
     public function relacion(){
         $tipo = $_POST['tipo'];

@@ -47,7 +47,7 @@ class Usuario_Model extends CI_Model {
         return null;
     }
 
-    public function listar_usuarios_alumnos() {
+    public function listar_usuarios_alumnos($tipo = "") {
         $sql = "select *
                 from usuario U, rol R, grado G, nivel N
                 where U.ROL_id = R.ROL_id
@@ -62,6 +62,16 @@ class Usuario_Model extends CI_Model {
             return $query->result();
         return null;
     }
+    public function getEstudiantes(){
+        $where = array();
+        $where['ROL_id'] = "1";
+        $query = $this->db->where($where)
+                    ->get(self::$tabla);
+        if ($query->num_rows > 0)
+            return $query->result();
+        return null;
+    }
+    
     public function listar_usuarios_alumnos_matriculados() {
         /*
          * GXUS_estado :

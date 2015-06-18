@@ -79,8 +79,15 @@
             });
         });
         $('#guardar').click(function(e){
-            if($('#nombre').val() == ""){
-                $('#nombre').attr('style','border-color: red;');
+            var contador = 0;
+            $('.require').each(function(){
+                if($(this).val() == ""){
+                    contador ++;
+                    $(this).attr('style', 'border-color: red;');
+                }
+            });
+            
+            if(contador > 0){
                 return false;
             }
         });
@@ -102,25 +109,25 @@
                 <tbody>
                     <tr>
                         <td>Nombre :</td>
-                        <td><input type="input" name="nombre" id="nombre"/></td>
+                        <td><input type="input" name="nombre" id="nombre" class="require"/></td>
                     </tr>
                     <tr>
                         <td>Apellidos :</td>
-                        <td><input type="input" name="paterno" id="paterno"/>
-                            <input type="input" name="materno" id="materno"/></td>
+                        <td><input type="input" name="paterno" id="paterno" class="require"/>
+                            <input type="input" name="materno" id="materno" class="require"/></td>
                     </tr>
                     <tr>
                         <td>D.N.I. :</td>
-                        <td><input type="input" name="dni" id="dni"/></td>
+                        <td><input type="input" name="dni" id="dni" class="require"/></td>
                     </tr>
                     <tr>
                         <td>E-mail :</td>
-                        <td><input type="input" name="email" id="email"/></td>
+                        <td><input type="input" name="email" id="email" class="require"/></td>
                     </tr>
                     <tr>
                         <td>Sexo</td>
                         <td>
-                            <select name="sexo" id="sexo" class="combo">
+                            <select name="sexo" id="sexo" class="combo" class="require">
                                 <option value="M">Hombre</option>
                                 <option value="F">Mujer</option>
                             </select>
@@ -134,17 +141,17 @@
                     </tr>
                     <tr>
                         <td>D.N.I :</td>
-                        <td><input type="input" name="padre_dni[0]" id="padre_dni_0" class="relacion" tipo="PAD" maxlength="8" autocomplete="off"/></td>
+                        <td><input type="input" name="padre_dni[0]" id="padre_dni_0" class="relacion require" tipo="PAD" maxlength="8" autocomplete="off"/></td>
                         <td><span id="padre_mensaje_0" style="display:none; color: red; font-family: initial, sans-serif; font-size: 9px;">No se encontro ningun registro</span></td>
                     </tr>
                     <tr>
                         <td>Nombre del padre o tutor</td>
-                        <td><input type="input" name="padre_nombre[0]" id="padre_nombre_0"/></td>
+                        <td><input type="input" name="padre_nombre[0]" id="padre_nombre_0" class="require"/></td>
                     </tr>
                     <tr>
                         <td>Apellidos del padre o tutor</td>
-                        <td><input type="input" name="padre_paterno[0]" id="padre_paterno_0"/>
-                            <input type="input" name="padre_materno[0]" id="padre_materno_0"/></td>
+                        <td><input type="input" name="padre_paterno[0]" id="padre_paterno_0" class="require"/>
+                            <input type="input" name="padre_materno[0]" id="padre_materno_0" class="require"/></td>
                     </tr>
                     <tr>
                         <td>Número de Telefono</td>
@@ -158,17 +165,17 @@
                     </tr>
                     <tr>
                         <td>D.N.I :</td>
-                        <td><input type="input" name="padre_dni[1]" id="padre_dni_1" class="relacion" tipo="MAD" maxlength="8" autocomplete="off"/></td>
+                        <td><input type="input" name="padre_dni[1]" id="padre_dni_1" class="relacion require" tipo="MAD" maxlength="8" autocomplete="off"/></td>
                         <td><span id="padre_mensaje_1" style="display:none; color: red; font-family: initial, sans-serif; font-size: 9px;">No se encontro ningun registro</span></td>
                     </tr>
                     <tr>
                         <td>Nombre del madre</td>
-                        <td><input type="input" name="padre_nombre[1]" id="padre_nombre_1"/></td>
+                        <td><input type="input" name="padre_nombre[1]" id="padre_nombre_1" class="require"/></td>
                     </tr>
                     <tr>
                         <td>Apellidos del Madre</td>
-                        <td><input type="input" name="padre_paterno[1]" id="padre_paterno_1"/>
-                            <input type="input" name="padre_materno[1]" id="padre_materno_1"/></td>
+                        <td><input type="input" name="padre_paterno[1]" id="padre_paterno_1" class="require"/>
+                            <input type="input" name="padre_materno[1]" id="padre_materno_1" class="require"/></td>
                     </tr>
                     <tr>
                         <td>Número de Telefono</td>

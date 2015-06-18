@@ -25,7 +25,7 @@
     <div class="col-md-3"   >
     </br>
     <ul class="list-group">
-  <li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-search"></span> Localizacion: Av Cordialidad Mz ZZ ¨C 2 Lote 17</li>
+  <li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-search"></span> Localizacion: Av Cordialidad Mz ZZ ï¿½C 2 Lote 17</li>
   <li style="text-align: left;" class="list-group-item list-group-item-warning"> <span class="glyphicon glyphicon-envelope"></span> Contactenos a : www.jkolaz.com/tesis </li>
 
   <li class="list-group-item list-group-item-danger"> <span class="glyphicon glyphicon-earphone"></span> Telefono: 997243562</li>

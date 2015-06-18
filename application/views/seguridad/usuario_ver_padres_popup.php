@@ -98,6 +98,9 @@
         ?>
         
         <br>
+<?php
+        if(is_object($alumno)){
+?>
         <div align="center">
             <b><?php echo 'ALUMNO' ?></b>
         </div>
@@ -127,7 +130,9 @@
         echo '<tr>';
         echo '</table>';
         ?>
-
+<?php   
+        }
+?>
         <br><br>
         <div align="center">
             <b><?php echo 'HERMANOS' ?></b>
