@@ -38,7 +38,13 @@ class Index extends CI_Controller {
             $data['valores'] = array($txtLogin, $txtClave);
             $data['onload'] = "onload=\"$('#txtUsuario').focus();\"";
             // llamamos a la vista
-            $this->load->view('inicio', $data);
+            $url_back = $this->session->userdata('URL_back');
+            if(!isset($url_back) || $url_back== ""){
+                $this->load->view('inicio', $data);
+            }else{
+                $this->session->unset_userdata('URL_back');
+                redirect($url_back);
+            }
         } else {
             // si ya existe la sesion, redirigimos a la pagina principal
             redirect('index/principal');
@@ -99,6 +105,7 @@ class Index extends CI_Controller {
         $this->session->unset_userdata('nombreUsuario');
         $this->session->unset_userdata('idRol');
         $this->session->unset_userdata('nombreRol');
+        $this->session->unset_userdata('URL_back');
         $this->inicio();
     }
 

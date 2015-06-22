@@ -18,4 +18,11 @@ class Anio_model extends CI_Model{
         parent::__construct();
         $this->load->database();
     }
+    public function getAnio(){
+        $this->db->order_by('ANI_desc', 'desc');
+        $query = $this->db->get(self::$_table);
+        if ($query->num_rows > 0)
+            return $query->result();
+        return null;
+    }
 }

@@ -48,9 +48,9 @@
 
 <br><br>
 <div id="botonera">
-    <ul href="<?php echo base_url() ?>index.php/seguridad/usuario/alumnonuevo" id="nuevo_usuario" 
+    <ul href="<?php echo base_url() ?>index.php/matricula/matricula/newMatricula" id="nuevo_usuario" 
         class="lista_botones">
-        <li id="nuevo"> Agregar Alumno </li>
+        <li id="nuevo"> Nueva Matricula </li>
     </ul>
 </div>
 

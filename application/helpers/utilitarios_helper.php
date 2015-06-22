@@ -318,6 +318,21 @@ if (!function_exists('describir_estado')) {
     }
 
 }
+
+if(!function_exists('estado_anio')){
+    function estado_anio($anio){
+        $estado_html= "";
+        switch ($anio){
+            case '1':
+                $estado_html = '<span style="color: green; font-weight:bold;">ACTUAL</span>';
+                break;
+            case '0':
+                $estado_html = '<span style="color: red; font-weight:bold;">DESACTIVADO</span>';
+                break;
+        }
+        return $estado_html;
+    }    
+}
 if(!function_exists('url_estado')){
 	function url_estado($estado,$rol){
 		switch($rol){
