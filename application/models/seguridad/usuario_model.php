@@ -312,6 +312,60 @@ class Usuario_Model extends CI_Model {
             return null;
         }
     }
+    function buscar_dni_alumno_padres($dni){
+        $return = array();
+        
+        $select = array();
+        $select[] = 'USUA_id';
+        $select[] = 'USUA_codigo';
+        $select[] = 'USUA_nombres';
+        $select[] = 'USUA_apellidoPaterno';
+        $select[] = 'USUA_apellidoMaterno';
+        $select[] = 'USUA_sexo';
+        $select[] = 'USUA_telefonos';
+        
+        $where = array();
+        $where['USUA_flagActivo'] = "A";
+        $where['USUA_estado']   = "AC";
+        
+        $sql = $this->db->where($where)
+                    ->where('USUA_dni',$dni)
+                    ->where('ROL_id','1')
+                    ->select(implode(', ', $select))
+                    ->limit(1)
+                    ->get(self::$tabla);
+        if($sql->num_rows > 0){
+            $return = $sql->result();
+            
+            $idPadres = array();
+            $sql_padres = $this->db->where('USUA_idHijo',$return[0]->USUA_id)
+                                ->get('pariente');
+            if($sql_padres->num_rows > 0){
+                foreach ($sql_padres->result() as $key => $val) {
+                    $idPadres[] = $val->USUA_idPadre;
+                }
+                
+                $query = $this->db->where($where)
+                    ->where_in('USUA_id',$idPadres)
+                    ->select(implode(', ', $select))
+                    ->get(self::$tabla);
+                if ($query->num_rows > 0){
+                    foreach ($query->result() as $value){
+                        $stdPadre = new stdClass();
+                        $stdPadre->USUA_id = $value->USUA_id;
+                        $stdPadre->USUA_codigo = $value->USUA_codigo;
+                        $stdPadre->USUA_nombres = $value->USUA_nombres;
+                        $stdPadre->USUA_apellidoPaterno = $value->USUA_apellidoPaterno;
+                        $stdPadre->USUA_apellidoMaterno = $value->USUA_apellidoMaterno;
+                        $stdPadre->USUA_sexo = $value->USUA_sexo;
+                        $stdPadre->USUA_telefonos = $value->USUA_telefonos;
+                        $return[] =  $stdPadre;
+                    }
+                }
+            }
+        }
+        return $return;
+    }
     public function getCodigo($tipo){
         $codigo = "";
         $rol = 0;

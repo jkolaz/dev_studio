@@ -40,40 +40,40 @@
                 dataType: 'json',
                 success: function(data)
                 {
-                    if(data.return == "1"){
-                        $("#padre_mensaje_"+data.tipo).hide();
-                        $("#padre_id_"+data.tipo).val(data.key);
-                        $("#padre_nombre_"+data.tipo).val(data.nombre);
-                        $("#padre_paterno_"+data.tipo).val(data.paterno);
-                        $("#padre_materno_"+data.tipo).val(data.materno);
-                        $("#padre_fono_"+data.tipo).val(data.telefono);
-                        
-                        
-                        $("#padre_nombre_"+data.tipo).attr('readonly','readonly');
-                        $("#padre_paterno_"+data.tipo).attr('readonly','readonly');
-                        $("#padre_materno_"+data.tipo).attr('readonly','readonly');
-                        $("#padre_fono_"+data.tipo).attr('readonly','readonly');
-                        $("#padre_nombre_"+data.tipo).attr('style','background-color: #E8E9EC');
-                        $("#padre_paterno_"+data.tipo).attr('style','background-color: #E8E9EC');
-                        $("#padre_materno_"+data.tipo).attr('style','background-color: #E8E9EC');
-                        $("#padre_fono_"+data.tipo).attr('style','background-color: #E8E9EC');
-                    }else{
-                        $("#padre_mensaje_"+data.tipo).show();
-                        $("#padre_id_"+data.tipo).val("");
-                        $("#padre_nombre_"+data.tipo).val("");
-                        $("#padre_paterno_"+data.tipo).val("");
-                        $("#padre_materno_"+data.tipo).val("");
-                        $("#padre_fono_"+data.tipo).val("");
-                        
-                        $("#padre_nombre_"+data.tipo).removeAttr('readonly');
-                        $("#padre_paterno_"+data.tipo).removeAttr('readonly');
-                        $("#padre_materno_"+data.tipo).removeAttr('readonly');
-                        $("#padre_fono_"+data.tipo).removeAttr('readonly');
-                        $("#padre_nombre_"+data.tipo).removeAttr('style');
-                        $("#padre_paterno_"+data.tipo).removeAttr('style');
-                        $("#padre_materno_"+data.tipo).removeAttr('style');
-                        $("#padre_fono_"+data.tipo).removeAttr('style');
-                    }
+//                    if(data.return == "1"){
+//                        $("#padre_mensaje_"+data.tipo).hide();
+//                        $("#padre_id_"+data.tipo).val(data.key);
+//                        $("#padre_nombre_"+data.tipo).val(data.nombre);
+//                        $("#padre_paterno_"+data.tipo).val(data.paterno);
+//                        $("#padre_materno_"+data.tipo).val(data.materno);
+//                        $("#padre_fono_"+data.tipo).val(data.telefono);
+//                        
+//                        
+//                        $("#padre_nombre_"+data.tipo).attr('readonly','readonly');
+//                        $("#padre_paterno_"+data.tipo).attr('readonly','readonly');
+//                        $("#padre_materno_"+data.tipo).attr('readonly','readonly');
+//                        $("#padre_fono_"+data.tipo).attr('readonly','readonly');
+//                        $("#padre_nombre_"+data.tipo).attr('style','background-color: #E8E9EC');
+//                        $("#padre_paterno_"+data.tipo).attr('style','background-color: #E8E9EC');
+//                        $("#padre_materno_"+data.tipo).attr('style','background-color: #E8E9EC');
+//                        $("#padre_fono_"+data.tipo).attr('style','background-color: #E8E9EC');
+//                    }else{
+//                        $("#padre_mensaje_"+data.tipo).show();
+//                        $("#padre_id_"+data.tipo).val("");
+//                        $("#padre_nombre_"+data.tipo).val("");
+//                        $("#padre_paterno_"+data.tipo).val("");
+//                        $("#padre_materno_"+data.tipo).val("");
+//                        $("#padre_fono_"+data.tipo).val("");
+//                        
+//                        $("#padre_nombre_"+data.tipo).removeAttr('readonly');
+//                        $("#padre_paterno_"+data.tipo).removeAttr('readonly');
+//                        $("#padre_materno_"+data.tipo).removeAttr('readonly');
+//                        $("#padre_fono_"+data.tipo).removeAttr('readonly');
+//                        $("#padre_nombre_"+data.tipo).removeAttr('style');
+//                        $("#padre_paterno_"+data.tipo).removeAttr('style');
+//                        $("#padre_materno_"+data.tipo).removeAttr('style');
+//                        $("#padre_fono_"+data.tipo).removeAttr('style');
+//                    }
                     
                 }
             });
@@ -112,7 +112,7 @@
                 <tbody>
                     <tr>
                         <td>D.N.I. :</td>
-                        <td><input type="input" name="dni" id="dni" class="require relacion" maxlength="8"/></td>
+                        <td><input type="input" name="dni" id="dni" class="require relacion" maxlength="8" tipo="ALU"/></td>
                     </tr>
                     <tr>
                         <td>Apellidos :</td>
@@ -140,36 +140,26 @@
                         <td colspan="2">
                             Datos del Padre
                         </td>
-                    </tr>
-                    <tr>
-                        <td>D.N.I :</td>
-                        <td><input type="input" name="padre_dni[0]" id="padre_dni_0" class="require" tipo="PAD" maxlength="8" autocomplete="off" readonly="readonly"/></td>
-                        <td><span id="padre_mensaje_0" style="display:none; color: red; font-family: initial, sans-serif; font-size: 9px;">No se encontro ningun registro</span></td>
-                    </tr>
-                    <tr>
-                        <td>Nombre del padre o tutor</td>
-                        <td><input type="input" name="padre_nombre[0]" id="padre_nombre_0" class="require readonly" readonly="readonly"/></td>
-                    </tr>
-                    <tr>
-                        <td>Apellidos del padre o tutor</td>
-                        <td><input type="input" name="padre_paterno[0]" id="padre_paterno_0" class="require readonly" readonly="readonly"/>
-                            <input type="input" name="padre_materno[0]" id="padre_materno_0" class="require readonly" readonly="readonly"/></td>
-                    </tr>
-                    <tr>
                         <td>
                             Datos de la Madre
                         </td>
                     </tr>
                     <tr>
                         <td>D.N.I :</td>
-                        <td><input type="input" name="padre_dni[1]" id="padre_dni_1" class="require" tipo="MAD" maxlength="8" autocomplete="off"/></td>
-                        <td><span id="padre_mensaje_1" style="display:none; color: red; font-family: initial, sans-serif; font-size: 9px;">No se encontro ningun registro</span></td>
+                        <td><input type="input" name="padre_dni[0]" id="padre_dni_0" class="require readonly" tipo="PAD" maxlength="8" autocomplete="off" readonly="readonly"/></td>
+                        <td>D.N.I :</td>
+                        <td><input type="input" name="padre_dni[1]" id="padre_dni_1" class="require readonly" tipo="MAD" maxlength="8" autocomplete="off"/></td>
                     </tr>
                     <tr>
+                        <td>Nombre del padre</td>
+                        <td><input type="input" name="padre_nombre[0]" id="padre_nombre_0" class="require readonly" readonly="readonly"/></td>
                         <td>Nombre del madre</td>
                         <td><input type="input" name="padre_nombre[1]" id="padre_nombre_1" class="require readonly" readonly="readonly"/></td>
                     </tr>
                     <tr>
+                        <td>Apellidos del padre</td>
+                        <td><input type="input" name="padre_paterno[0]" id="padre_paterno_0" class="require readonly" readonly="readonly"/>
+                            <input type="input" name="padre_materno[0]" id="padre_materno_0" class="require readonly" readonly="readonly"/></td>
                         <td>Apellidos del Madre</td>
                         <td><input type="input" name="padre_paterno[1]" id="padre_paterno_1" class="require readonly" readonly="readonly"/>
                             <input type="input" name="padre_materno[1]" id="padre_materno_1" class="require readonly" readonly="readonly"/></td>

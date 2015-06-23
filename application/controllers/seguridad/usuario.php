@@ -408,6 +408,9 @@ class Usuario extends CI_Controller {
         }
         if(strlen(trim($dni)) == 8){
             switch ($tipo){
+                case "ALU":
+                    $data = $this->usuario_model->buscar_dni_alumno_padres($dni);
+                    break;
                 case "MAD":
                     $data = $this->usuario_model->buscar_dni($dni, $tipo);
                     break;
@@ -418,13 +421,24 @@ class Usuario extends CI_Controller {
                     break;
             }
             if($data){
-                foreach ($data as $value){
+                if($tipo == "ALU"){
                     $datos['return'] = 1;
-                    $datos['key'] = $value->USUA_id;
-                    $datos['nombre'] = $value->USUA_nombres;
-                    $datos['paterno'] = $value->USUA_apellidoPaterno;
-                    $datos['materno'] = $value->USUA_apellidoMaterno;
-                    $datos['telefono'] = $value->USUA_telefonos;
+                    foreach ($data as $val){
+                        if($val->USUA_sexo == "M"){
+                            $datos['padre'] = $val;
+                        }else{
+                            $datos['madre'] = $val;
+                        }
+                    }
+                }else{
+                    foreach ($data as $value){
+                        $datos['return'] = 1;
+                        $datos['key'] = $value->USUA_id;
+                        $datos['nombre'] = $value->USUA_nombres;
+                        $datos['paterno'] = $value->USUA_apellidoPaterno;
+                        $datos['materno'] = $value->USUA_apellidoMaterno;
+                        $datos['telefono'] = $value->USUA_telefonos;
+                    }
                 }
             }
         }
