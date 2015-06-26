@@ -24,7 +24,7 @@ class Matricula extends CI_Controller{
         $data['nivel'] = $this->Nivel->listar_niveles();
         $data['action'] = "matricula/matricula/insertMatricula";
         $data['titulo'] = 'REGISTRO DE  MATRICULA';
-        $this->layout->view('matricula/newMAtricula',$data);
+        $this->layout->view('matricula/newMatricula',$data);
     }
     public function insertMatricula(){
         $this->load->model('configuracion/anio_model', 'ANIO');

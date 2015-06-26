@@ -65,7 +65,7 @@
         $('#guardar').click(function(e){
             var contador = 0;
             $('.require').each(function(){
-                if($(this).val() == ""){
+                if($(this).val() == "" || $(this).val() == "0"){
                     contador ++;
                     $(this).attr('style', 'border-color: red;');
                 }
