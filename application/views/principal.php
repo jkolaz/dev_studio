@@ -32,7 +32,7 @@
         <div class="col-md-4 centro">
             
                 <h4 class="ayuda">Alumnos</h4>
-                <a href="<?php echo base_url() . 'index.php/seguridad/usuario/listar_alumnos/' ?>">
+                <a href="<?php echo base_url() . 'index.php/seguridad/usuario/estudiante/R' ?>">
                     <img src="<?php echo base_url() . 'img/alumnos_1.jpg' ?>" 
                          border='0' title='Alumnos' />
                 </a>
@@ -42,7 +42,7 @@
         <div class="col-md-4 centro">
             
                 <h4 class="ayuda">Matricula</h4>
-                <a href="<?php echo base_url() . 'index.php/seguridad/usuario/listar_alumnos/' ?>">
+                <a href="<?php echo base_url() . 'index.php/seguridad/usuario/estudiante/M' ?>">
                     <img src="<?php echo base_url() . 'img/alumnos_1.jpg' ?>" 
                          border='0' title='Alumnos' />
                 </a>

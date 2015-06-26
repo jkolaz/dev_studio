@@ -40,40 +40,24 @@
                 dataType: 'json',
                 success: function(data)
                 {
-//                    if(data.return == "1"){
-//                        $("#padre_mensaje_"+data.tipo).hide();
-//                        $("#padre_id_"+data.tipo).val(data.key);
-//                        $("#padre_nombre_"+data.tipo).val(data.nombre);
-//                        $("#padre_paterno_"+data.tipo).val(data.paterno);
-//                        $("#padre_materno_"+data.tipo).val(data.materno);
-//                        $("#padre_fono_"+data.tipo).val(data.telefono);
-//                        
-//                        
-//                        $("#padre_nombre_"+data.tipo).attr('readonly','readonly');
-//                        $("#padre_paterno_"+data.tipo).attr('readonly','readonly');
-//                        $("#padre_materno_"+data.tipo).attr('readonly','readonly');
-//                        $("#padre_fono_"+data.tipo).attr('readonly','readonly');
-//                        $("#padre_nombre_"+data.tipo).attr('style','background-color: #E8E9EC');
-//                        $("#padre_paterno_"+data.tipo).attr('style','background-color: #E8E9EC');
-//                        $("#padre_materno_"+data.tipo).attr('style','background-color: #E8E9EC');
-//                        $("#padre_fono_"+data.tipo).attr('style','background-color: #E8E9EC');
-//                    }else{
-//                        $("#padre_mensaje_"+data.tipo).show();
-//                        $("#padre_id_"+data.tipo).val("");
-//                        $("#padre_nombre_"+data.tipo).val("");
-//                        $("#padre_paterno_"+data.tipo).val("");
-//                        $("#padre_materno_"+data.tipo).val("");
-//                        $("#padre_fono_"+data.tipo).val("");
-//                        
-//                        $("#padre_nombre_"+data.tipo).removeAttr('readonly');
-//                        $("#padre_paterno_"+data.tipo).removeAttr('readonly');
-//                        $("#padre_materno_"+data.tipo).removeAttr('readonly');
-//                        $("#padre_fono_"+data.tipo).removeAttr('readonly');
-//                        $("#padre_nombre_"+data.tipo).removeAttr('style');
-//                        $("#padre_paterno_"+data.tipo).removeAttr('style');
-//                        $("#padre_materno_"+data.tipo).removeAttr('style');
-//                        $("#padre_fono_"+data.tipo).removeAttr('style');
-//                    }
+                    if(data.return == "1"){
+                        $('#alu_id').val(data.key);
+                        $('#paterno').val(data.paterno);
+                        $('#materno').val(data.materno);
+                        $('#nombre').val(data.nombre);
+                        $('#email').val('');
+                        $("#paterno").attr('style','background-color: #E8E9EC');
+                        $("#materno").attr('style','background-color: #E8E9EC');
+                        $("#nombre").attr('style','background-color: #E8E9EC');
+                    }else{
+                        $('#alu_id').val('');
+                        $('#paterno').val('');
+                        $('#materno').val('');
+                        $('#nombre').val('');
+                        $("#paterno").removeAttr('style');
+                        $("#materno").removeAttr('style');
+                        $("#nombre").removeAttr('style');
+                    }
                     
                 }
             });
@@ -87,7 +71,7 @@
                 }
             });
             
-            if(contador <= 0){
+            if(contador > 0){
                 return false;
             }
         });
@@ -124,13 +108,13 @@
                     </tr>
                     <tr>
                         <td>Nombre :</td>
-                        <td><input type="input" name="nombre" id="nombre" class="require readonly" /></td>
+                        <td><input type="input" name="nombre" id="nombre" class="require readonly" readonly="readonly"/></td>
                     </tr>
                     <tr>
                         <td>E-mail :</td>
-                        <td><input type="input" name="email" id="email" class="require readonly" readonly="readonly"/></td>
+                        <td><input type="input" name="email" id="email" class="readonly" readonly="readonly"/></td>
                     </tr>
-                    <tr>
+                    <!--<tr>
                         <td>Sexo</td>
                         <td>
                             <select name="sexo" id="sexo" class="combo" class="require readonly" readonly="readonly" style="background-color: #E8E9EC">
@@ -166,14 +150,14 @@
                         <td>Apellidos del Madre</td>
                         <td><input type="input" name="padre_paterno[1]" id="padre_paterno_1" class="require readonly" readonly="readonly"/>
                             <input type="input" name="padre_materno[1]" id="padre_materno_1" class="require readonly" readonly="readonly"/></td>
-                    </tr>
+                    </tr>-->
                     <tr>
                         <td colspan="4" style="color: #0084E3; font-weight: bold; text-align: center;">GRADO ACADEMICO</td>
                     </tr>
                     <tr>
                         <td>Nivel</td>
                         <td>
-                            <select name="nivel" id="nivel">
+                            <select name="nivel" id="nivel" class="require">
                                 <option value="">--Seleccione Nivel--</option>
                                 <?php
                                 foreach ($nivel as $val){
@@ -185,7 +169,7 @@
                             </select>
                         </td>
                         <td>
-                            <select name="grado" id="grado">
+                            <select name="grado" id="grado" class="require">
                                 <option value="">--Seleccione Grado--</option>
                             </select>
                         </td>

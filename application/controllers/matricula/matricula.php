@@ -45,18 +45,33 @@ class Matricula extends CI_Controller{
                 $listCurso = $CURSO->getCursoGrado($post['grado']);
                 $this->load->model('matricula/cursogradousuario_model', 'CURSOGRADOUSUARIO');
                 $CURSOGRADOUSUARIO = $this->CURSOGRADOUSUARIO;
+                $this->load->model('matricula/calificacion_model', 'CALIFICACION');
+                $this->load->model('matricula/bimestre_model', 'BIMESTRE');
+                $BIMESTRE = $this->BIMESTRE;
+                $CALIFICACION = $this->CALIFICACION;
                 foreach ($listCurso as $val){
                     $CURSOGRADOUSUARIO->_USUA_id = $post['alu_id'];
                     $CURSOGRADOUSUARIO->_GRAD_id = $post['grado'];
                     $CURSOGRADOUSUARIO->_CURS_id = $val->CURS_id;
                     $CURSOGRADOUSUARIO->insertar();
+                    /*calificacion*/
+                    foreach ($BIMESTRE->getBimestre() as $value){
+                        $CALIFICACION->_USUA_id = $post['alu_id'];
+                        $CALIFICACION->_GRAD_id = $post['grado'];
+                        $CALIFICACION->_CURS_id = $val->CURS_id;
+                        $CALIFICACION->_BIME_id = $value->BIME_id;
+                        $CALIFICACION->_CALI_parcial1 = 0;
+                        $CALIFICACION->_CALI_parcial2 = 0;
+                        $CALIFICACION->insertar();
+                    }
                 }
-                echo "<pre>";
-                print_r($listCurso);
-                echo "</pre>";
+                redirect('seguridad/usuario/estudiante/M');
+            }else{
+                redirect('seguridad/usuario/estudiante/M');
             }
         }else{
-            echo "no se puede registrar<br>---------------<br>";
+            //echo "no se puede registrar<br>---------------<br>";
+            redirect('seguridad/usuario/estudiante/M');
         }
     }
 

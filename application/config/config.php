@@ -17,8 +17,8 @@ if (!defined('BASEPATH'))
   | path to your installation.
   |
  */
-//$config['base_url'] = 'http://www.colegio.dev/';
-$config['base_url'] = 'http://localhost/dev_studio/';
+$config['base_url'] = 'http://www.colegio.dev/';
+//$config['base_url'] = 'http://localhost/dev_studio/';
 
 /*
   |--------------------------------------------------------------------------
