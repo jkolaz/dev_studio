@@ -87,7 +87,7 @@ class Usuario_Model extends CI_Model {
                       and USUA_flagActivo = 'A'
                       and U.ROL_id = 1
                       and G.GRAD_id != 100
-                      and GR.GXUS_estado = 'VI'
+                      and GR.GXUS_estado = 'AC'
                 order by U.GRAD_id, USUA_apellidoPaterno";
         $query = $this->db->query($sql);
         if ($query->num_rows > 0)

@@ -87,7 +87,7 @@
                 }
             });
             
-            if(contador > 0){
+            if(contador <= 0){
                 return false;
             }
         });
@@ -112,7 +112,10 @@
                 <tbody>
                     <tr>
                         <td>D.N.I. :</td>
-                        <td><input type="input" name="dni" id="dni" class="require relacion" maxlength="8" tipo="ALU"/></td>
+                        <td>
+                            <input type="input" name="dni" id="dni" class="require relacion" maxlength="8" tipo="ALU"/>
+                            <input type="hidden" name="alu_id" id="alu_id" value="2"/>
+                        </td>
                     </tr>
                     <tr>
                         <td>Apellidos :</td>
@@ -165,8 +168,34 @@
                             <input type="input" name="padre_materno[1]" id="padre_materno_1" class="require readonly" readonly="readonly"/></td>
                     </tr>
                     <tr>
+                        <td colspan="4" style="color: #0084E3; font-weight: bold; text-align: center;">GRADO ACADEMICO</td>
+                    </tr>
+                    <tr>
+                        <td>Nivel</td>
+                        <td>
+                            <select name="nivel" id="nivel">
+                                <option value="">--Seleccione Nivel--</option>
+                                <?php
+                                foreach ($nivel as $val){
+                                ?>
+                                <option value="<?=$val->NIVE_id?>"><?=$val->NIVE_nombre?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="grado" id="grado">
+                                <option value="">--Seleccione Grado--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="cursos">
+                        
+                    </tr>
+                    <tr>
                         <td><input type="submit" class="btn add" name="guardar" id="guardar" value="Registrar Matricula"></td>
-                        <td><input type="reset" class="btn danger" name="cancelar" id="guardar" value="Cancelar"></td>
+                        <td><input type="reset" class="btn danger" name="cancelar" id="cancelar" value="Cancelar"></td>
                     </tr>
                 </tbody>
             </table>

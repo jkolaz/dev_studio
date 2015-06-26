@@ -25,4 +25,19 @@ class Anio_model extends CI_Model{
             return $query->result();
         return null;
     }
+    public function getAnioWidthCols($cols){
+        if(is_array($cols)){
+            $select = explode(' ,', $cols);
+        }else{
+            $select = $cols;
+        }
+        $this->db->order_by('ANI_desc', 'desc');
+        $query = $this->db->limit(1)
+                    ->where('ANI_estado','1')
+                    ->select($select)
+                    ->get(self::$_table);
+        if ($query->num_rows > 0)
+            return $query->result();
+        return null;
+    }
 }
