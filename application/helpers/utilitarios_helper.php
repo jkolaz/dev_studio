@@ -333,6 +333,22 @@ if(!function_exists('estado_anio')){
         return $estado_html;
     }    
 }
+
+if(!function_exists('estado_panel')){
+    function estado_panel($id, $estado){
+        $estado_html= "";
+        switch ($estado){
+            case '1':
+                $estado_html = '<a href="javascript:;" class="estado" clave="'.$id.'" id="estado_'.$id.'" style="color: green; font-weight:bold;">ACTIVADO</a>';
+                break;
+            case '0':
+                $estado_html = '<a href="javascript:;" class="estado" clave="'.$id.'" id="estado_'.$id.'" style="color: red; font-weight:bold;">DESACTIVADO</a>';
+                break;
+        }
+        return $estado_html;
+    }
+}
+
 if(!function_exists('url_estado')){
 	function url_estado($estado,$rol){
 		switch($rol){

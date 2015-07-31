@@ -43,6 +43,31 @@ class Rol_Model extends CI_Model {
         return null;
     }
 
+    public function getRowByCols($col = FALSE){
+        if(is_array($col) && count($col) > 0){
+            $where = array();
+            while ($value = current($col)) {
+                $where[key($col)] = $value;
+                next($col);
+            }
+            $query = $this->db->where($where)
+                        ->get(self::$tabla);
+            if($query->num_rows >0){
+                return $query->result();
+            }else{
+                return 0;
+            }
+        }elseif(!$col){
+            $query = $this->db->get(self::$tabla);
+            if($query->num_rows >0){
+                return $query->result();
+            }else{
+                return 0;
+            }
+        }else{
+            return 0;
+        }
+    }
 }
 
 ?>
