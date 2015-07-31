@@ -336,32 +336,39 @@ class Usuario_Model extends CI_Model {
                     ->get(self::$tabla);
         if($sql->num_rows > 0){
             $return = $sql->result();
-            
-            $idPadres = array();
-            $sql_padres = $this->db->where('USUA_idHijo',$return[0]->USUA_id)
-                                ->get('pariente');
-            if($sql_padres->num_rows > 0){
-                foreach ($sql_padres->result() as $key => $val) {
-                    $idPadres[] = $val->USUA_idPadre;
-                }
+            $sql_anio = $this->db->where('ANI_estado','1')->limit(1)->order_by('ANI_desc', 'desc')->select('ANI_id')->get('anio');
+            $return_anio = $sql_anio->result();
+            $sql_grado_usuario = $this->db->where('USUA_id',$return[0]->USUA_id)->where('ANIO_id', $return_anio[0]->ANI_id)->get('grado_x_usuario');
+            if($sql_grado_usuario->num_rows > 0){
+                $return = array();
+            }else{
+//                $idPadres = array();
+//                $sql_padres = $this->db->where('USUA_idHijo',$return[0]->USUA_id)
+//                                    ->get('pariente');
+//                if($sql_padres->num_rows > 0){
+//                    foreach ($sql_padres->result() as $key => $val) {
+//                        $idPadres[] = $val->USUA_idPadre;
+//                    }
+//
+//                    $query = $this->db->where($where)
+//                        ->where_in('USUA_id',$idPadres)
+//                        ->select(implode(', ', $select))
+//                        ->get(self::$tabla);
+//                    if ($query->num_rows > 0){
+//                        foreach ($query->result() as $value){
+//                            $stdPadre = new stdClass();
+//                            $stdPadre->USUA_id = $value->USUA_id;
+//                            $stdPadre->USUA_codigo = $value->USUA_codigo;
+//                            $stdPadre->USUA_nombres = $value->USUA_nombres;
+//                            $stdPadre->USUA_apellidoPaterno = $value->USUA_apellidoPaterno;
+//                            $stdPadre->USUA_apellidoMaterno = $value->USUA_apellidoMaterno;
+//                            $stdPadre->USUA_sexo = $value->USUA_sexo;
+//                            $stdPadre->USUA_telefonos = $value->USUA_telefonos;
+//                            $return[] =  $stdPadre;
+//                        }
+//                    }
+//                }
                 
-                $query = $this->db->where($where)
-                    ->where_in('USUA_id',$idPadres)
-                    ->select(implode(', ', $select))
-                    ->get(self::$tabla);
-                if ($query->num_rows > 0){
-                    foreach ($query->result() as $value){
-                        $stdPadre = new stdClass();
-                        $stdPadre->USUA_id = $value->USUA_id;
-                        $stdPadre->USUA_codigo = $value->USUA_codigo;
-                        $stdPadre->USUA_nombres = $value->USUA_nombres;
-                        $stdPadre->USUA_apellidoPaterno = $value->USUA_apellidoPaterno;
-                        $stdPadre->USUA_apellidoMaterno = $value->USUA_apellidoMaterno;
-                        $stdPadre->USUA_sexo = $value->USUA_sexo;
-                        $stdPadre->USUA_telefonos = $value->USUA_telefonos;
-                        $return[] =  $stdPadre;
-                    }
-                }
             }
         }
         return $return;

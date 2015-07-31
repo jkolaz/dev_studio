@@ -421,16 +421,16 @@ class Usuario extends CI_Controller {
                     break;
             }
             if($data){
-                if($tipo == "ALU"){
-                    $datos['return'] = 1;
-                    foreach ($data as $val){
-                        if($val->USUA_sexo == "M"){
-                            $datos['padre'] = $val;
-                        }else{
-                            $datos['madre'] = $val;
-                        }
-                    }
-                }else{
+//                if($tipo == "ALU"){
+//                    $datos['return'] = 1;
+//                    foreach ($data as $val){
+//                        if($val->USUA_sexo == "M"){
+//                            $datos['padre'] = $val;
+//                        }else{
+//                            $datos['madre'] = $val;
+//                        }
+//                    }
+//                }else{
                     foreach ($data as $value){
                         $datos['return'] = 1;
                         $datos['key'] = $value->USUA_id;
@@ -439,7 +439,7 @@ class Usuario extends CI_Controller {
                         $datos['materno'] = $value->USUA_apellidoMaterno;
                         $datos['telefono'] = $value->USUA_telefonos;
                     }
-                }
+//                }
             }
         }
         echo json_encode($datos);
