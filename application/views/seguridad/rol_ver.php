@@ -1,9 +1,10 @@
 <?php
 $objInstancia = get_instance();
-$this->load->model('3_lecturas/permiso_model');
+$this->load->model('seguridad/permiso_model');
 ?>
 <html>
     <head>
+        <meta charset="utf-8">
         <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.js"></script>        
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>css/estilos.css" media="screen" />
         <script type="text/javascript" src="<?php echo base_url() ?>js/sistema/rol.js"></script>
@@ -31,16 +32,16 @@ $this->load->model('3_lecturas/permiso_model');
                                                 $subMenu = $menuBase->subMenu;
                                                 ?>
                                                 <tr><td><?php
-                                            $menu = $menuBase->MENU_codigo;
+                                            $menu = $menuBase->MENU_id;
                                             if (isset($codigo)) {
                                                 $rolMenu = $objInstancia->permiso_model->busca_permiso($codigo, $menu);
                                                 if (count($rolMenu) > 0) {
-                                                    echo $text = ($menuBase->MENU_url != '') ? '<input type="checkbox" checked="true" name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_descripcion : '</strong><input type="checkbox" checked="true" name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_descripcion . '</strong>';
+                                                    echo $text = ($menuBase->MENU_ruta != '') ? '<input type="checkbox" checked="true" name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_nombre : '</strong><input type="checkbox" checked="true" name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_nombre . '</strong>';
                                                 } else {
-                                                    echo $text = ($menuBase->MENU_url != '') ? '<input type="checkbox"  name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_descripcion : '</strong><input type="checkbox" name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_descripcion . '</strong>';
+                                                    echo $text = ($menuBase->MENU_ruta != '') ? '<input type="checkbox"  name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_nombre : '</strong><input type="checkbox" name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_nombre . '</strong>';
                                                 }
                                             } else {
-                                                echo $text = ($menuBase->MENU_url != '') ? '<input type="checkbox"  name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_descripcion : '</strong><input type="checkbox" name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_descripcion . '</strong>';
+                                                echo $text = ($menuBase->MENU_ruta != '') ? '<input type="checkbox"  name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_nombre : '</strong><input type="checkbox" name="nombre[' . $menu . ']" id="nombre[' . $menu . ']" value="' . $menu . '"><strong>' . $menuBase->MENU_nombre . '</strong>';
                                             }
                                             if (count($subMenu)) {
                                                     ?>
@@ -50,10 +51,10 @@ $this->load->model('3_lecturas/permiso_model');
                                                                     $subtext = '';
                                                                     $subtext2 = '';
                                                                     $checked = '';
-                                                                    $subtext = $subMenu->MENU_descripcion;
-                                                                    $subtext2 = $subMenu->MENU_codigo;
+                                                                    $subtext = $subMenu->MENU_nombre;
+                                                                    $subtext2 = $subMenu->MENU_id;
                                                                     if (isset($codigo)) {
-                                                                        $menu = $menuBase->MENU_codigo;
+                                                                        $menu = $menuBase->MENU_id;
                                                                         $rolCodigo = $objInstancia->permiso_model->busca_permiso($codigo, $subtext2);
                                                                         if (count($rolCodigo) > 0) {
                                                                             echo '<tr><td width="300">&nbsp;&nbsp;&nbsp;<input type="checkbox" checked="true" value ="'

@@ -81,7 +81,7 @@ class Rol extends CI_Controller {
         $data['nombreRol'] = $datosRol[0]->ROL_nombre;
         $data['codigo'] = $datosRol[0]->ROL_id;
         $data['menu'] = $this->menu_model->obtener_menu();
-        $this->load->view('3_lecturas/rol_ver', $data);
+        $this->load->view('seguridad/rol_ver', $data);
     }
 
     public function modificar() {

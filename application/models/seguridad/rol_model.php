@@ -30,9 +30,10 @@ class Rol_Model extends CI_Model {
     }
 
     public function eliminar_rol($codigo) {
+        $this->load->model('seguridad/permiso_model');
         $this->permiso_model->eliminar_permiso($codigo);
-        $this->db->where('ROL_codigo', $codigo);
-        $this->db->delete(self::$tabla);
+        $this->db->where('ROL_id', $codigo);
+        $this->db->update(self::$tabla, array('ROL_estado'=>"DC"));
     }
 
     public function obtener_rol($codigo) {

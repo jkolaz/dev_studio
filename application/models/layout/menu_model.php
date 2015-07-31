@@ -28,13 +28,13 @@ class Menu_Model extends CI_Model {
     }
 
     public function obtener_menu() {
-        $where = array('MENU_estado' => 'A', 'MENU_idPadre' => 0);
+        $where = array('MENU_estado' => '1', 'MENU_idPadre' => 0);
         $query = $this->db->where($where)->get('menu');
         if ($query->num_rows > 0) {
             $menu = $query->result();
             $lista = array();
             foreach ($menu as $valor) {
-                $codigoPadre = $valor->MENU_codigo;
+                $codigoPadre = $valor->MENU_id;
                 $subMenu = $this->obtener_menu_hijo($codigoPadre);
                 $valor->subMenu = $subMenu;
                 $lista[] = $valor;

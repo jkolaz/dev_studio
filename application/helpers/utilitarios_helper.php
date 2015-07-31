@@ -335,7 +335,7 @@ if(!function_exists('estado_anio')){
 }
 
 if(!function_exists('estado_panel')){
-    function estado_panel($id, $estado){
+    function estado_panel($id, $estado, $disabled = ""){
         $estado_html= "";
         switch ($estado){
             case '1':
@@ -345,7 +345,25 @@ if(!function_exists('estado_panel')){
                 $estado_html = '<a href="javascript:;" class="estado" clave="'.$id.'" id="estado_'.$id.'" style="color: red; font-weight:bold;">DESACTIVADO</a>';
                 break;
         }
+        if($disabled == 1){
+            $estado_html = '<span style="color: gray; font-weight:bold;">NO TIENE PERMISO</span>';
+        }
         return $estado_html;
+    }
+}
+
+if(!function_exists('checkbox_rol')){
+    function checkbox_rol($name, $class, $id, $value, $checked = "", $disabled = ""){
+        $checked_html = "";
+        if($checked == 1){
+            $checked_html = 'checked="checked"';
+        }
+        $disabled_html = "";
+        if($disabled == 1){
+            $disabled_html = 'disabled';
+        }
+        $seleccionar_html = '<input type="checkbox" '.$disabled_html.' '.$checked_html.' name="'.  str_replace(' ', '', $name).'[]" class="'.$class.'" id="'.str_replace(' ', '', $name).'_'.$id.'" value="'.$value.'" panel="'.$id.'"/>';
+        return $seleccionar_html;
     }
 }
 

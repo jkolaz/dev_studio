@@ -25,7 +25,7 @@
         <script type="text/javascript" src="<?php echo base_url() ?>js/calendario/calendar-es.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>js/calendario/calendar-setup.js"></script>
     </head>
-    <body style="background:#6699F7;">
+    <body style="background:#E8E9EC;">
         <div class="contenedor"><div class="trileft2"></div> <div class="trileft"></div></div>
         <div class="contenedor2"><div class="triright"></div> <div class="triright2"></div></div>
         <div class="container" style="background:white; padding: 0; z-index: 4;" >

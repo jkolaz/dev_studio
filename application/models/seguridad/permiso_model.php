@@ -10,7 +10,7 @@ class Permiso_Model extends CI_Model {
     }
 
     public function busca_permiso($rol, $menu) {
-        $where = array('ROL_codigo' => $rol, 'MENU_codigo' => $menu);
+        $where = array('ROL_id' => $rol, 'MENU_id' => $menu);
         $query = $this->db->where($where)->get(self::$tabla);
         if ($query->num_rows > 0)
             return $query->result();
@@ -22,7 +22,7 @@ class Permiso_Model extends CI_Model {
     }
 
     public function eliminar_permiso($codigo) {
-        $this->db->where('ROL_codigo', $codigo);
+        $this->db->where('ROL_id', $codigo);
         $this->db->delete(self::$tabla);
     }
 

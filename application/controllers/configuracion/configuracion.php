@@ -30,6 +30,8 @@ class Configuracion extends CI_Controller{
     public function panel(){
         $this->load->model('configuracion/panel_model', 'PANEL');
         $this->load->model('seguridad/rol_model', 'ROL');
+        $this->load->model('configuracion/permiso_panel_model', 'PERMISOPANEL');
+        $PERMISOPANEL = $this->PERMISOPANEL;
         $PANEL = $this->PANEL;
         $ROL = $this->ROL;
         if(self::$__session['idRol'] == 1){
@@ -74,14 +76,23 @@ class Configuracion extends CI_Controller{
                 $arrRol = $ROL->getRowByCols($rol);
                 $thRol = '';
                 foreach ($arrRol as $rol){
-                    $thRol .= '<th>'.$rol->ROL_nombre.'</th>';
+                    $thRol .= '<th  style="font-weight:bold; text-transform: uppercase;">'.$rol->ROL_nombre.'</th>';
                 }
                 $data['thRol'] = $thRol;
                 $arrPanel = $PANEL->getRowByCols();
                 foreach ($arrPanel as $indice=>$panel){
                     $arrPanel[$indice]->roles = array();
                     foreach ($arrRol as $roles){
+                        $arrPanel[$indice]->roles[$roles->ROL_id] = new stdClass();
+                        $arrPanel[$indice]->roles[$roles->ROL_id]->id = $roles->ROL_id;
                         $arrPanel[$indice]->roles[$roles->ROL_id]->nombre = $roles->ROL_nombre;
+                        $arrPanel[$indice]->roles[$roles->ROL_id]->check = 0;
+                        $PERMISOPANEL->_ROL_id = $roles->ROL_id;
+                        $PERMISOPANEL->_PAN_id = $panel->PAN_id;
+                        $rowPERMISOPANEL = $PERMISOPANEL->getRowByCols();
+                        if(is_array($rowPERMISOPANEL) && count($rowPERMISOPANEL) > 0){
+                            $arrPanel[$indice]->roles[$roles->ROL_id]->check = 1; 
+                        }
                     }
                 }
 //                echo "<pre>";
@@ -96,5 +107,26 @@ class Configuracion extends CI_Controller{
         }else{
             redirect('index/principal');
         }
+    }
+    
+    function panelRol(){
+        $this->load->model('configuracion/permiso_panel_model', 'PERMISOPANEL');
+        $PERMISOPANEL = $this->PERMISOPANEL;
+        $result = 0;
+        $activar = $this->input->post('activar', TRUE);
+        $rol = $this->input->post('rol', TRUE);
+        $panel = $this->input->post('panel', TRUE);
+        $PERMISOPANEL->_ROL_id = $rol;
+        $PERMISOPANEL->_PAN_id = $panel;
+        if($activar == 1){
+            if($PERMISOPANEL->insertar() > 0){
+                $result = 1;
+            }
+        }else{
+            if($PERMISOPANEL->delete() > 0){
+                $result = 1;
+            }
+        }
+        echo json_encode(array('result'=>$result));
     }
 }
