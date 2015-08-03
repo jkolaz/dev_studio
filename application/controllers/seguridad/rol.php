@@ -75,12 +75,13 @@ class Rol extends CI_Controller {
     }
 
     public function ver($codigoRol) {
-        $datosRol = $this->rol_model->obtener_rol($codigoRol);
-        $data['titulo'] = 'VER ROL';
-        $data['modo'] = 'E';
-        $data['nombreRol'] = $datosRol[0]->ROL_nombre;
-        $data['codigo'] = $datosRol[0]->ROL_id;
-        $data['menu'] = $this->menu_model->obtener_menu();
+        $datosRol           = $this->rol_model->obtener_rol($codigoRol);
+        $data['titulo']     = 'VER ROL';
+        $data['modo']       = 'E';
+        $data['nombreRol']  = $datosRol[0]->ROL_nombre;
+        $data['codigo']     = $datosRol[0]->ROL_id;
+        $data['menu']       = $this->menu_model->obtener_menu();
+        $data['rol_id']     = $codigoRol;
         $this->load->view('seguridad/rol_ver', $data);
     }
 

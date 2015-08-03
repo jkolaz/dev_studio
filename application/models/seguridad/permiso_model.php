@@ -25,6 +25,11 @@ class Permiso_Model extends CI_Model {
         $this->db->where('ROL_id', $codigo);
         $this->db->delete(self::$tabla);
     }
+    public function eliminar_permiso_unico($codigo,$menu) {
+        $this->db->where('ROL_id', $codigo);
+        $this->db->where('MENU_id', $menu);
+        $this->db->delete(self::$tabla);
+    }
 
     public function obtener_permiso($codigo) {
         $this->db->where('GTEM_codigo', $codigo);
