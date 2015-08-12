@@ -1,6 +1,6 @@
 <?php
 
-class Curso_Model extends CI_Model {
+class Curso_model extends CI_Model {
 
     private static $tabla = 'curso';
 
@@ -12,6 +12,7 @@ class Curso_Model extends CI_Model {
 
     public function listar_cursos() {
         $this->db->where('CURS_flagActivo', 'A');
+        $this->db->where('NIVE_flagActivo', 'A');
         $this->db->join('grado', 'grado.GRAD_id = ' . self::$tabla . '.GRAD_id');
         $this->db->join('nivel', 'nivel.NIVE_id = grado.NIVE_id');
         $this->db->order_by('grado.GRAD_id, GRAD_numero, CURS_estado, CURS_nombre');
@@ -27,6 +28,12 @@ class Curso_Model extends CI_Model {
         if ($query->num_rows > 0)
             return $query->result();
         return null;
+    }
+    public function countCursoByColsAndGrado($col, $value, $grado){
+        $this->db->where("GRAD_id", $grado);
+        $this->db->where($col, $value);
+        $query = $this->db->get(self::$tabla);
+        return $query->num_rows;
     }
 
     public function listar_profesores_por_curso($idCurso) {
@@ -81,6 +88,21 @@ class Curso_Model extends CI_Model {
         return null;
     }
     
+    public function getProfesorByGrado($curso){
+        $this->db->where('asignado.ASIG_flagActivo', 'A');
+        $this->db->where('curso.CURS_id', $curso);
+        $this->db->where('curso.CURS_flagActivo', 'A');
+        $this->db->where('usuario.USUA_flagActivo', 'A');
+        //$this->db->where('usuario.ROL_id', 2);
+        $query = $this->db->join('asignado','asignado.CURS_id='.self::$tabla.'.CURS_id')
+                    ->join('usuario', 'usuario.USUA_id=asignado.USUA_id')
+                    ->get(self::$tabla);
+        if($query->num_rows > 0){
+            return $query->result();
+        }
+        return null;
+    }
+    
     public function listar_cursos_por_profesor($idProfesor) {
         $sql = "select *
                 from asignado A, curso C, grado G, nivel N
@@ -120,14 +142,13 @@ class Curso_Model extends CI_Model {
         return null;
     }
 
-    public function insertar_rol($objeto) {
+    public function insertar($objeto) {
         $this->db->insert(self::$tabla, $objeto);
         return $this->db->insert_id();
     }
 
-    public function modificar_rol($objeto, $codigo) {
-        $this->db->where('ROL_codigo', $codigo);
-        $this->db->update(self::$tabla, $objeto);
+    public function modificarCurso($objeto, $codigo) {
+        $this->db->where('CURS_id', $codigo)->update(self::$tabla, $objeto);
     }
 
     public function eliminar_rol($codigo) {
