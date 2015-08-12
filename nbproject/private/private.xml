@@ -3,18 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/errors/error_404.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/models/configuracion/panel_model.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/logs/</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/system/libraries/Log.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/models/seguridad/permiso_model.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/js/configuracion/panel.js</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/rol_ver.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/seguridad/rol.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/configuracion/configuracion.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/config/config.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/helpers/utilitarios_helper.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/index.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/config/constants.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/configuracion/panel.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/layout/layout.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/models/seguridad/rol_model.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/seguridad/permiso.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/js/sistema/rol.js</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/matricula/matricula.php</file>
         </group>
     </open-files>
 </project-private>

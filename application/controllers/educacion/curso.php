@@ -37,6 +37,14 @@ class Curso extends CI_Controller {
         $data['lista'] = $lista;
         $this->load->view('educacion/nivel_deudas_popup', $data);
     }
+    public function verProfesores($grado) {
+        $obProfesores = $this->curso_model->getProfesorByGrado($grado);
+        
+        $lista = $this->grado_model->listar_grados_por_nivel($grado);
+        $data['titulo'] = 'NIVEL - ' . $lista[0]->NIVE_nombre;
+        $data['lista'] = $lista;
+        $this->load->view('educacion/nivel_deudas_popup', $data);
+    }
 
     public function editar($idCurso, $idProfesor) {
         $curso = $this->curso_model->obtener_curso($idCurso);
@@ -67,12 +75,44 @@ class Curso extends CI_Controller {
     }
 
     public function mostrar_nuevo() {
-        $data['titulo'] = 'REGISTRAR ROL';
-        $data['modo'] = 'N';
-        $data['nombreRol'] = '';
-        $data['codigo'] = '';
-        $data['menu'] = $this->menu_model->obtener_menu();
-        $this->load->view('3_lecturas/rol_nuevo', $data);
+        $curso = new stdClass();
+        $curso->CURS_id = 0;
+        $curso->CURS_nombre = "";
+        $curso->CURS_abreviatura = "";
+        $curso->CURS_horas = "";
+        $obGrado = $this->grado_model->listar_grados();
+        $data['idCurso'] = 0;
+        $data['grado'] = $obGrado;
+        $data['curso'] = $curso;
+        $data['titulo'] = 'REGISTRAR NUEVO CURSO';
+        $data['action'] = 'insertarCurso';
+        $this->layout->view('educacion/curso_nuevo', $data);
+    }
+    public function insertarCurso(){
+        $curso = $this->input->post('curso',true);
+        $nombre = $this->input->post('nombre',true);
+        $abreviatura = $this->input->post('abreviatura',true);
+        $hora = $this->input->post('hora',true);
+        $grado = $this->input->post('grado',true);
+        $countCurso = $this->curso_model->countCursoByColsAndGrado('CURS_nombre', $nombre, $grado);
+        if($countCurso == 0){
+            if($abreviatura == ""){
+                $abreviatura = $nombre;
+            }
+            $insert = array();
+            $insert['CURS_nombre'] = $nombre;
+            $insert['CURS_abreviatura'] = $abreviatura;
+            $insert['CURS_horas'] = $hora;
+            $insert['GRAD_id'] = $grado;
+            $id = $this->curso_model->insertar($insert);
+            if($id > 0){
+                redirect('educacion/curso');
+            }else{
+                redirect('educacion/mostrar_nuevo');
+            }
+        }else{
+            redirect('educacion/mostrar_nuevo');
+        }
     }
 
     public function insertar() {
@@ -108,47 +148,40 @@ class Curso extends CI_Controller {
     }
 
     public function mostrar_editar($codigoRol) {
-        $datosRol = $this->rol_model->obtener_rol($codigoRol);
-        $data['titulo'] = 'EDITAR ROL';
-        $data['modo'] = 'E';
-        $data['nombreRol'] = $datosRol[0]->ROL_descripcion;
-        $data['codigo'] = $datosRol[0]->ROL_codigo;
-        $data['menu'] = $this->menu_model->obtener_menu();
-        $this->load->view('3_lecturas/rol_nuevo', $data);
+        $obCurso = $this->curso_model->obtener_curso($codigoRol);
+        if(is_array($obCurso)){
+            $curso = new stdClass();
+            foreach ($obCurso as $value){
+                $curso = $value;
+            }
+            $obGrado = $this->grado_model->listar_grados();
+            $data['idCurso'] = $codigoRol;
+            $data['grado'] = $obGrado;
+            $data['curso'] = $curso;
+            $data['titulo'] = 'EDITAR CURSO';
+            $data['action'] = 'modificar';
+            $this->layout->view('educacion/curso_nuevo', $data);
+        }else{
+            redirect('educacion/curso');
+        }
     }
 
     public function modificar() {
-        $nombre = $this->input->post('nombreRol');
-        $rol = $this->input->post('codigo');
-
-        $objeto = new stdClass();
-        $objeto->ROL_descripcion = strtoupper($nombre);
-        $this->rol_model->modificar_rol($objeto, $rol);
-        $menuPadre = $this->input->post('nombre');
-        $menuHijo = $this->input->post('checkO');
-        $this->permiso_model->eliminar_permiso($rol);
-
-        if (is_array($menuPadre)) {
-            foreach ($menuPadre as $valorPadre) {
-                if ($valorPadre != '') {
-                    $objetoPermisoPadre = new stdClass();
-                    $objetoPermisoPadre->ROL_codigo = $rol;
-                    $objetoPermisoPadre->MENU_codigo = $valorPadre;
-                    $this->permiso_model->insertar_permiso($objetoPermisoPadre);
-                }
-            }
+        $curso = $this->input->post('curso',true);
+        $nombre = $this->input->post('nombre',true);
+        $abreviatura = $this->input->post('abreviatura',true);
+        $hora = $this->input->post('hora',true);
+        $grado = $this->input->post('grado',true);
+        if($abreviatura == ""){
+            $abreviatura = $nombre;
         }
-
-        if (is_array($menuHijo)) {
-            foreach ($menuHijo as $valorHijo) {
-                if ($valorHijo != '') {
-                    $objetoPermisoHijo = new stdClass();
-                    $objetoPermisoHijo->ROL_codigo = $rol;
-                    $objetoPermisoHijo->MENU_codigo = $valorHijo;
-                    $this->permiso_model->insertar_permiso($objetoPermisoHijo);
-                }
-            }
-        }
+        $update = array();
+        $update['CURS_nombre'] = $nombre;
+        $update['CURS_abreviatura'] = $abreviatura;
+        $update['CURS_horas'] = $hora;
+        $update['GRAD_id'] = $grado;
+        $this->curso_model->modificarCurso($update, $curso);
+        redirect('educacion/curso');
     }
 
     public function eliminar($idRol) {

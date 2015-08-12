@@ -12,6 +12,7 @@ class Grado_Model extends CI_Model {
 
     public function listar_grados() {
         $this->db->where('GRAD_flagActivo', 'A');
+        $this->db->where('NIVE_flagActivo', 'A');
         $this->db->join('nivel', 'nivel.NIVE_id = ' . self::$tabla . '.NIVE_id');
         $this->db->order_by('nivel.NIVE_id, GRAD_numero');
         $query = $this->db->get(self::$tabla);
