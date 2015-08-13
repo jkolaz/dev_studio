@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/models/seguridad/permiso_model.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/js/configuracion/panel.js</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/rol_ver.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/seguridad/rol.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/configuracion/configuracion.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/config/config.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/seguridad/permiso.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/js/sistema/rol.js</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/matricula/matricula.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/educacion/curso.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/models/seguridad/usuario_model.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/models/educacion/curso_model.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/views/educacion/curso_nuevo.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/seguridad/usuario.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/views/educacion/curso_index.php</file>
         </group>
     </open-files>
 </project-private>
