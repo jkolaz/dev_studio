@@ -4,8 +4,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
 <script type="text/javascript" charset="utf-8">
     $(document).ready( function() {
-        oTable = $('#roles').dataTable( {
-        } );
+        
     } );
 </script>
 <script type="text/javascript">

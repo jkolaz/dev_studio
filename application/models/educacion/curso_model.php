@@ -93,7 +93,7 @@ class Curso_model extends CI_Model {
         $this->db->where('curso.CURS_id', $curso);
         $this->db->where('curso.CURS_flagActivo', 'A');
         $this->db->where('usuario.USUA_flagActivo', 'A');
-        $this->db->where('usuario.ROL_id', 2);
+        //$this->db->where('usuario.ROL_id', 2);
         $query = $this->db->join('asignado','asignado.CURS_id='.self::$tabla.'.CURS_id')
                     ->join('usuario', 'usuario.USUA_id=asignado.USUA_id')
                     ->get(self::$tabla);

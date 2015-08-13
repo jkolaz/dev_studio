@@ -39,11 +39,25 @@ class Curso extends CI_Controller {
     }
     public function verProfesores($grado) {
         $obProfesores = $this->curso_model->getProfesorByGrado($grado);
-        
-        $lista = $this->grado_model->listar_grados_por_nivel($grado);
-        $data['titulo'] = 'NIVEL - ' . $lista[0]->NIVE_nombre;
-        $data['lista'] = $lista;
-        $this->load->view('educacion/nivel_deudas_popup', $data);
+        $data['titulo'] = 'NIVEL - ' ;
+        $data['lista'] = $obProfesores;
+        $this->load->view('educacion/ver_profesores_popup', $data);
+    }
+    
+    public function nuevaAsignacion(){
+        $obProfesores = FALSE;
+        $data['titulo'] = 'ESCOGER CURSO' ;
+        $data['lista'] = $obProfesores;
+        $this->load->view('educacion/choose_asignado_popup', $data);
+    }
+    
+    public function eliminarAsignacion(){
+        $this->load->model('educacion/asignacion_model', 'asignacion');
+        $curso = $this->input->post('curso', TRUE);
+        $profesor = $this->input->post('profesor', TRUE);
+        $this->asignacion->eliminarAsignacion($curso, $profesor);
+        $result = 1;
+        echo json_encode(array('result'=>$result));
     }
 
     public function editar($idCurso, $idProfesor) {

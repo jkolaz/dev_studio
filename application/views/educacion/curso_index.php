@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url() ?>js/educacion/grado.js"></script>
+
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
@@ -17,6 +17,7 @@
     } );
 </script>
 <script type="text/javascript">
+    var refrescar = 0;
     $(document).ready( function() {
         base_url   = $("#base_url").val();
         
@@ -28,7 +29,7 @@
             'type'	     : 'iframe'
         } );
         $(".profesores").fancybox( {
-            'width'          : 1024,
+            'width'          : 1050,
             'height'         : 650,
             'transitionIn'   : 'elastic',
             'transitionOut'  : 'elastic',
@@ -37,7 +38,16 @@
         $('#nuevo_curso').click(function(){
             location.href = $(this).attr('href');
         });
+        $('#fancybox-close').click(function(){
+            if(refrescar == 1){
+                refrescar = 0;
+                document.location.reload();
+            }
+        });
     } );
+    function refreshPage(param){
+        refrescar = param;
+    }
 </script>
 
 <br><br>
