@@ -166,7 +166,16 @@ class Curso_model extends CI_Model {
             return $query->result();
         return null;
     }
-
+    public function prueba(){
+        $sql = "select 
+                *
+                from usuario 
+                where  
+                usuario.USUA_id not in (
+                select asignado.USUA_id from asignado where asignado.CURS_id = 112
+                ) 
+                and  usuario.ROL_id in (2)";
+    }
 }
 
 ?>
