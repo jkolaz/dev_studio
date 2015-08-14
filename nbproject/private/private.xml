@@ -2,17 +2,9 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group/>
-=======
         <group>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/educacion/curso.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/models/seguridad/usuario_model.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/models/educacion/curso_model.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/educacion/curso_nuevo.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/seguridad/usuario.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/educacion/curso_index.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/config/config.php</file>
         </group>
->>>>>>> e205ea55fc40de3647e868154cd8600128d86d01
     </open-files>
 </project-private>
