@@ -3,6 +3,7 @@
 class Curso_model extends CI_Model {
 
     private static $tabla = 'curso';
+    private static $tablaAsignado = 'asignado';
 
     public function __construct() {
         parent :: __construct();
@@ -166,15 +167,45 @@ class Curso_model extends CI_Model {
             return $query->result();
         return null;
     }
-    public function prueba(){
+    public function getProfesoresByCurso($curso){
         $sql = "select 
-                *
-                from usuario 
+                    *
+                from 
+                    usuario 
                 where  
-                usuario.USUA_id not in (
-                select asignado.USUA_id from asignado where asignado.CURS_id = 112
-                ) 
-                and  usuario.ROL_id in (2)";
+                    usuario.USUA_id not in (
+                        select asignado.USUA_id from asignado where asignado.CURS_id = {$curso}
+                    ) 
+                    and  usuario.ROL_id in (2)";
+        $query = $this->db->query($sql);
+        if ($query->num_rows > 0)
+            return $query->result();
+        return null;
+    }
+    
+    public function insertarAsignadoMasivo($data){
+        $this->db->insert_batch(self::$tablaAsignado, $data); 
+    }
+    
+    public function cursoByProfesor($profesor){
+        $this->db->where('usuario.USUA_id', $profesor);
+        $this->db->where('usuario.USUA_flagActivo', 'A');
+        $this->db->where('asignado.ASIG_flagActivo', 'A');
+        $this->db->where('grado.GRAD_flagActivo', 'A');
+        $this->db->where('nivel.NIVE_flagActivo', 'A');
+        $this->db->where('curso.CURS_flagActivo', 'A');
+        $this->db->join('asignado','asignado.CURS_id=curso.CURS_id');
+        $this->db->join('usuario','usuario.USUA_id=asignado.USUA_id');
+        $this->db->join('grado','grado.GRAD_id=curso.GRAD_id');
+        $this->db->join('nivel','nivel.NIVE_id=grado.NIVE_id');
+        $this->db->order_by('nivel.NIVE_id');
+        $this->db->order_by('grado.GRAD_id');
+        $this->db->order_by('curso.CURS_nombre');
+        $query = $this->db->get(self::$tabla);
+        if($query->num_rows > 0){
+            return $query->result();
+        }
+        return null;
     }
 }
 

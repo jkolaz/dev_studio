@@ -71,7 +71,7 @@
         </div>
         <br>
         <div id="botonera">
-            <ul href="<?php echo base_url() ?>index.php/educacion/curso/nuevaAsignacion" id="nuevo" 
+            <ul href="<?php echo base_url() ?>index.php/educacion/curso/nuevaAsignacion/<?=$curso?>" id="nuevo" 
                 class="lista_botones">
                 <li id="nuevo"> Agregar Profesor </li>
             </ul>

@@ -2,7 +2,7 @@
     <head>
         <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.js"></script>        
         <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>css/estilos.css" media="screen" />
-
+        <title>Asigar Profesor</title>
         <link rel="stylesheet" href="<?php echo base_url() ?>js/datatable/media/css/demo_page.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url() ?>js/datatable/media/css/demo_table_jui.css" type="text/css" />
         <link rel="stylesheet" href="<?php echo base_url() ?>js/datatable/examples/examples_support/themes/smoothness/jquery-ui-1.8.4.custom.css" type="text/css" />
@@ -15,30 +15,41 @@
                 $('#grados').dataTable( {
                     
                 } );
-                $('#nuevo').click(function(){
-                    location.href= $(this).attr('href');
-                });
+                asignar_profesor();
             } );
-            function eliminar_asignacion(curso, prof){
-                try {
-                    $.ajax({
-                        type:"POST",
-                        url: base_url+"index.php/educacion/curso/eliminarAsignacion",
-                        data:{profesor:prof, curso: curso},
-                        dataType:"json",
-                        success: function (data) {
-                            if(data.result == 1){
-                                window.parent.refreshPage(1);
-                                document.location.reload();
+            function asignar_profesor(){
+                $('#nuevo').click(function(){
+                    var profesores = "";
+                    if($('.seleccionar').is(':checked')){
+                        $('.seleccionar').each(function(index, value){
+                            if($(this).is(':checked')){
+                                profesores += $(this).val()+",";
                             }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert("Error, Intenta nuevamente.");
-                        }
-                    });
-                }catch(E){
-                    alert("ha ocurrido un error.");
-                }
+                        });
+                        $.ajax({
+                            type: "POST",
+                            url: base_url+"index.php/educacion/curso/agregarProfesor",
+                            data: {curso: <?=$curso?>, profesores: profesores},
+                            dataType: "json",
+                            success: function(data, textStatus, jqXHR){
+                                try{
+                                    if(data.result == 1){
+                                        location.href = base_url+"index.php/educacion/curso/verProfesores/<?=$curso?>";
+                                    }else{
+                                        alert('se produjo un error');
+                                    }
+                                }catch(E){
+                                    alert('se produjo un error');
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert('se produjo un error');
+                            }
+                        });
+                    }else{
+                        alert('Debe de seleccionar a un profesor.')
+                    }
+                });
             }
         </script>
     </head>
@@ -51,8 +62,7 @@
         </div>
         <br>
         <div id="botonera">
-            <ul href="<?php echo base_url() ?>index.php/educacion/curso/nuevaAsignacion" id="nuevo" 
-                class="lista_botones">
+            <ul curso="<?=$curso?>" id="nuevo" class="lista_botones">
                 <li id="nuevo"> Agregar Profesor </li>
             </ul>
         </div>
@@ -83,9 +93,7 @@
                             <td style="text-align: left;"><?=$objeto->USUA_apellidoPaterno?> <?=$objeto->USUA_apellidoMaterno?></td>
                             <td style="text-align: left;"><?=$objeto->USUA_email?></td>
                             <td>
-                                <a href="javascript:;" onclick="eliminar_asignacion(<?=$objeto->CURS_id?>, <?=$objeto->USUA_id?>)">
-                                    <img src="<?=base_url()?>img/eliminar.png" border="0" width="16px" height="16px" title="Eliminar Curso" />
-                                </a>
+                                <input type="checkbox" name="seleccionar[<?=$objeto->USUA_codigo?>]" id="seleccionar_<?=$objeto->USUA_codigo?>" value="<?=$objeto->USUA_id?>" class="seleccionar"/>
                             </td>
                         </tr>
                         <?php

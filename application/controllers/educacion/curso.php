@@ -39,18 +39,39 @@ class Curso extends CI_Controller {
     }
     public function verProfesores($grado) {
         $obProfesores = $this->curso_model->getProfesorByGrado($grado);
+        $data['curso'] = $grado;
         $data['titulo'] = 'NIVEL - ' ;
         $data['lista'] = $obProfesores;
         $this->load->view('educacion/ver_profesores_popup', $data);
     }
     
-    public function nuevaAsignacion(){
-        $obProfesores = FALSE;
+    public function nuevaAsignacion($curso){
+        $obProfesores = $this->curso_model->getProfesoresByCurso($curso);
+        
+        $data['curso'] = $curso;
         $data['titulo'] = 'ESCOGER CURSO' ;
         $data['lista'] = $obProfesores;
         $this->load->view('educacion/choose_asignado_popup', $data);
     }
     
+    public function agregarProfesor(){
+        $curso = $this->input->post('curso', TRUE);
+        $profesors = $this->input->post('profesores', TRUE);
+        $insert = array();
+        foreach (explode(",", $profesors) as $value){
+            if($value != "" && $value > 0){
+                $insert[] = array('CURS_id' => $curso, 'USUA_id' => $value);
+            }
+        }
+        if(count($insert) > 0){
+            $this->curso_model->insertarAsignadoMasivo($insert);
+            $result = 1;
+        }else{
+            $result = 0;
+        }
+        echo json_encode(array('result'=>$result));
+    }
+
     public function eliminarAsignacion(){
         $this->load->model('educacion/asignacion_model', 'asignacion');
         $curso = $this->input->post('curso', TRUE);
@@ -201,6 +222,25 @@ class Curso extends CI_Controller {
     public function eliminar($idRol) {
         $this->rol_model->eliminar_rol($idRol);
         redirect('seguridad/rol/listar');
+    }
+    
+    public function listarCurso(){
+        $rol = $this->session->userdata('idRol'); 
+        $profesor = $this->session->userdata('idUsuario'); 
+        switch ($rol){
+            case 5:
+            case 2:
+                $this->verCursoByProfesor($profesor);
+                break;
+            default:
+                redirect('index/principal');
+        }
+    }
+    public function verCursoByProfesor($profesor){
+        $objCurso = $this->curso_model->cursoByProfesor($profesor);
+        $data['lista'] = $objCurso;
+        $data['titulo'] = 'LISTA DE CURSOS';
+        $this->layout->view('educacion/curso_profesor',$data);
     }
 
 }

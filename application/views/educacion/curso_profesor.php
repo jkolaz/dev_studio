@@ -71,7 +71,6 @@
                     <th> GRADO </th>
                     <th> CURSO </th>
                     <th> HORAS </th>
-                    <th> PROFESORES </th>
                     <th> ESTADO </th>
                     <th>&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;</th>
@@ -92,11 +91,6 @@
                     <td style="text-align: center"><?=$objeto->GRAD_nombre?></td>
                     <td style="text-align: left"><?=$objeto->CURS_nombre?></td>
                     <td style="text-align: center"><?=$objeto->CURS_horas?></td>
-                    <td style="text-align: center">
-                        <a href="<?=base_url()?>index.php/educacion/curso/verProfesores/<?=$idCurso?>" class="profesores">
-                            <img src="<?=base_url()?>img/persona.GIF" width="16px" height="16px"/>
-                        </a>
-                    </td>
                     <td style="text-align: center"><?=$nombreEstado?></td>
                     <td style="text-align: center">
                         <a class="ver_curso" href="<?=base_url()?>index.php/educacion/curso/ver/<?=$idCurso?>">
@@ -125,7 +119,6 @@
                     <th colspan="4" align="right"> Total : </th>
                     <th align="right"></th>
                     <th align="right"></th>
-                    <th align="center"></th>
                     <th align="center"></th>
                     <th align="center"></th>
                     <th align="center"></th>

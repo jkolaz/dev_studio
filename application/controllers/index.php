@@ -71,7 +71,7 @@ class Index extends CI_Controller {
                     'idUsuario' => $objUsuario[0]->USUA_id,
                     'login' => $login,
                     'nombreUsuario' => utf8_encode($nombreUsuario),
-                    'idRol' => $objUsuario[0]->USUA_id,
+                    'idRol' => $objUsuario[0]->ROL_id,
                     'nombreRol' => utf8_encode($objUsuario[0]->ROL_nombre)
                 );
                 // escribimos la sesion
