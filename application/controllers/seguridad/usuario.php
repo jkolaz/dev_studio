@@ -211,8 +211,7 @@ class Usuario extends CI_Controller {
         $data['codigo'] = '';
         $data['usuario'] = '';
         $data['codigoRol'] = '';
-        $data['roles'] = $this->rol_model->listar_roles();
-        $this->load->view('3_lecturas/usuario_nuevo', $data);
+        $this->layout->view('seguridad/profesor_nuevo', $data);
     }
 
     public function insertar() {
@@ -275,6 +274,9 @@ class Usuario extends CI_Controller {
                 $curso->comentarios = $cantidadComentarios[0]->total;
             }
         }
+        echo "<pre>";
+        print_r($listaCursos);
+        echo "</pre>";
         $data['listaCursos'] = $listaCursos;
         $listaDocumentos = $this->documento_model->contar_documentos('A');
         $listaDocumentosEntregados = $this->documento_model->contar_documentos_entregados($idUsuario, $idGrado);
@@ -348,6 +350,27 @@ class Usuario extends CI_Controller {
         $data['titulo'] = "NUEVO ALUMNO";
         $this->layout->view('persona/alumno_nuevo',$data);
     }
+    
+    public function insertProfesor(){
+        $post = $this->input->post();
+        $objProfesor = new stdClass();
+        $objProfesor->tipo = "PROF";
+        $objProfesor->nombre = $post['nombre'];
+        $objProfesor->paterno = $post['paterno'];
+        $objProfesor->materno = $post['materno'];
+        $objProfesor->materno = $post['materno'];
+        $objProfesor->dni = $post['dni'];
+        $objProfesor->email = $post['email'];
+        $objProfesor->sexo = $post['sexo'];
+        $objProfesor->grado = 2;
+        $profesor = $this->usuario_model->insert($objProfesor);
+        if($profesor > 0){
+            redirect('seguridad/usuario/listar_profesores');
+        }else{
+            redirect('seguridad/usuario/mostrar_nuevo');
+        }
+    }
+    
     public function insertAlumno(){
         $post = $this->input->post();
         $ObjAlumno = new stdClass();
@@ -391,6 +414,7 @@ class Usuario extends CI_Controller {
         
         redirect('seguridad/usuario/estudiante/R');
     }
+    
     public function relacion(){
         $tipo = $_POST['tipo'];
         $dni = $_POST['value'];

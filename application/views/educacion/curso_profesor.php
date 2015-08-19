@@ -89,7 +89,9 @@
                     <td style="text-align: center"><?=$i?></td>
                     <td style="text-align: center"><?=$objeto->NIVE_nombre?></td>
                     <td style="text-align: center"><?=$objeto->GRAD_nombre?></td>
-                    <td style="text-align: left"><?=$objeto->CURS_nombre?></td>
+                    <td style="text-align: left">
+                        <a href=""><?=$objeto->CURS_nombre?></a>
+                    </td>
                     <td style="text-align: center"><?=$objeto->CURS_horas?></td>
                     <td style="text-align: center"><?=$nombreEstado?></td>
                     <td style="text-align: center">

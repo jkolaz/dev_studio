@@ -11,13 +11,6 @@
 <script type="text/javascript">
     $(document).ready( function() {
         base_url   = $("#base_url").val();
-        $("#nuevo_usuario").fancybox( {
-            'width'          : 500,
-            'height'         : 350,
-            'transitionIn'   : 'elastic',
-            'transitionOut'  : 'elastic',
-            'type'	     : 'iframe'
-        } );
         $(".editar_usuario").fancybox( {
             'width'          : 500,
             'height'         : 350,
@@ -32,6 +25,9 @@
             'transitionOut'  : 'elastic',
             'type'	     : 'iframe'
         } );
+        $('#nuevo_usuario').click(function(){
+            location.href = $(this).attr('href');
+        });
     } );
 </script>
 

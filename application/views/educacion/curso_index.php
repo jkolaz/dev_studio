@@ -94,7 +94,7 @@
                     <td style="text-align: center"><?=$objeto->CURS_horas?></td>
                     <td style="text-align: center">
                         <a href="<?=base_url()?>index.php/educacion/curso/verProfesores/<?=$idCurso?>" class="profesores">
-                            <img src="<?=base_url()?>img/persona.GIF" width="16px" height="16px"/>
+                            <img src="<?=base_url()?>img/persona.gif" width="16px" height="16px"/>
                         </a>
                     </td>
                     <td style="text-align: center"><?=$nombreEstado?></td>

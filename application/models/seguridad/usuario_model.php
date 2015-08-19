@@ -222,7 +222,6 @@ class Usuario_Model extends CI_Model {
                         "USUA_nombres"=>$insert->nombre,
                         "USUA_apellidoPaterno"=>$insert->paterno,
                         "USUA_apellidoMaterno"=>$insert->materno,
-                        "USUA_login"=>$insert->dni,
                         "USUA_clave"=>  md5($insert->dni),
                         "USUA_dni"=>$insert->dni,
                         "USUA_flagActivo"=>"A",
@@ -256,10 +255,26 @@ class Usuario_Model extends CI_Model {
                     }
                     $newCodigo = 'PD'.$newCodigo.($codigo+1);
                     break;
+                case "PROF":
+                    $codigo = (int)substr($codigo, 4, 11);
+                    if(date('Y') > substr($codigo, 0, 4)){
+                        $newCodigo = date('Y').'0001';
+                    }else{
+                        $codigo = (int)substr($codigo, 4, 7);
+                        for($cont = 1; $cont <= 2; $cont){
+                            if(strlen($newCodigo.($codigo+1))>2){
+                                break;
+                            }
+                            $newCodigo .= "0";
+                        }
+                    }
+                    $newCodigo = 'PROF'.date('Y').$newCodigo.($codigo+1);
+                    break;
             }
             
         }
         $insertar['USUA_codigo'] = $newCodigo;
+        $insertar['USUA_login'] = $newCodigo;
         if(isset($insert->email) && $insert->email!=""){
             $insertar['USUA_email'] = $insert->email;
         }
@@ -381,7 +396,8 @@ class Usuario_Model extends CI_Model {
             case "MAD":
                 $rol = 3;
                 break;
-            case "PRO":
+            case "PROF":
+                $rol = 2;
                 break;
             case "ALU":
                 $rol = 1;
