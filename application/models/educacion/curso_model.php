@@ -121,7 +121,7 @@ class Curso_model extends CI_Model {
         $sql = "select *
                 from grado_x_usuario GU, curso_x_grado_x_usuario CGU, curso C
                 where GU.USUA_id = $idAlumno
-                      and GU.GXUS_estado = 'VI'
+                      and GU.GXUS_estado = 'AC'
                       and GU.USUA_id = CGU.USUA_id and GU.GRAD_id = CGU.GRAD_id
                       and CGU.CURS_id = C.CURS_id
                 order by CURS_estado, CURS_nombre";

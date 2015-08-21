@@ -264,19 +264,26 @@ class Usuario extends CI_Controller {
                 $nombreCurso = $curso->CURS_abreviatura;
                 // obtenemos los profesores que dictan este curso
                 $listaProfesores = $this->curso_model->listar_profesores_por_curso($idCurso);
-                $curso->profesor = pasar_lista_usuarios_a_cadena($listaProfesores);
-                $curso->idProfesor = $listaProfesores[0]->USUA_id;
-                // listamos las notas del curso
-                $listaNotas = $this->curso_model->obtener_notas_por_curso_alumno($idUsuario, $idGrado, $idCurso);
-                $curso->notas = $this->pasar_formato_notas($listaNotas, $nombreCurso);
-                // listamos los comentarios de este curso
-                $cantidadComentarios = $this->usuario_model->contar_comentarios_alumno($idUsuario, $listaProfesores[0]->USUA_id, $idCurso);
-                $curso->comentarios = $cantidadComentarios[0]->total;
+                if($listaProfesores){
+                    $curso->profesor = pasar_lista_usuarios_a_cadena($listaProfesores);
+                    $curso->idProfesor = $listaProfesores[0]->USUA_id;
+                    // listamos las notas del curso
+                    $listaNotas = $this->curso_model->obtener_notas_por_curso_alumno($idUsuario, $idGrado, $idCurso);
+                    $curso->notas = $this->pasar_formato_notas($listaNotas, $nombreCurso);
+                    // listamos los comentarios de este curso
+                    
+                    $cantidadComentarios = $this->usuario_model->contar_comentarios_alumno($idUsuario, $listaProfesores[0]->USUA_id, $idCurso);
+                    $curso->comentarios = $cantidadComentarios[0]->total;
+                }else{
+                    $curso->comentarios = 0;
+                    $curso->profesor = "";
+                    $curso->notas = array();
+                }
             }
         }
-        echo "<pre>";
-        print_r($listaCursos);
-        echo "</pre>";
+//        echo "<pre>";
+//        print_r($listaCursos);
+//        echo "</pre>";
         $data['listaCursos'] = $listaCursos;
         $listaDocumentos = $this->documento_model->contar_documentos('A');
         $listaDocumentosEntregados = $this->documento_model->contar_documentos_entregados($idUsuario, $idGrado);

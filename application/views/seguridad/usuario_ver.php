@@ -199,7 +199,17 @@ $idGrado = $alumno->GRAD_id;
                         $NOTAS = $objeto->notas;
                         $idCurso = $objeto->CURS_id;
                         $idProfesor = $objeto->idProfesor;
-
+                ?>
+                <tr>
+                    <td style="text-align: center;"><?=$i?></td>
+                    <td style="text-align: left;"><?=$objeto->CURS_nombre?></td>
+                    <td style="text-align: center;">
+                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/1" title="<?=  validar_parciales_bimestre($NOTAS, 1)?>">
+                            <?=  validar_parciales_bimestre($NOTAS, 1)?>
+                        </a>
+                    </td>
+                </tr>
+                <?php
                         echo '<tr>';
                         echo "<td align='center'>" . $i . '</td>';
                         echo "<td align='left'>" . utf8_encode($objeto->CURS_nombre) . '</td>';
