@@ -18,17 +18,27 @@ class Curso extends CI_Controller {
     }
 
     public function listar() {
-        $data['titulo'] = 'CURSOS';
-        $lista = $this->curso_model->listar_cursos();
-        if ($lista) {
-            foreach ($lista as $curso) {
-                $idCurso = $curso->CURS_id;
-                $listaProfesores = $this->curso_model->listar_profesores_por_curso($idCurso);
-                $curso->profesores = pasar_lista_usuarios_a_cadena($listaProfesores);
-            }
+        $rol = $this->session->userdata('idRol'); 
+        $profesor = $this->session->userdata('idUsuario'); 
+        switch ($rol){
+            case 5:
+            case 2:
+                $this->verCursoByProfesor($profesor);
+                break;
+            default:
+                $data['titulo'] = 'CURSOS';
+                $lista = $this->curso_model->listar_cursos();
+                if ($lista) {
+                    foreach ($lista as $curso) {
+                        $idCurso = $curso->CURS_id;
+                        $listaProfesores = $this->curso_model->listar_profesores_por_curso($idCurso);
+                        $curso->profesores = pasar_lista_usuarios_a_cadena($listaProfesores);
+                    }
+                }
+                $data['lista'] = $lista;
+                $this->layout->view('educacion/curso_index', $data);
         }
-        $data['lista'] = $lista;
-        $this->layout->view('educacion/curso_index', $data);
+        
     }
 
     public function ver($idNivel) {

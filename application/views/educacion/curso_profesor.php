@@ -72,9 +72,6 @@
                     <th> CURSO </th>
                     <th> HORAS </th>
                     <th> ESTADO </th>
-                    <th>&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
@@ -90,25 +87,12 @@
                     <td style="text-align: center"><?=$objeto->NIVE_nombre?></td>
                     <td style="text-align: center"><?=$objeto->GRAD_nombre?></td>
                     <td style="text-align: left">
-                        <a href=""><?=$objeto->CURS_nombre?></a>
+                        <a href="">
+                            <?=$objeto->CURS_nombre?>
+                        </a>
                     </td>
                     <td style="text-align: center"><?=$objeto->CURS_horas?></td>
                     <td style="text-align: center"><?=$nombreEstado?></td>
-                    <td style="text-align: center">
-                        <a class="ver_curso" href="<?=base_url()?>index.php/educacion/curso/ver/<?=$idCurso?>">
-                            <img src="<?=base_url()?>img/ver.png" width="16px" height="16px" border="0" title="Ver Curso" 
-                        </a>
-                    </td>
-                    <td>
-                        <a class="editar_curso" href="<?=base_url()?>index.php/educacion/curso/mostrar_editar/<?=$idCurso?>">
-                            <img src="<?=base_url()?>img/modificar.png" width="16px" height="16px" border="0" title="Modificar Curso" />
-                        </a>
-                    </td>
-                    <td>
-                        <a href="javascript:;" onclick="eliminar_curso(<?=$idCurso?>)">
-                            <img src="<?=base_url()?>img/eliminar.png" border="0" width="16px" height="16px" title="Eliminar Curso" />
-                        </a>
-                    </td>
                 </tr>
                 <?php
                         $i++;
@@ -121,9 +105,6 @@
                     <th colspan="4" align="right"> Total : </th>
                     <th align="right"></th>
                     <th align="right"></th>
-                    <th align="center"></th>
-                    <th align="center"></th>
-                    <th align="center"></th>
                 </tr>
             </tfoot>
         </table>
