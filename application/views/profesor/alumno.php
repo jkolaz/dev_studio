@@ -1,18 +1,10 @@
-
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
 <script type="text/javascript" charset="utf-8">
     $(document).ready( function() {
         $('#cursos').dataTable( {
-            "fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
-                var totalHoras = 0;
-                for ( var i=iStart ; i<iEnd ; i++ ) {
-                    totalHoras += aaData[ aiDisplay[i] ][4]*1;
-                }
-                var nCells = nRow.getElementsByTagName('th');
-                nCells[1].innerHTML = '<b>' + parseInt(totalHoras) + '&nbsp&nbsp</b>';
-            }
+            
         } );
     } );
 </script>
@@ -20,7 +12,13 @@
     var refrescar = 0;
     $(document).ready( function() {
         base_url   = $("#base_url").val();
-        
+        $(".ver_nota").fancybox( {
+            'width'          : 450,
+            'height'         : 320,
+            'transitionIn'   : 'elastic',
+            'transitionOut'  : 'elastic',
+            'type'	     : 'iframe'
+        } );
         $(".ver_curso").fancybox( {
             'width'          : 700,
             'height'         : 650,
@@ -67,11 +65,13 @@
             <thead>
                 <tr>
                     <th> N </th>
-                    <th> NIVEL </th>
-                    <th> GRADO </th>
-                    <th> CURSO </th>
-                    <th> HORAS </th>
-                    <th> ESTADO </th>
+                    <th> APELLIDOS </th>
+                    <th> NOMBRES </th>
+                    <th> B1 </th>
+                    <th> B2 </th>
+                    <th> B3 </th>
+                    <th> B4 </th>
+                    <th> PG </th>
                 </tr>
             </thead>
             <tbody>
@@ -79,20 +79,22 @@
                 if ($lista) {
                     $i = 1;
                     foreach ($lista as $objeto) {
-                        $idCurso = $objeto->CURS_id;
-                        $nombreEstado = describir_estado($objeto->CURS_estado);
                 ?>
                 <tr>
                     <td style="text-align: center"><?=$i?></td>
-                    <td style="text-align: center"><?=$objeto->NIVE_nombre?></td>
-                    <td style="text-align: center"><?=$objeto->GRAD_nombre?></td>
+                    <td style="text-align: justify; text-transform: uppercase;">
+                        <?=$objeto->USUA_apellidoPaterno?> <?=$objeto->USUA_apellidoMaterno?>
+                    </td>
+                    <td style="text-align: justify"><?=$objeto->USUA_nombres?></td>
                     <td style="text-align: left">
-                        <a href="<?=base_url()?>index.php/profesor/profesor/index/<?=$objeto->CURS_id?>">
-                            <?=$objeto->CURS_nombre?>
+                        <a class="ver_nota" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$objeto->USUA_id?>/<?=$objeto->GRAD_id?>/<?=$objeto->CURS_id?>/1">
+                            18
                         </a>
                     </td>
-                    <td style="text-align: center"><?=$objeto->CURS_horas?></td>
-                    <td style="text-align: center"><?=$nombreEstado?></td>
+                    <td style="text-align: left">15</td>
+                    <td style="text-align: left">13</td>
+                    <td style="text-align: left">17</td>
+                    <td style="text-align: left">15.75</td>
                 </tr>
                 <?php
                         $i++;
@@ -102,9 +104,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="4" align="right"> Total : </th>
-                    <th align="right"></th>
-                    <th align="right"></th>
+                    <th colspan="8" align="right"> </th>
                 </tr>
             </tfoot>
         </table>
@@ -116,3 +116,4 @@
 <?php
 //imprimir($lista);
 ?>
+

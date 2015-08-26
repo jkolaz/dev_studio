@@ -77,11 +77,48 @@ class Curso_model extends CI_Model {
                       and BIME_id = $idBimestre
                 order by CALD_parcial, CRIT_id";
         $query = $this->db->query($sql);
-        if ($query->num_rows > 0)
+        if ($query->num_rows > 0){
             return $query->result();
-        return null;
+        }else{
+            $idCalificacion = $this->insertar_nota_inicial($idUsuario, $idGrado, $idCurso, $idBimestre);
+            if($idCalificacion > 0){
+                $sql_criterio = "SELECT * FROM `criterio`";
+                $query_criterio = $this->db->query($sql_criterio);
+                if ($query_criterio->num_rows > 0){
+                    foreach ($query_criterio->result() as $value){
+                        $idCriterio = $value->CRIT_id;
+                        $this->insertar_nota_detalle_inicial($idUsuario, $idGrado, $idCurso, $idBimestre, $idCalificacion, $idCriterio);
+                    }
+                }
+            }
+            $query = $this->db->query($sql);
+            if ($query->num_rows > 0){
+                return $query->result();
+            }
+            return null;
+        }
     }
     
+    public function insertar_nota_inicial($idUsuario, $idGrado, $idCurso, $idBimestre){
+        $insert['USUA_id'] = $idUsuario;
+        $insert['GRAD_id'] = $idGrado;
+        $insert['CURS_id'] = $idCurso;
+        $insert['BIME_id'] = $idBimestre;
+        $this->db->insert('calificacion', $insert);
+        return $this->db->insert_id();
+    }
+    public function insertar_nota_detalle_inicial($idUsuario, $idGrado, $idCurso, $idBimestre, $idCalificacion, $idCriterio){
+        $insert['USUA_id'] = $idUsuario;
+        $insert['GRAD_id'] = $idGrado;
+        $insert['CURS_id'] = $idCurso;
+        $insert['BIME_id'] = $idBimestre;
+        $insert['CALI_id'] = $idCalificacion;
+        $insert['CRIT_id'] = $idCriterio;
+        $this->db->insert('calificacion_detalle', $insert);
+        return $this->db->insert_id();
+    }
+
+
     public function listar_criterios() {
         $query = $this->db->get('criterio');
         if ($query->num_rows > 0)
@@ -207,6 +244,7 @@ class Curso_model extends CI_Model {
         }
         return null;
     }
+    
 }
 
 ?>

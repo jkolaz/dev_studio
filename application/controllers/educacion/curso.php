@@ -111,11 +111,17 @@ class Curso extends CI_Controller {
     }
 
     public function ver_detalle($idUsuario, $idGrado, $idCurso, $idBimestre) {
-        $listaDetalleNotas = $this->curso_model->listar_detalle_notas($idUsuario, $idGrado, $idCurso, $idBimestre);
+        $listaDetalleNotas = $this->curso_model->listar_detalle_notas($idUsuario, $idGrado, $idCurso, $idBimestre);        
         $DETALLE = pasar_lista_a_matriz($listaDetalleNotas, 'CALD_parcial', 'CRIT_id', 'CALD_nota');
         $data['DETALLE'] = $DETALLE;
         $listaCriterios = $this->curso_model->listar_criterios();
         $data['CRITERIOS'] = pasar_lista_a_arreglo($listaCriterios, 'CRIT_id', 'CRIT_nombre');
+//        echo "<pre>";
+//        print_r($DETALLE);
+//        echo "</pre>";
+//        echo "<pre>";
+//        print_r($listaDetalleNotas);
+//        echo "</pre>";
         $this->load->view('educacion/notas_detalle_popup', $data);
     }
 
