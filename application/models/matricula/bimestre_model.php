@@ -29,4 +29,13 @@ class Bimestre_model extends CI_Model{
         }
         return 1;
     }
+    
+    public function getBimestreById($id){
+        $this->db->where('BIME_id', $id);
+        $query = $this->db->get(self::$_table);
+        if($query->num_rows >0){
+            return $query->result();
+        }
+        return null;
+    }
 }

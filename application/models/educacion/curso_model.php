@@ -70,12 +70,13 @@ class Curso_model extends CI_Model {
     
     public function listar_detalle_notas($idUsuario, $idGrado, $idCurso, $idBimestre) {
         $sql = "select *
-                from calificacion_detalle
-                where USUA_id = $idUsuario
-                      and GRAD_id = $idGrado
-                      and CURS_id = $idCurso
-                      and BIME_id = $idBimestre
-                order by CALD_parcial, CRIT_id";
+                from calificacion_detalle a, criterio b
+                where a.USUA_id = $idUsuario
+                      and a.GRAD_id = $idGrado
+                      and a.CURS_id = $idCurso
+                      and a.BIME_id = $idBimestre
+                          and  a.CRIT_id = b.CRIT_id
+                order by a.CALD_parcial, a.CRIT_id";
         $query = $this->db->query($sql);
         if ($query->num_rows > 0){
             return $query->result();

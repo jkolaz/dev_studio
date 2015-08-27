@@ -111,11 +111,21 @@ class Curso extends CI_Controller {
     }
 
     public function ver_detalle($idUsuario, $idGrado, $idCurso, $idBimestre) {
+        $this->load->model('matricula/bimestre_model', 'bimestre');
+        $bimestre = $this->bimestre->getBimestreById($idBimestre);
+        $data['bimestre'] = $bimestre;
         $listaDetalleNotas = $this->curso_model->listar_detalle_notas($idUsuario, $idGrado, $idCurso, $idBimestre);        
         $DETALLE = pasar_lista_a_matriz($listaDetalleNotas, 'CALD_parcial', 'CRIT_id', 'CALD_nota');
         $data['DETALLE'] = $DETALLE;
         $listaCriterios = $this->curso_model->listar_criterios();
         $data['CRITERIOS'] = pasar_lista_a_arreglo($listaCriterios, 'CRIT_id', 'CRIT_nombre');
+        $data['lista'] = $listaDetalleNotas;
+        $usuario = $this->usuario_model->obtener_usuario_por_id($idUsuario);
+        $data['usuario'] = $usuario;
+        $data['idUsuario'] = $idUsuario;
+        $data['idGrado'] = $idGrado;
+        $data['idCurso'] = $idCurso;
+        $data['idBimestre'] = $idBimestre;
 //        echo "<pre>";
 //        print_r($DETALLE);
 //        echo "</pre>";
@@ -125,6 +135,10 @@ class Curso extends CI_Controller {
         $this->load->view('educacion/notas_detalle_popup', $data);
     }
 
+    public function updateNota(){
+        echo "hola";
+    }
+    
     public function mostrar_nuevo() {
         $curso = new stdClass();
         $curso->CURS_id = 0;

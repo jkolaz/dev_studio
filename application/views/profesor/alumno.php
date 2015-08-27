@@ -14,7 +14,7 @@
         base_url   = $("#base_url").val();
         $(".ver_nota").fancybox( {
             'width'          : 450,
-            'height'         : 320,
+            'height'         : 420,
             'transitionIn'   : 'elastic',
             'transitionOut'  : 'elastic',
             'type'	     : 'iframe'
