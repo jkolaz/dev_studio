@@ -86,15 +86,21 @@
                         <?=$objeto->USUA_apellidoPaterno?> <?=$objeto->USUA_apellidoMaterno?>
                     </td>
                     <td style="text-align: justify"><?=$objeto->USUA_nombres?></td>
+                <?php
+                        $notaBimestre = 0;
+                        $cantBimestre = count($objeto->nota);
+                        foreach ($objeto->nota as $nota){
+                ?>
                     <td style="text-align: left">
-                        <a class="ver_nota" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$objeto->USUA_id?>/<?=$objeto->GRAD_id?>/<?=$objeto->CURS_id?>/1">
-                            18
+                        <a class="ver_nota" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$objeto->USUA_id?>/<?=$objeto->GRAD_id?>/<?=$objeto->CURS_id?>/<?=$nota->BIME_id?>">
+                            <?=$nota->CALI_parcial1?>
                         </a>
                     </td>
-                    <td style="text-align: left">15</td>
-                    <td style="text-align: left">13</td>
-                    <td style="text-align: left">17</td>
-                    <td style="text-align: left">15.75</td>
+                <?php
+                            $notaBimestre += $nota->CALI_parcial1;
+                        }
+                ?>
+                    <td style="text-align: left"><?=grupo_nota(number_format($notaBimestre/$cantBimestre, 2))?></td>
                 </tr>
                 <?php
                         $i++;

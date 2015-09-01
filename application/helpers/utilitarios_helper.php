@@ -563,5 +563,16 @@ if (!function_exists('validar_parciales_bimestre')) {
     }
 
 }
+if(!function_exists('grupo_nota')){
+    function grupo_nota($nota){
+        $html = '<span style="color: red">'.$nota.'</span>';
+        if($nota > 10 && $nota < 15){
+            $html = '<span style="color: orange">'.$nota.'</span>';
+        }elseif($nota >= 15){
+            $html = '<span style="color: blue">'.$nota.'</span>';
+        }
+        return $html;
+    }
+}
 
 ?>

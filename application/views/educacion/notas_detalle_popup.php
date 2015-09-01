@@ -34,6 +34,24 @@
                     nota += parseFloat($(this).val());
                 });
                 $('#prom').val((nota/criterio).toFixed(2));
+                $('.criterio').keypress( function(e){
+                    //alert(e.which);
+                    if(e.which < 8){
+                        return false;
+                    }else if(e.which > 8 && e.which < 35){
+                        return false;
+                    }else if(e.which > 40 && e.which < 46){
+                        return false;
+                    }else if(e.which > 46 && e.which < 48){
+                        return false;
+                    }else if(e.which > 57 && e.which < 110){
+                        return false;
+                    }else if(e.which > 110 && e.which > 190){
+                        return false;
+                    }else if(e.which > 190){
+                        return false;
+                    }
+                });
             });
         </script>
     </head>
