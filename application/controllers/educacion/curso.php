@@ -8,6 +8,8 @@ class Curso extends CI_Controller {
         $this->load->library('form_validation', 'pagination', 'html');
         $this->load->model('educacion/curso_model');
         $this->load->model('educacion/grado_model');
+        $this->load->model('educacion/criterio_model', 'criterio');
+        $this->load->model('nota/calificacion_model', 'calificacion');
         $this->load->model('seguridad/usuario_model');
         $this->load->model('layout/menu_model');
         $this->load->library('layout', 'layout');
@@ -136,7 +138,22 @@ class Curso extends CI_Controller {
     }
 
     public function updateNota(){
-        echo "hola";
+        $idUsuario = $this->input->post('idUsuario',TRUE);
+        $idGrado = $this->input->post('idGrado',TRUE);
+        $idCurso = $this->input->post('idCurso',TRUE);
+        $idBimestre = $this->input->post('idBimestre',TRUE);
+        $criterio = $this->input->post('criterio',TRUE);
+        $calificacion = $this->calificacion->getCalifiacion($idUsuario, $idGrado, $idCurso, $idBimestre);
+        $idCALI = $calificacion[0]->CALI_id;
+        $cant_criterio = $this->criterio->countCriterio();
+        $nota = 0;
+        foreach ($criterio as $id=>$value){
+            $this->curso_model->updateNota($id, $value);
+            $nota += $value;
+        }
+        $promedio = $nota/$cant_criterio;
+        $this->calificacion->update($idCALI,$promedio);
+        redirect('educacion/curso/ver_detalle/'.$idUsuario.'/'.$idGrado.'/'.$idCurso.'/'.$idBimestre);
     }
     
     public function mostrar_nuevo() {

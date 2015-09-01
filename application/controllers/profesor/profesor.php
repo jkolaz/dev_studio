@@ -23,9 +23,9 @@ class Profesor extends CI_Controller{
     }
     public function index($id){
         $obCursoAlumno = $this->AlumnoCurso->getAlumnoByCurso($id);
-//        echo "<pre>";
-//        print_r($obCursoAlumno);
-//        echo "</pre>";
+        echo "<pre>";
+        print_r($obCursoAlumno);
+        echo "</pre>";
         $curso = $this->Curso->obtener_curso($id);
         $data['titulo'] = $curso[0]->CURS_nombre;
         $data['lista'] = $obCursoAlumno;

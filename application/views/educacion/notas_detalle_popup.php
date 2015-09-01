@@ -26,6 +26,16 @@
                 border: 3px #696969 solid;
             }
         </style>
+        <script>
+            $(document).ready( function(){
+                var nota = 0;
+                var criterio = 10;
+                $('.criterio').each( function(index, value){
+                    nota += parseFloat($(this).val());
+                });
+                $('#prom').val((nota/criterio).toFixed(2));
+            });
+        </script>
     </head>
     <body>
 
@@ -70,7 +80,7 @@
                         <?php
                         if($value->CALD_estado == 1){
                         ?>
-                        <input type="text" name="criterio[<?=$value->CRIT_id?>]" id="criterio_<?=$value->CRIT_id?>" value="<?=$value->CALD_nota?>" style="width: 40px;"/>
+                        <input type="text" class="criterio" name="criterio[<?=$value->CALD_id?>]" id="criterio_<?=$value->CALD_id?>" value="<?=$value->CALD_nota?>" style="width: 40px;"/>
                         <?php    
                         }else{
                             echo $value->CALD_nota;
@@ -85,7 +95,9 @@
                 ?>
                 <tr>
                     <td colspan="2" style="font-weight: bold; text-align: right; background-color: #696969; color: white;">PROMEDIO</td>
-                    <td style="font-weight: bold; text-align: right; background-color: #696969; color: white; padding-right: 30px;">0.00</td>
+                    <td style="font-weight: bold; text-align: right; background-color: #696969; color: white; padding-right: 30px;">
+                        <input type="text" name="prom" id="prom" value="0.00" readonly="readonly" style="width: 40px;"/>
+                    </td>
                 </tr>
             </tbody>
             <tfoot>
@@ -101,7 +113,3 @@
     </body>
 </html>
 
-<?php
-//imprimir($CRITERIOS);
-//imprimir($DETALLE);
-?>

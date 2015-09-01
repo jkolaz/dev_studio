@@ -68,6 +68,14 @@ class Curso_model extends CI_Model {
         return null;
     }
     
+    public function updateNota($idDetalle,  $nota){
+        $where = array();
+        $where['CALD_id'] = $idDetalle;
+        $update = array();
+        $update['CALD_nota'] = $nota;
+        $this->db->where($where)->update('calificacion_detalle', $update);
+    }
+    
     public function listar_detalle_notas($idUsuario, $idGrado, $idCurso, $idBimestre) {
         $sql = "select *
                 from calificacion_detalle a, criterio b
