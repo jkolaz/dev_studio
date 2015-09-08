@@ -23,7 +23,7 @@ class Curso extends CI_Controller {
         $rol = $this->session->userdata('idRol'); 
         $profesor = $this->session->userdata('idUsuario'); 
         switch ($rol){
-            case 5:
+            //case 5:
             case 2:
                 $this->verCursoByProfesor($profesor);
                 break;

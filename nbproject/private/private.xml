@@ -3,14 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/models/seguridad/usuario_model.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/educacion/curso.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/models/educacion/curso_model.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/educacion/notas_detalle_popup.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/seguridad/usuario.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/profesor/alumno.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/layout/layout.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/models/matricula/bimestre_model.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/models/educacion/asignacion_model.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/config/database.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/profesor/profesor.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/models/educacion/alumnocurso_model.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/config/config.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/views/educacion/curso_profesor.php</file>
         </group>
     </open-files>
 </project-private>

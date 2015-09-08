@@ -8,7 +8,7 @@
             "fnFooterCallback": function ( nRow, aaData, iStart, iEnd, aiDisplay ) {
                 var totalHoras = 0;
                 for ( var i=iStart ; i<iEnd ; i++ ) {
-                    totalHoras += aaData[ aiDisplay[i] ][4]*1;
+                    totalHoras += aaData[ aiDisplay[i] ][5]*1;
                 }
                 var nCells = nRow.getElementsByTagName('th');
                 nCells[1].innerHTML = '<b>' + parseInt(totalHoras) + '&nbsp&nbsp</b>';
@@ -22,6 +22,13 @@
         base_url   = $("#base_url").val();
         
         $(".ver_curso").fancybox( {
+            'width'          : 700,
+            'height'         : 650,
+            'transitionIn'   : 'elastic',
+            'transitionOut'  : 'elastic',
+            'type'	     : 'iframe'
+        } );
+        $(".criterio").fancybox( {
             'width'          : 700,
             'height'         : 650,
             'transitionIn'   : 'elastic',
@@ -70,6 +77,7 @@
                     <th> NIVEL </th>
                     <th> GRADO </th>
                     <th> CURSO </th>
+                    <th> CRITERIOS <br> DE EVALUACIÓN </th>
                     <th> HORAS </th>
                     <th> ESTADO </th>
                 </tr>
@@ -91,6 +99,11 @@
                             <?=$objeto->CURS_nombre?>
                         </a>
                     </td>
+                    <td style="text-align: left">
+                        <a class="criterio" href="<?=base_url()?>index.php/profesor/profesor/criterio/<?=$objeto->ASIG_id?>">
+                            <img src="<?=base_url()?>img/pedidos.png" title="Criterios de Evaluacion - <?=$objeto->CURS_nombre?>">
+                        </a>
+                    </td>
                     <td style="text-align: center"><?=$objeto->CURS_horas?></td>
                     <td style="text-align: center"><?=$nombreEstado?></td>
                 </tr>
@@ -102,7 +115,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="4" align="right"> Total : </th>
+                    <th colspan="5" align="right"> Total : </th>
                     <th align="right"></th>
                     <th align="right"></th>
                 </tr>
