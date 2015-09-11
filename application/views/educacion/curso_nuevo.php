@@ -71,6 +71,9 @@
                         <td>Horas academicas</td>
                         <td><input type="input" name="hora" id="hora" class="require" value="<?=$curso->CURS_horas?>"/></td>
                     </tr>
+                    <?php
+                    if($grado){
+                        ?>
                     <tr>
                         <td>Grado :</td>
                         <td>
@@ -91,6 +94,9 @@
                             </select>
                         </td>
                     </tr>
+                    <?php
+                    }
+                    ?>
                     <tr>
                         <td><input type="submit" class="btn add" name="guardar" id="guardar" value="Guardar"></td>
                         <td><input type="reset" class="btn danger" name="cancelar" id="guardar" value="Cancelar"></td>

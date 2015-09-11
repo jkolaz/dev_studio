@@ -162,9 +162,9 @@ class Curso extends CI_Controller {
         $curso->CURS_nombre = "";
         $curso->CURS_abreviatura = "";
         $curso->CURS_horas = "";
-        $obGrado = $this->grado_model->listar_grados();
+        //$obGrado = $this->grado_model->listar_grados();
         $data['idCurso'] = 0;
-        $data['grado'] = $obGrado;
+        $data['grado'] = NULL;
         $data['curso'] = $curso;
         $data['titulo'] = 'REGISTRAR NUEVO CURSO';
         $data['action'] = 'insertarCurso';
