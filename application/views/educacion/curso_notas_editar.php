@@ -33,7 +33,7 @@
 </div>
 
 <br>
-<div class="header"><?php echo utf8_encode($curso->CURS_nombre) ?></div>
+<div class="header" style="line-height: 40px; height: 40px; font-size: 18px;"><?=$curso->CURS_nombre ?></div>
 
 <div id="container">
     <div class="demo_jui">
@@ -42,23 +42,13 @@
                 <tr>
                     <th> N </th>
                     <th> ALUMNO </th>
-
-                    <th> M1 </th>
-                    <th> M2 </th>
                     <th> PROM<br>BIM 1 </th>
-
-                    <th> M1 </th>
-                    <th> PC1 </th>
-                    <th> PC2 </th>
-                    <th> PC3 </th>
-                    <th> PC4 </th>
                     <th> PROM<br>BIM 2 </th>
-
                     <th> PROM<br>BIM 3 </th>
-
-                    <th> PROM<br>BIM 3 </th>
-
+                    <th> PROM<br>BIM 4 </th>
+                    <th> PROM<br>FINAL </th>
                     <th> OBS </th>
+                    <th> PDF </th>
                 </tr>
             </thead>
             <tbody>
@@ -70,32 +60,29 @@
                         $nombreAlumno = formar_nombre_completo($objeto);
                         $idCurso = $objeto->CURS_id;
                         $comentarios = $objeto->comentarios;
-                        echo '<tr>';
-                        echo "<td align='center'>" . $i . '</td>';
-                        echo "<td align='left'>" . $nombreAlumno . '</td>';
-
-                        echo "<td align='center'>" . 18 . '</td>';
-                        echo "<td align='center'>" . 16 . '</td>';
-                        echo "<td align='center'><b>" . 17 . '</b></td>';
-
-                        echo "<td align='center'>" . 17 . '</td>';
-                        echo "<td align='center'><input type='text' class='cajaNota' value=" . 17 . '></td>';
-                        echo "<td align='center'><input type='text' class='cajaNota' value=" . 16 . '></td>';
-                        echo "<td align='center'><input type='text' class='cajaNota' value=" . 17 . '></td>';
-                        echo "<td align='center'><input type='text' class='cajaNota' value=" . 18 . '></td>';
-                        echo "<td align='center'><b>" . 17 . '</b></td>';
-
-                        echo "<td align='center'><b>" . '-' . '</b></td>';
-
-                        echo "<td align='center'><b>" . '-' . '</b></td>';
-
-                        echo "<td align='center'>";
-                        echo "<a class='ver_editar_comentarios' href='" . base_url()
-                        . "index.php/seguridad/usuario/editar_comentarios/$idAlumno/$idProfesor/$idCurso' ><img src='"
-                        . base_url() . "img/mensajes.png' width='16' height='16' border='0' title='Comentar - $nombreAlumno' /></a>($comentarios)";
-                        echo '</td>';
-
-                        echo '</tr>';
+                ?>
+                <tr>
+                    <td style="text-align: center;"><?=$i?></td>
+                    <td style="text-align: justify;"><?=$nombreAlumno?></td>
+                    
+                    <td style="text-align: center;"><b>17</b></td>
+                    <td style="text-align: center;"><b>17</b></td>
+                    <td style="text-align: center;"><b>17</b></td>
+                    <td style="text-align: center;"><b>17</b></td>
+                    <td style="text-align: center;"><b>17</b></td>
+                    <td style="text-align: center;">
+                        <a class="ver_editar_comentarios" href="<?=base_url()?>index.php/seguridad/usuario/editar_comentarios/<?=$idAlumno?>/<?=$idProfesor?>/<?=$idCurso?>">
+                            <img src="<?=base_url()?>/img/mensajes.png" width="16px" height="16px;" border="0" title="Comentar - <?=$nombreAlumno?>"/>
+                            (<?=$comentarios?>)
+                        </a>
+                    </td>
+                    <td  style="text-align: center;">
+                        <a class="ver_editar_comentarios" href="<?=base_url()?>index.php/seguridad/usuario/editar_comentarios/<?=$idAlumno?>/<?=$idProfesor?>/<?=$idCurso?>">
+                            <img src="<?=base_url()?>/img/down.png" width="16px" height="16px;" border="0" title="Descargar Nota - <?=$nombreAlumno?>"/>
+                        </a>
+                    </td>
+                </tr>
+                <?php
                         $i++;
                     }
                 }
@@ -108,8 +95,5 @@
 <br><br>
 
 <?php
-imprimir($listaAlumnos);
-//imprimir($idAlumno);
-//imprimir($idProfesor);
-//imprimir($idCurso);
+//imprimir($listaAlumnos);
 ?>

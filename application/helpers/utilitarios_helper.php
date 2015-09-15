@@ -288,11 +288,11 @@ if (!function_exists('describir_estado')) {
 
     function describir_estado($valor) {
         switch ($valor) {
-            case 'AC' : $descripcion = 'ACTIVO';
+            case 'AC' : $descripcion = '<span style="color: green; font-weight: bold;">ACTIVO</span>';
                 break;
             case 'DE' : $descripcion = 'CON DEUDA';
                 break;
-            case 'BL' : $descripcion = 'BLOQUEADO';
+            case 'BL' : $descripcion = '<span style="color: red; font-weight: bold;">BLOQUEADO</span>';
                 break;
             case 'IN' : $descripcion = 'INACTIVO';
                 break;

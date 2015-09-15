@@ -348,9 +348,26 @@ class Usuario extends CI_Controller {
         $this->usuario_model->modificar_usuario($objetoUsuario, $codigo);
     }
 
-    public function eliminar($codigoUsuario) {
+    public function eliminar($tipo, $codigoUsuario) {
         $this->usuario_model->eliminar_usuario($codigoUsuario);
-        redirect('3_lecturas/usuario/listar');
+        switch ($tipo){
+            case "profesor":
+                redirect('seguridad/usuario/listar_profesores');
+                break;
+            default:
+                redirect('seguridad/usuario/listar_profesores');
+        }
+        
+    }
+    public function activar($tipo, $codigoUsuario) {
+        $this->usuario_model->activar_usuario($codigoUsuario);
+        switch ($tipo){
+            case "profesor":
+                redirect('seguridad/usuario/listar_profesores');
+                break;
+            default:
+                redirect('seguridad/usuario/listar_profesores');
+        }
     }
     public function alumnonuevo(){
         $data['nivel'] = $this->nivel_model->listar_niveles();

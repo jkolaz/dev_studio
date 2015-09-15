@@ -13,6 +13,7 @@ $objMenuBase = $objInstancia->permiso_model->obtener_permisos_por_rol($idRol);
 <ul class="nav main">
     <li><a href="<?php echo site_url('index/inicio') ?>">Inicio</a></li>
     <?php
+    if($objMenuBase){
     foreach ($objMenuBase as $var) {
         $text = ($var->MENU_ruta != '') ?
                 '<a href="' . site_url($var->MENU_ruta) . '">' . $var->MENU_nombre . '</a>' :
@@ -36,7 +37,9 @@ $objMenuBase = $objInstancia->permiso_model->obtener_permisos_por_rol($idRol);
                 </ul>
             <?php } ?>
         </li>
-    <?php } ?>
+    <?php 
+    }
+                        } ?>
 
     <div id="salir">   
         <li><a href="<?php echo site_url('index/salir_sistema'); ?>">Salir</a></li>

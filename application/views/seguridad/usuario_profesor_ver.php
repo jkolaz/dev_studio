@@ -52,6 +52,11 @@
 
 <?php
 $idProfesor = $profesor->USUA_id;
+$imagen = base_url(). 'fotos/' . $profesor->USUA_login.".jpg";
+$file_headers = @get_headers($imagen);
+if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
+    $imagen = base_url(). 'fotos/nodisponible.jpg';
+}
 ?>
 
 <br><br><br>
@@ -65,7 +70,7 @@ $idProfesor = $profesor->USUA_id;
                            href="<?php echo base_url() . 'index.php/seguridad/usuario/ver_foto/' . $profesor->USUA_login ?>">
                             <img width="128px"
                                  title="<?php echo formar_nombre_completo($profesor) ?>"
-                                 src="<?php echo base_url() ?>fotos/<?php echo $profesor->USUA_login ?>.jpg" />
+                                 src="<?=$imagen?>" />
                         </a>
                     </td>
                 </tr>
@@ -103,21 +108,6 @@ $idProfesor = $profesor->USUA_id;
                     <td> : </td>
                     <td><b> <?php echo dame_fecha_estandar($profesor->USUA_fechaNacimiento) ?> </b></td>
                 </tr>
-                <tr>
-                    <td> --- </td>
-                    <td> : </td>
-                    <td><b> <?php echo '-' ?> </b></td>
-                </tr>
-                <tr>
-                    <td> --- </td>
-                    <td> : </td>
-                    <td><b> <?php echo '-' ?> </b></td>
-                </tr>
-                <tr>
-                    <td> --- </td>
-                    <td> : </td>
-                    <td><b> <?php echo '-' ?> </b></td>
-                </tr>
             </table>
         </td>
         <td valign="top">
@@ -141,13 +131,13 @@ $idProfesor = $profesor->USUA_id;
             <br>
 
             <?php
-            if ($documentosPendientes) {
-                $texto = "DOCUMENTOS PENDIENTES ($documentosPendientes)";
-            } else {
-                $texto = 'El alumno no tiene documentos pendientes';
-            }
+//            if ($documentosPendientes) {
+//                $texto = "DOCUMENTOS PENDIENTES ($documentosPendientes)";
+//            } else {
+//                $texto = 'El alumno no tiene documentos pendientes';
+//            }
             ?>
-            <table>
+            <!--<table>
                 <tr>
                     <td>
                         <a class='ver_documentos' 
@@ -156,7 +146,7 @@ $idProfesor = $profesor->USUA_id;
                         </a>
                     </td>
                 </tr>
-            </table>
+            </table>-->
         </td>
     </tr>
 </table>
@@ -192,29 +182,27 @@ $idProfesor = $profesor->USUA_id;
                     foreach ($listaCursos as $objeto) {
                         $idCurso = $objeto->CURS_id;
                         $nombreEstado = describir_estado($objeto->CURS_estado);
-                        echo '<tr>';
-                        echo "<td align='center'>" . $i . '</td>';
-                        echo "<td align='center'>" . $objeto->NIVE_nombre . '</td>';
-                        echo "<td align='center'>" . $objeto->GRAD_nombre . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->CURS_nombre) . '</td>';
-                        echo "<td align='center'>" . $objeto->CURS_horas . '</td>';
-                        echo "<td align='center'>" . $nombreEstado . '</td>';
-
-                        echo "<td align='center'>";
-                        echo "<a target='_blank' href='" . base_url()
-                        . "index.php/educacion/curso/editar/$idCurso/$idProfesor" . "' ><img src='" . base_url()
-                        . "img/ver.png' width='16' height='16' border='0' title='Ver Curso' /></a>";
-                        echo '&nbsp;&nbsp;';
-                        echo "<a class='editar_curso' href='" . base_url() . "index.php/educacion/curso/mostrar_editar/"
-                        . $idCurso . "' ><img src='" . base_url()
-                        . "img/modificar.png' width='16' height='16' border='0' title='Modificar Curso' /></a>";
-                        echo '&nbsp;&nbsp;';
-                        echo "<a href='#' onclick='eliminar_curso(" . $idCurso
-                        . ")'><img src='" . base_url()
-                        . "img/eliminar.png' border='0' width='17' height='17' title='Eliminar Curso' /></a>";
-                        echo '</td>';
-
-                        echo '</tr>';
+                ?>
+                <tr>
+                    <td style="text-align: center;"><?=$i?></td>
+                    <td style="text-align: justify;"><?=$objeto->NIVE_nombre?></td>
+                    <td style="text-align: justify;"><?=$objeto->GRAD_nombre?></td>
+                    <td style="text-align: justify;"><?=$objeto->CURS_nombre?></td>
+                    <td style="text-align: center;"><?=$objeto->CURS_horas?></td>
+                    <td style="text-align: center;"><?=$nombreEstado?></td>
+                    <td style="text-align: center;">
+                        <a target="_blank" href="<?=base_url()?>index.php/educacion/curso/editar/<?=$objeto->ASIG_id?>">
+                            <img src="<?=base_url()?>img/ver.png" height="16px" width="16px" border="0" title="Ver curso"/>
+                        </a>&nbsp;&nbsp;
+                        <a class="editar_curso" href="<?=base_url()?>index.php/educacion/curso/mostrar_editar/<?=$idCurso?>">
+                            <img src="<?=base_url()?>img/modificar.png" height="16px" width="16px" border="0" title="Ver curso"/>
+                        </a>&nbsp;&nbsp;
+                        <a href="javascript:;" onclick="eliminar_curso(<?=$objeto->ASIG_id?>)">
+                            <img src="<?=base_url()?>img/eliminar.png" height="16px" width="16px" border="0" title="Eliminar curso"/>
+                        </a>
+                    </td>
+                </tr>
+                <?php
                         $i++;
                     }
                 }

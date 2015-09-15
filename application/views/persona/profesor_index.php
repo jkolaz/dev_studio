@@ -65,33 +65,41 @@
                     foreach ($lista as $objeto) {
                         $idUsuario = $objeto->USUA_id;
                         $nombreEstado = describir_estado($objeto->USUA_estado);
-                        echo '<tr>';
-                        echo "<td align='center'>" . $i . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_apellidoPaterno) . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_apellidoMaterno) . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_nombres) . '</td>';
-                        echo "<td align='center'>" . $objeto->USUA_login . '</td>';
-                        echo "<td align='center'>" . utf8_encode($objeto->ROL_nombre) . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->cursos) . '</td>';
-                        echo "<td align='center'>" . $nombreEstado . '</td>';
-
-                        echo "<td align='center'>";
-                        echo "<a target='_blank' href='" . base_url()
-                        . "index.php/seguridad/usuario/ver_profesor/"
-                        . $idUsuario . "' ><img src='" . base_url()
-                        . "img/ver.png' width='16' height='16' border='0' title='Ver Profesor' /></a>";
-                        echo '&nbsp;&nbsp;';
-                        echo "<a class='editar_usuario' href='" . base_url()
-                        . "index.php/3_lecturas/usuario/mostrar_editar/"
-                        . $idUsuario . "' ><img src='" . base_url()
-                        . "img/modificar.png' width='16' height='16' border='0' title='Modificar Profesor' /></a>";
-                        echo '&nbsp;&nbsp;';
-                        echo "<a href='#' onclick='eliminar_usuario(" . $idUsuario
-                        . ")'><img src='" . base_url()
-                        . "img/eliminar.png' border='0' width='17' height='17' title='Eliminar Profesor' /></a>";
-                        echo '</td>';
-
-                        echo '</tr>';
+                ?>
+                <tr>
+                    <td style="text-align: center"><?=$i?></td>
+                    <td style="text-align: justify"><?=$objeto->USUA_apellidoPaterno?></td>
+                    <td style="text-align: justify"><?=$objeto->USUA_apellidoMaterno?></td>
+                    <td style="text-align: justify"><?=$objeto->USUA_nombres?></td>
+                    <td style="text-align: justify"><?=$objeto->USUA_login?></td>
+                    <td style="text-align: justify"><?=$objeto->ROL_nombre?></td>
+                    <td style="text-align: justify"><?=$objeto->cursos?></td>
+                    <td style="text-align: center"><?=$nombreEstado?></td>
+                    <td style="text-align: center">
+                        <a target="_blank" href="<?=base_url()?>index.php/seguridad/usuario/ver_profesor/<?=$idUsuario?>">
+                            <img src="<?=base_url()?>img/ver.png" width="16" border="0" title="Ver Profesor" />
+                        </a>&nbsp;&nbsp;
+                        <a class="editar_usuario" href="<?=base_url()?>index.php/3_lecturas/usuario/mostrar_editar/<?=$idUsuario?>">
+                            <img src="<?=base_url()?>img/modificar.png" width="16" border="0" title="Editar Profesor" />
+                        </a>&nbsp;&nbsp;
+                <?php
+                    if($objeto->USUA_estado == "AC"){
+                ?>    
+                        <a href="javascript:;" onclick="eliminar_usuario('profesor', <?=$idUsuario?>)">
+                            <img src="<?=base_url()?>img/eliminar.png" width="16" border="0" title="Bloquear Profesor" />
+                        </a>
+                <?php
+                    }else{
+                ?>
+                        <a href="javascript:;" onclick="activar_usuario('profesor', <?=$idUsuario?>)">
+                            <img src="<?=base_url()?>img/aprobar.png" width="16" border="0" title="Activar Profesor" />
+                        </a>
+                <?php
+                    }
+                ?> 
+                    </td>
+                </tr>
+                <?php
                         $i++;
                     }
                 }

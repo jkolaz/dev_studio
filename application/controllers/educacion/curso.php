@@ -8,6 +8,7 @@ class Curso extends CI_Controller {
         $this->load->library('form_validation', 'pagination', 'html');
         $this->load->model('educacion/curso_model');
         $this->load->model('educacion/grado_model');
+        $this->load->model('educacion/asignacion_model', 'Asignacion');
         $this->load->model('educacion/criterio_model', 'criterio');
         $this->load->model('nota/calificacion_model', 'calificacion');
         $this->load->model('seguridad/usuario_model');
@@ -93,23 +94,30 @@ class Curso extends CI_Controller {
         echo json_encode(array('result'=>$result));
     }
 
-    public function editar($idCurso, $idProfesor) {
-        $curso = $this->curso_model->obtener_curso($idCurso);
-        $data['curso'] = $curso[0];
+    public function editar($asig) {
+        $asignado = $this->Asignacion->getAsignado($asig);
+        if($asignado){
+            $idCurso = $asignado[0]->CURS_id;
+            $idProfesor = $asignado[0]->USUA_id;
+            $curso = $this->curso_model->obtener_curso($idCurso);
+            $data['curso'] = $curso[0];
 
-        $listaAlumnos = $this->curso_model->listar_alumnos_por_curso($idCurso);
-        if ($listaAlumnos) {
-            foreach ($listaAlumnos as $alumno) {
-                $idAlumno = $alumno->USUA_id;
-                $comentarios = $this->usuario_model->contar_comentarios_alumno($idAlumno, $idProfesor, $idCurso);
-                $alumno->comentarios = $comentarios[0]->total;
+            $listaAlumnos = $this->curso_model->listar_alumnos_por_curso($idCurso);
+            if ($listaAlumnos) {
+                foreach ($listaAlumnos as $alumno) {
+                    $idAlumno = $alumno->USUA_id;
+                    $comentarios = $this->usuario_model->contar_comentarios_alumno($idAlumno, $idProfesor, $idCurso);
+                    $alumno->comentarios = $comentarios[0]->total;
+                }
             }
-        }
-        
-        $data['listaAlumnos'] = $listaAlumnos;
-        $data['idProfesor'] = $idProfesor;
 
-        $this->layout->view('educacion/curso_notas_editar', $data);
+            $data['listaAlumnos'] = $listaAlumnos;
+            $data['idProfesor'] = $idProfesor;
+
+            $this->layout->view('educacion/curso_notas_editar', $data);
+        }else{
+            echo "<script languaje='javascript' type='text/javascript'>window.close();</script>";
+        }
     }
 
     public function ver_detalle($idUsuario, $idGrado, $idCurso, $idBimestre) {

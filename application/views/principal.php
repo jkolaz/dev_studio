@@ -1,3 +1,10 @@
+<?php
+$objInstancia = get_instance();
+$this->load->model('seguridad/usuario_model');
+
+$objUsuario = $objInstancia->usuario_model->obtener_usuario_por_login($this->session->userdata('login'));
+$idRol = $objUsuario[0]->ROL_id;
+?>
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
@@ -27,7 +34,9 @@
 </ul>
 </div>
 <div class="col-md-8">
-
+<?php
+if($idRol == 5){
+?>
     <div class="row">
         <div class="col-md-4 centro">
             
@@ -115,5 +124,8 @@
             </div>
         
     </div>
+<?php
+}
+?>
 </div>
 </div>

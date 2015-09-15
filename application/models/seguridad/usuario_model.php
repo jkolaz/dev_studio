@@ -203,15 +203,25 @@ class Usuario_Model extends CI_Model {
     }
 
     public function eliminar_usuario($idUsuario) {
+        $update = array();
+        $update['USUA_estado'] = "BL";
+        //$update['USUA_flagActivo'] = "D";
         $this->db->where('USUA_id', $idUsuario);
-        $this->db->delete(self::$tabla);
+        $this->db->update(self::$tabla, $update);
+    }
+    public function activar_usuario($idUsuario) {
+        $update = array();
+        $update['USUA_estado'] = "AC";
+        //$update['USUA_flagActivo'] = "D";
+        $this->db->where('USUA_id', $idUsuario);
+        $this->db->update(self::$tabla, $update);
     }
 
     public function obtener_usuario_por_id($idUsuario) {
         $this->db->where('USUA_id', $idUsuario);
         $this->db->join('rol', 'rol.ROL_id = ' . self::$tabla . '.ROL_id');
-        $this->db->join('grado', 'grado.GRAD_id = ' . self::$tabla . '.GRAD_id');
-        $this->db->join('nivel', 'nivel.NIVE_id = grado.NIVE_id');
+//        $this->db->join('grado', 'grado.GRAD_id = ' . self::$tabla . '.GRAD_id');
+//        $this->db->join('nivel', 'nivel.NIVE_id = grado.NIVE_id');
         $query = $this->db->get(self::$tabla);
         if ($query->num_rows > 0)
             return $query->result();

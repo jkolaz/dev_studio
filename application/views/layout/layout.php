@@ -38,7 +38,7 @@
                        <div style="display:inline; margin-right: 8px; padding-left: 20px;">
                             Institución: <b>Mi Jazmincito</b>
                            </div> 
-                            Usuario: <b><?php echo $this->session->userdata('nombreUsuario') ?></b></td>
+                            Usuario: <b><?=$this->session->userdata('nombreUsuario') ?></b></td>
               
                 <?php echo $content_for_layout ?>
            

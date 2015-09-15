@@ -32,9 +32,15 @@ jQuery(document).ready( function() {
     } );
 } );
 
-function eliminar_usuario(codigo) {
-    if ( confirm('Esta seguro desea eliminar este usuario?') ) {
-        url = base_url + "index.php/seguridad/usuario/eliminar/" + codigo;
+function eliminar_usuario(tipo,codigo) {
+    if ( confirm('Esta seguro desea bloquear este usuario?') ) {
+        url = base_url + "index.php/seguridad/usuario/eliminar/"+tipo+"/" + codigo;
+        location.href = url;
+    }
+}
+function activar_usuario(tipo, codigo) {
+    if ( confirm('Esta seguro desea activar este usuario?') ) {
+        url = base_url + "index.php/seguridad/usuario/activar/"+tipo+"/" + codigo;
         location.href = url;
     }
 }
