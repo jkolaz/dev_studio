@@ -492,6 +492,29 @@ class Usuario extends CI_Controller {
         }
         echo json_encode($datos);
     }
+    
+    public function perfil(){
+        $rol = $this->session->userdata('idRol'); 
+        $user = $this->session->userdata('idUsuario');
+        $objUser = $this->usuario_model->obtener_usuario_por_id($user);
+        $view = 'persona/perfil_index';
+        $edit = 0;
+        if($objUser){
+            $data['usuario'] = $objUser[0];
+            $data['titulo'] = "PERFIL";
+            switch ($rol){
+                case 5:
+                    $view = 'persona/perfil_index_administrador';
+                    $edit = 1;
+                    break;
+                default :
+                    
+            }
+            $this->layout->view($view , $data);
+        }else{
+            redirect('index/principal');
+        }
+    }
 }
 
 ?>
