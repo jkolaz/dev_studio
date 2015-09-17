@@ -76,7 +76,11 @@ class Curso_model extends CI_Model {
         $this->db->where($where)->update('calificacion_detalle', $update);
     }
     
-    public function listar_detalle_notas($idUsuario, $idGrado, $idCurso, $idBimestre) {
+    public function listar_detalle_notas($idUsuario, $idGrado, $idCurso, $idBimestre, $asignado=0) {
+        $sqlCurso = "select * from curso where CURS_id='{$idCurso}'";
+        $queryCurso = $this->db->query($sqlCurso);
+        $row = $queryCurso->result();
+        imprimir($row);
         $sql = "select *
                 from calificacion_detalle a, criterio b
                 where a.USUA_id = $idUsuario
@@ -89,7 +93,7 @@ class Curso_model extends CI_Model {
         if ($query->num_rows > 0){
             return $query->result();
         }else{
-            $idCalificacion = $this->insertar_nota_inicial($idUsuario, $idGrado, $idCurso, $idBimestre);
+            $idCalificacion = $this->insertar_nota_inicial($idUsuario, $idGrado, $idCurso, $idBimestre, $asignado);
             if($idCalificacion > 0){
                 $sql_criterio = "SELECT * FROM `criterio`";
                 $query_criterio = $this->db->query($sql_criterio);
@@ -108,11 +112,14 @@ class Curso_model extends CI_Model {
         }
     }
     
-    public function insertar_nota_inicial($idUsuario, $idGrado, $idCurso, $idBimestre){
+    public function insertar_nota_inicial($idUsuario, $idGrado, $idCurso, $idBimestre, $asignado=0){
         $insert['USUA_id'] = $idUsuario;
         $insert['GRAD_id'] = $idGrado;
         $insert['CURS_id'] = $idCurso;
         $insert['BIME_id'] = $idBimestre;
+        if($asignado > 0){
+            $insert['ASIG_id'] = $asignado;
+        }
         $this->db->insert('calificacion', $insert);
         return $this->db->insert_id();
     }
@@ -140,7 +147,7 @@ class Curso_model extends CI_Model {
         $this->db->where('curso.CURS_id', $curso);
         $this->db->where('curso.CURS_flagActivo', 'A');
         $this->db->where('usuario.USUA_flagActivo', 'A');
-        //$this->db->where('usuario.ROL_id', 2);
+        $this->db->where('usuario.ROL_id', 2);
         $query = $this->db->join('asignado','asignado.CURS_id='.self::$tabla.'.CURS_id')
                     ->join('usuario', 'usuario.USUA_id=asignado.USUA_id')
                     ->get(self::$tabla);

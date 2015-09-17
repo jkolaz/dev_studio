@@ -123,7 +123,7 @@ class Grado extends CI_Controller {
         redirect('seguridad/rol/listar');
     }
     
-    public function getGradoAjax($nivel){
+    public function getGradoAjax($nivel = 0){
         $objGrado = $this->grado_model->listar_grados_por_nivel($nivel);
         $option = '<option value="0">--Seleccione Grado--</option>';
         if(is_array($objGrado)){
@@ -133,20 +133,29 @@ class Grado extends CI_Controller {
         }
         echo $option;
     }
-    public function getCursoGrado($grado){
-        $curso = $this->curso_model->getCursoGrado($grado);
-        $table = "";
-        if(is_array($curso)){
-            $table .= '<td colspan ="2">CURSOS A LLEVAR:<ul>';
-            foreach ($curso as $i=>$value){
-                $table .= '<li>'.  utf8_encode($value->CURS_nombre).'</li>';
-                
+    public function getCursoGrado($grado = 0){
+        $result = 0;
+        if($grado > 0){
+            $curso = $this->curso_model->getCursoGrado($grado);
+            //imprimir($curso);
+            $title = "";
+            $cursos_td = array();
+            if(is_array($curso)){
+                $result = 1;
+                $title = 'CURSOS A LLEVAR:';
+                foreach ($curso as $i=>$value){
+                    $cursos_td[$i]['CURS_id'] = $value->CURS_id;
+                    $cursos_td[$i]['CURS_nombre'] = $value->CURS_nombre;
+                    $cursos_td[$i]['CURS_profesores'] = array();
+                    $cursos_td[$i]['CURS_profesores'] = array();
+                }
+
+            }else{
+                $result = 2;
+                $title = "Seleccione un grado";
             }
-            $table .= '</ul></td>';
-        }else{
-            $table = "<td>Seleccione un grado</td>";
         }
-        echo $table;
+        echo json_encode(array("result"=>$result, "title"=>$title, "cursos"=>$cursos_td));
     }
 }
 ?>

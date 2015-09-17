@@ -92,7 +92,7 @@
                         foreach ($objeto->nota as $nota){
                 ?>
                     <td style="text-align: left">
-                        <a class="ver_nota" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$objeto->USUA_id?>/<?=$objeto->GRAD_id?>/<?=$objeto->CURS_id?>/<?=$nota->BIME_id?>">
+                        <a class="ver_nota" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$objeto->USUA_id?>/<?=$objeto->GRAD_id?>/<?=$objeto->CURS_id?>/<?=$nota->BIME_id?>/<?=$asignado?>">
                             <?=$nota->CALI_parcial1?>
                         </a>
                     </td>

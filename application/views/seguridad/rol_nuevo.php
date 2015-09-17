@@ -15,8 +15,10 @@
             }
         });
         $('#cancelar').click( function(){
-            var url = '<?=base_url()?>index.php/configuracion/criterio';
+            
+            var url = '<?=base_url()?>index.php/seguridad/rol/listar';
             location.href=url;
+            return false;
         }); 
     } );
 </script>

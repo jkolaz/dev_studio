@@ -23,9 +23,33 @@
                 url: "<?=base_url() ?>index.php/educacion/grado/getCursoGrado/"+grado,
                 context: document.body,
                 async: false,
+                dataType: 'json',
                 success: function(html)
                 {
-                    $("#cursos").html(html);
+                    if(html.result > 0){
+                        $("#cursos").html(html.title);
+                        var cursos = html.cursos;
+                        var tabla   = document.createElement("table");
+                        var tblBody = document.createElement("tbody");
+                        for(var cont=0;cont < cursos.length; cont++){
+                            var hilera = document.createElement("tr");
+                            var celda = document.createElement("td");
+                            var nombre =cursos[cont]['CURS_nombre'];
+                            var ul = document.createElement("ul");
+                            var li = document.createElement("li");
+                            //li.appendChild(document.createTextNode('profesor'));
+                            li.innerHTML = "<input type='checkbox' name='dia[]' class='profesor' >profesor";
+                            ul.appendChild(li);
+                            var nombre_td  = document.createTextNode(nombre);
+                            celda.appendChild(nombre_td);
+                            celda.appendChild(ul);
+                            hilera.appendChild(celda);
+                            tblBody.appendChild(hilera);
+                        }
+                        tabla.appendChild(tblBody);
+                        $('#cursos_detalle').html(tabla);
+                        tabla.setAttribute("border", "2");
+                    }
                 }
             });
         });
@@ -70,7 +94,6 @@
                     $(this).attr('style', 'border-color: red;');
                 }
             });
-            
             if(contador > 0){
                 return false;
             }
@@ -114,43 +137,6 @@
                         <td>E-mail :</td>
                         <td><input type="input" name="email" id="email" class="readonly" readonly="readonly"/></td>
                     </tr>
-                    <!--<tr>
-                        <td>Sexo</td>
-                        <td>
-                            <select name="sexo" id="sexo" class="combo" class="require readonly" readonly="readonly" style="background-color: #E8E9EC">
-                                <option value="M">Hombre</option>
-                                <option value="F">Mujer</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            Datos del Padre
-                        </td>
-                        <td>
-                            Datos de la Madre
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>D.N.I :</td>
-                        <td><input type="input" name="padre_dni[0]" id="padre_dni_0" class="require readonly" tipo="PAD" maxlength="8" autocomplete="off" readonly="readonly"/></td>
-                        <td>D.N.I :</td>
-                        <td><input type="input" name="padre_dni[1]" id="padre_dni_1" class="require readonly" tipo="MAD" maxlength="8" autocomplete="off"/></td>
-                    </tr>
-                    <tr>
-                        <td>Nombre del padre</td>
-                        <td><input type="input" name="padre_nombre[0]" id="padre_nombre_0" class="require readonly" readonly="readonly"/></td>
-                        <td>Nombre del madre</td>
-                        <td><input type="input" name="padre_nombre[1]" id="padre_nombre_1" class="require readonly" readonly="readonly"/></td>
-                    </tr>
-                    <tr>
-                        <td>Apellidos del padre</td>
-                        <td><input type="input" name="padre_paterno[0]" id="padre_paterno_0" class="require readonly" readonly="readonly"/>
-                            <input type="input" name="padre_materno[0]" id="padre_materno_0" class="require readonly" readonly="readonly"/></td>
-                        <td>Apellidos del Madre</td>
-                        <td><input type="input" name="padre_paterno[1]" id="padre_paterno_1" class="require readonly" readonly="readonly"/>
-                            <input type="input" name="padre_materno[1]" id="padre_materno_1" class="require readonly" readonly="readonly"/></td>
-                    </tr>-->
                     <tr>
                         <td colspan="4" style="color: #0084E3; font-weight: bold; text-align: center;">GRADO ACADEMICO</td>
                     </tr>
@@ -174,8 +160,12 @@
                             </select>
                         </td>
                     </tr>
-                    <tr id="cursos">
-                        
+                    <tr>
+                        <td id="cursos" colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td id='cursos_detalle'>
+                        </td>
                     </tr>
                     <tr>
                         <td><input type="submit" class="btn add" name="guardar" id="guardar" value="Registrar Matricula"></td>

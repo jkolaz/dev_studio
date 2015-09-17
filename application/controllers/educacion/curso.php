@@ -120,11 +120,11 @@ class Curso extends CI_Controller {
         }
     }
 
-    public function ver_detalle($idUsuario, $idGrado, $idCurso, $idBimestre) {
+    public function ver_detalle($idUsuario, $idGrado, $idCurso, $idBimestre, $asig=0) {
         $this->load->model('matricula/bimestre_model', 'bimestre');
         $bimestre = $this->bimestre->getBimestreById($idBimestre);
         $data['bimestre'] = $bimestre;
-        $listaDetalleNotas = $this->curso_model->listar_detalle_notas($idUsuario, $idGrado, $idCurso, $idBimestre);        
+        $listaDetalleNotas = $this->curso_model->listar_detalle_notas($idUsuario, $idGrado, $idCurso, $idBimestre, $asig);        
         $DETALLE = pasar_lista_a_matriz($listaDetalleNotas, 'CALD_parcial', 'CRIT_id', 'CALD_nota');
         $data['DETALLE'] = $DETALLE;
         $listaCriterios = $this->curso_model->listar_criterios();
@@ -136,12 +136,7 @@ class Curso extends CI_Controller {
         $data['idGrado'] = $idGrado;
         $data['idCurso'] = $idCurso;
         $data['idBimestre'] = $idBimestre;
-//        echo "<pre>";
-//        print_r($DETALLE);
-//        echo "</pre>";
-//        echo "<pre>";
-//        print_r($listaDetalleNotas);
-//        echo "</pre>";
+
         $this->load->view('educacion/notas_detalle_popup', $data);
     }
 

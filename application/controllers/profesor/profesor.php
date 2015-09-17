@@ -44,6 +44,7 @@ class Profesor extends CI_Controller{
                 }
             }
         }
+        $data['asignado'] = $id;
         $curso = $this->Curso->obtener_curso($id);
         $data['titulo'] = $curso[0]->CURS_nombre;
         $data['lista'] = $obCursoAlumno;

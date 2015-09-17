@@ -270,7 +270,7 @@ class Usuario extends CI_Controller {
         $idGrado = $datosAlumno[0]->GRAD_id;
         $data['alumno'] = $datosAlumno[0];
         $listaCursos = $this->curso_model->listar_cursos_por_alumno($idUsuario);
-        
+        imprimir($listaCursos);
         if ($listaCursos) {
             foreach ($listaCursos as $curso) {
                 $idCurso = $curso->CURS_id;
@@ -294,7 +294,7 @@ class Usuario extends CI_Controller {
                 }
             }
         }
-//        imprimir($listaCursos);
+        
         $data['listaCursos'] = $listaCursos;
         $listaDocumentos = $this->documento_model->contar_documentos('A');
         $listaDocumentosEntregados = $this->documento_model->contar_documentos_entregados($idUsuario, $idGrado);
