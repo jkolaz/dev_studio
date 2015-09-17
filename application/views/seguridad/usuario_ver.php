@@ -203,58 +203,45 @@ $idGrado = $alumno->GRAD_id;
                 <tr>
                     <td style="text-align: center;"><?=$i?></td>
                     <td style="text-align: left;"><?=$objeto->CURS_nombre?></td>
-                    <td style="text-align: center;">
+                    <td style="text-align: right;">
                         <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/1" title="<?=  validar_parciales_bimestre($NOTAS, 1)?>">
                             <?=  validar_parciales_bimestre($NOTAS, 1)?>
                         </a>
                     </td>
+                    <td style="text-align: right;">
+                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/2" title="<?=  validar_parciales_bimestre($NOTAS, 2)?>">
+                            <?=  validar_parciales_bimestre($NOTAS, 2)?>
+                        </a>
+                    </td>
+                    <td style="text-align: right;">
+                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/3" title="<?=  validar_parciales_bimestre($NOTAS, 3)?>">
+                            <?=  validar_parciales_bimestre($NOTAS, 3)?>
+                        </a>
+                    </td>
+                    <td style="text-align: right;">
+                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/4" title="<?=  validar_parciales_bimestre($NOTAS, 4)?>">
+                            <?=  validar_parciales_bimestre($NOTAS, 4)?>
+                        </a>
+                    </td>
+                    <td style="text-align: justify; padding-left: 20px;">
+                        <?=$objeto->profesor?>
+                    </td>
+                    <td style="text-align: center;">
+                    <?php
+                    if($objeto->comentarios){
+                    ?>
+                        <a class="ver_comentarios" href="<?=base_url()?>index.php/seguridad/usuario/ver_comentarios/<?=$idAlumno?>/<?=$idProfesor?>/<?=$idGrado?>">
+                            <img src="<?=base_url()?>img/mensajes.png" width="16" height="16" title="Ver los comentarios del profesor" />
+                        </a>
+                    <?php
+                    }
+                    ?>
+                    </td>
+                    <td style="text-align: center">
+                        <?=describir_estado($objeto->CURS_estado)?>
+                    </td>
                 </tr>
                 <?php
-                        echo '<tr>';
-                        echo "<td align='center'>" . $i . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->CURS_nombre) . '</td>';
-
-                        echo "<td align='center'>";
-                        echo "<a class='ver_parciales' href='" . base_url()
-                        . "index.php/educacion/curso/ver_detalle/$idAlumno/$idGrado/$idCurso/1"
-                        . "' title='" . validar_parciales_bimestre($NOTAS, 1) . "'>"
-                        . validar_nota_bimestre($NOTAS, 1) . '</a>';
-                        echo '</td>';
-
-                        echo "<td align='center'>";
-                        echo "<a class='ver_parciales' href='" . base_url()
-                        . "index.php/educacion/curso/ver_detalle/$idAlumno/$idGrado/$idCurso/2"
-                        . "' title='" . validar_parciales_bimestre($NOTAS, 2) . "'>"
-                        . validar_nota_bimestre($NOTAS, 2) . '</a>';
-                        echo '</td>';
-
-                        echo "<td align='center'>";
-                        echo "<a class='ver_parciales' href='" . base_url()
-                        . "index.php/educacion/curso/ver_detalle/$idAlumno/$idGrado/$idCurso/3"
-                        . "' title='" . validar_parciales_bimestre($NOTAS, 3) . "'>"
-                        . validar_nota_bimestre($NOTAS, 3) . '</a>';
-                        echo '</td>';
-
-                        echo "<td align='center'>";
-                        echo "<a class='ver_parciales' href='" . base_url()
-                        . "index.php/educacion/curso/ver_detalle/$idAlumno/$idGrado/$idCurso/4"
-                        . "' title='" . validar_parciales_bimestre($NOTAS, 4) . "'>"
-                        . validar_nota_bimestre($NOTAS, 4) . '</a>';
-                        echo '</td>';
-
-                        echo "<td align='center'>" . $objeto->profesor . '</td>';
-
-                        echo "<td align='center'>";
-                        if ($objeto->comentarios) {
-                            echo "<a class='ver_comentarios' href='" . base_url()
-                            . "index.php/seguridad/usuario/ver_comentarios/$idAlumno/$idProfesor/$idCurso' ><img src='"
-                            . base_url()
-                            . "img/mensajes.png' width='16' height='16' border='0' title='Ver los comentarios del profesor' /></a>";
-                        }
-                        echo '</td>';
-
-                        echo "<td align='center'>" . describir_estado($objeto->CURS_estado) . '</td>';
-                        echo '</tr>';
                         $i++;
                     }
                 }

@@ -55,6 +55,8 @@ class Criterio extends CI_Controller{
                         foreach ($criterio as $value){
                             $objCriterio = $value;
                         }
+                    }else{
+                        redirect('configuracion/criterio');
                     }
                     $action = "editar";
                     $titulo = "Editar Criterio de Evaluación";

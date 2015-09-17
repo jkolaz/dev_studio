@@ -5,19 +5,9 @@
 <script type="text/javascript">
     $(document).ready( function() {
         base_url   = $("#base_url").val();
-        $("#nuevo_rol").fancybox( {
-            'width'          : 700,
-            'height'         : 650,
-            'transitionIn'   : 'elastic',
-            'transitionOut'  : 'elastic',
-            'type'	     : 'iframe'
-        } );
-        $(".editar_rol").fancybox( {
-            'width'          : 700,
-            'height'         : 650,
-            'transitionIn'   : 'elastic',
-            'transitionOut'  : 'elastic',
-            'type'	     : 'iframe'
+        $("#nuevo_rol").click( function() {
+            var url = $(this).attr('href');
+            location.href = url;
         } ); 
         $(".ver_rol").fancybox( {
             'width'          : 700,
@@ -31,7 +21,7 @@
 
 <br><br>
 <div id="botonera">
-    <ul href="<?php echo base_url() ?>index.php/seguridad/rol/mostrar_nuevo" id="nuevo_rol" 
+    <ul href="<?php echo base_url() ?>index.php/seguridad/rol/formulario/nuevo" id="nuevo_rol" 
         class="lista_botones">
         <li id="nuevo"> Agregar Rol </li>
     </ul>
@@ -68,13 +58,25 @@
                             <img src="<?=  base_url()?>img/ver.png" width="16" height="16" border="0" title="Ver Rol">
                         </a>
                         &nbsp;&nbsp;
-                        <a class="editar_rol" href="<?=  base_url()?>index.php/seguridad/rol/mostrar_editar/<?=$idRol?>">
+                        <a class="editar_rol" href="<?=  base_url()?>index.php/seguridad/rol/formulario/editar/<?=$idRol?>">
                             <img src="<?=  base_url()?>img/modificar.png" width="16" height="16" border="0" title="Editar Rol">
                         </a>
                         &nbsp;&nbsp;
-                        <a class="editar_rol" href="#" onclick="eliminar_rol(<?=$idRol?>)">
+                        <?php
+                        if($objeto->ROL_estado == "AC"){
+                        ?>
+                        <a class="editar_rol" href="javascript:;" onclick="eliminar_rol('desactivar', <?=$idRol?>)">
                             <img src="<?=  base_url()?>img/eliminar.png" width="16" height="16" border="0" title="Eliminar Rol">
                         </a>
+                        <?php
+                        }else{
+                        ?>
+                        <a class="editar_rol" href="javascript:;" onclick="eliminar_rol('activar', <?=$idRol?>)">
+                            <img src="<?=  base_url()?>img/aprobar.png" width="16" height="16" border="0" title="Activar Rol">
+                        </a>
+                        <?php
+                        }
+                        ?>
                     </td>
                 </tr>
                 <?php

@@ -13,6 +13,7 @@ class Rol_Model extends CI_Model {
 
     public function listar_roles() {
         $this->db->where('ROL_flagActivo', 'A');
+        $this->db->order_by('ROL_nombre');
         $query = $this->db->get(self::$tabla);
         if ($query->num_rows > 0)
             return $query->result();
@@ -25,7 +26,7 @@ class Rol_Model extends CI_Model {
     }
 
     public function modificar_rol($objeto, $codigo) {
-        $this->db->where('ROL_codigo', $codigo);
+        $this->db->where('ROL_id', $codigo);
         $this->db->update(self::$tabla, $objeto);
     }
 

@@ -36,7 +36,7 @@
             <table class="tabla" id="usuarios">
                 <tbody>
                     <tr>
-                        <td>Nombre Curso:</td>
+                        <td>Criterio de Evaluación:</td>
                         <td><input type="input" name="nombre" id="nombre" class="require" value="<?=$criterio->CRIT_nombre?>"/></td>
                     </tr>
                     <tr>

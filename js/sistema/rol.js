@@ -29,9 +29,13 @@ jQuery(document).ready( function() {
     } );
 } );
 
-function eliminar_rol(codigo) {
-    if ( confirm('Esta seguro desea eliminar este rol?') ) {
-        url = base_url + "index.php/seguridad/rol/eliminar/" + codigo;
+function eliminar_rol(tipo, codigo) {
+    var texto = "Esta seguro desea desactivar este rol?";
+    if(tipo === "activar"){
+        texto = "Esta seguro desea activar este rol?";
+    }
+    if ( confirm(texto) ) {
+        url = base_url + "index.php/seguridad/rol/update/"+tipo+"/" + codigo;
         location.href = url;
     }
 }

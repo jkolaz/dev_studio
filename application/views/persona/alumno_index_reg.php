@@ -105,7 +105,7 @@
 
                         echo "<td align='center'>";
                         echo "<a target='_blank' href='" . base_url()
-                        . "index.php/seguridad/usuario/ver/"
+                        . "index.php/seguridad/usuario/ver_user/"
                         . $idUsuario . "' ><img src='" . base_url()
                         . "img/ver.png' width='16' height='16' border='0' title='Ver Usuario' /></a>";
                         echo '&nbsp;&nbsp;';

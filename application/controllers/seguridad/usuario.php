@@ -252,12 +252,25 @@ class Usuario extends CI_Controller {
 
         $this->load->view('3_lecturas/usuario_nuevo', $data);
     }
-
+    public function ver_user($idUsuario){
+        $datosAlumno = $this->usuario_model->obtener_usuario_por_id($idUsuario);
+        if($datosAlumno){
+            switch ($datosAlumno[0]->ROL_id){
+                case 1:
+                    $this->ver($idUsuario);
+                    break;
+                case 2:
+                    break;
+                default:
+            }
+        }
+    }
     public function ver($idUsuario) {
         $datosAlumno = $this->usuario_model->obtener_usuario_por_id($idUsuario);
         $idGrado = $datosAlumno[0]->GRAD_id;
         $data['alumno'] = $datosAlumno[0];
         $listaCursos = $this->curso_model->listar_cursos_por_alumno($idUsuario);
+        
         if ($listaCursos) {
             foreach ($listaCursos as $curso) {
                 $idCurso = $curso->CURS_id;
@@ -281,9 +294,7 @@ class Usuario extends CI_Controller {
                 }
             }
         }
-//        echo "<pre>";
-//        print_r($listaCursos);
-//        echo "</pre>";
+//        imprimir($listaCursos);
         $data['listaCursos'] = $listaCursos;
         $listaDocumentos = $this->documento_model->contar_documentos('A');
         $listaDocumentosEntregados = $this->documento_model->contar_documentos_entregados($idUsuario, $idGrado);
@@ -504,7 +515,7 @@ class Usuario extends CI_Controller {
             $data['titulo'] = "PERFIL";
             switch ($rol){
                 case 5:
-                    $view = 'persona/perfil_index_administrador';
+                    $view = 'persona/perfil_index';
                     $edit = 1;
                     break;
                 default :

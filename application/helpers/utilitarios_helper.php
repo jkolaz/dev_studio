@@ -443,7 +443,7 @@ if (!function_exists('formar_nombre_reducido')) {
     function formar_nombre_reducido($objPersona) {
         $nombres = $objPersona->USUA_nombres;
         $NOMBRES = explode(' ', $nombres);
-        return utf8_encode($objPersona->USUA_apellidoPaterno . ' '
+        return ($objPersona->USUA_apellidoPaterno . ' '
                         . $objPersona->USUA_apellidoMaterno . ', ' . $NOMBRES[0]);
     }
 
