@@ -10,6 +10,7 @@ class Usuario extends CI_Controller {
         $this->load->model('educacion/curso_model');
         $this->load->model('educacion/documento_model');
         $this->load->model('educacion/nivel_model');
+        $this->load->model('educacion/grado_model', 'GRADO');
         $this->load->library('layout', 'layout');
     }
 
@@ -267,10 +268,25 @@ class Usuario extends CI_Controller {
     }
     public function ver($idUsuario) {
         $datosAlumno = $this->usuario_model->obtener_usuario_por_id($idUsuario);
-        $idGrado = $datosAlumno[0]->GRAD_id;
         $data['alumno'] = $datosAlumno[0];
         $listaCursos = $this->curso_model->listar_cursos_por_alumno($idUsuario);
-        imprimir($datosAlumno[0]);
+        $this->load->model('matricula/gradousuario_model', 'GRADO_USUARIO');
+        $objGradoUsuario = $this->GRADO_USUARIO->getGradoByUsuario($datosAlumno[0]->USUA_id);
+        $objGrado = new stdClass();
+        $objGrado->GRAD_id = 0;
+        $objGrado->GRAD_nombre = "---";
+        $objGrado->NIVE_nombre = "---";
+        $idGrado = 0;
+        if($objGradoUsuario){
+            $objGrado->GRAD_id =$objGradoUsuario[0]->GRAD_id;
+            $objGradoNivel = $this->GRADO->getNivelByGrado($objGradoUsuario[0]->GRAD_id);
+            if($objGradoNivel){
+                $objGrado->GRAD_nombre = $objGradoNivel[0]->GRAD_nombre;
+                $objGrado->NIVE_nombre = $objGradoNivel[0]->NIVE_nombre;
+            }
+        }
+        $data['grado'] = $objGrado;
+        //imprimir($datosAlumno[0]);
         if ($listaCursos) {
             foreach ($listaCursos as $curso) {
                 $idCurso = $curso->CURS_id;

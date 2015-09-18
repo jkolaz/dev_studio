@@ -1,6 +1,6 @@
 <?php
 
-class Grado_Model extends CI_Model {
+class Grado_model extends CI_Model {
 
     private static $tabla = 'grado';
 
@@ -11,6 +11,18 @@ class Grado_Model extends CI_Model {
     }
 
     public function listar_grados() {
+        $this->db->where('GRAD_flagActivo', 'A');
+        $this->db->where('NIVE_flagActivo', 'A');
+        $this->db->join('nivel', 'nivel.NIVE_id = ' . self::$tabla . '.NIVE_id');
+        $this->db->order_by('nivel.NIVE_id, GRAD_numero');
+        $query = $this->db->get(self::$tabla);
+        if ($query->num_rows > 0)
+            return $query->result();
+        return null;
+    }
+    
+    public function getNivelByGrado($id){
+        $this->db->where('GRAD_id', $id);
         $this->db->where('GRAD_flagActivo', 'A');
         $this->db->where('NIVE_flagActivo', 'A');
         $this->db->join('nivel', 'nivel.NIVE_id = ' . self::$tabla . '.NIVE_id');

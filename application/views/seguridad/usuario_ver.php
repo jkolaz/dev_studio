@@ -49,6 +49,11 @@
 <?php
 $idAlumno = $alumno->USUA_id;
 $idGrado = $alumno->GRAD_id;
+$imagen = base_url(). 'fotos/' . $alumno->USUA_login.".jpg";
+$file_headers = @get_headers($imagen);
+if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
+    $imagen = base_url(). 'fotos/nodisponible.jpg';
+}
 ?>
 
 <table width="90%" border="0">
@@ -61,7 +66,7 @@ $idGrado = $alumno->GRAD_id;
                            href="<?php echo base_url() . 'index.php/seguridad/usuario/ver_foto/' . $alumno->USUA_login ?>">
                             <img width="128px"
                                  title="<?php echo formar_nombre_completo($alumno) ?>"
-                                 src="<?php echo base_url() ?>fotos/<?php echo $alumno->USUA_login ?>.jpg" />
+                                 src="<?=$imagen?>" />
                         </a>
                     </td>
                 </tr>
@@ -131,12 +136,12 @@ $idGrado = $alumno->GRAD_id;
                 <tr>
                     <td> Grado </td>
                     <td> : </td>
-                    <td><b> <?php echo $alumno->GRAD_nombre ?> </b></td>
+                    <td><b> <?= $grado->GRAD_nombre ?> </b></td>
                 </tr>
                 <tr>
                     <td> Nivel </td>
                     <td> : </td>
-                    <td><b> <?php echo $alumno->NIVE_nombre ?> </b></td>
+                    <td><b> <?=$grado->NIVE_nombre ?> </b></td>
                 </tr>
                 <tr>
                     <td> Orden de m&eacute;rito </td>
