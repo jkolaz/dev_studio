@@ -17,6 +17,7 @@ class Cursogradousuario_model extends CI_Model{
     public $_USUA_id;
     public $_GRAD_id;
     public $_CURS_id;
+    public $_ASIG_id;
     public function __construct() {
         parent::__construct();
         $this->load->database();
@@ -26,6 +27,7 @@ class Cursogradousuario_model extends CI_Model{
         $insert['USUA_id'] = $this->_USUA_id;
         $insert['GRAD_id'] = $this->_GRAD_id;
         $insert['CURS_id'] = $this->_CURS_id;
+        $insert['ASIG_id'] = $this->_ASIG_id;
         if($this->db->insert(self::$_table, $insert)){
             return 1;
         }

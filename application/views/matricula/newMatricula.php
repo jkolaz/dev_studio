@@ -35,14 +35,14 @@
                             var hilera = document.createElement("tr");
                             var celda = document.createElement("td");
                             var nombre =cursos[cont]['CURS_nombre'];
-                            var ul = document.createElement("ul");
-                            var li = document.createElement("li");
+                            //var ul = document.createElement("ul");
+                            //var li = document.createElement("li");
                             //li.appendChild(document.createTextNode('profesor'));
-                            li.innerHTML = "<input type='checkbox' name='dia[]' class='profesor' >profesor";
-                            ul.appendChild(li);
+                            //li.innerHTML = "<input type='checkbox' name='dia[]' class='profesor' >profesor";
+                            //ul.appendChild(li);
                             var nombre_td  = document.createTextNode(nombre);
                             celda.appendChild(nombre_td);
-                            celda.appendChild(ul);
+                            //celda.appendChild(ul);
                             hilera.appendChild(celda);
                             tblBody.appendChild(hilera);
                         }

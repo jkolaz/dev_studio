@@ -16,7 +16,9 @@ class Matricula extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->load->library('layout', 'layout');
+        $this->load->helper(array('url', 'form', 'utilitarios'));
         $this->load->model('educacion/nivel_model', 'Nivel');
+        $this->load->model('educacion/asignacion_model', 'ASIGNACION');
         $this->load->model('matricula/cursogrado_model', 'GradoUsuario');
         $this->siLogin();
     }
@@ -50,6 +52,11 @@ class Matricula extends CI_Controller{
                 $BIMESTRE = $this->BIMESTRE;
                 $CALIFICACION = $this->CALIFICACION;
                 foreach ($listCurso as $val){
+                    $objAsignacion = $this->ASIGNACION->getAsignadoByCurso($val->CURS_id);
+                    $CURSOGRADOUSUARIO->_ASIG_id = 0;
+                    if($objAsignacion){
+                        $CURSOGRADOUSUARIO->_ASIG_id = $objAsignacion[0]->ASIG_id;
+                    }
                     $CURSOGRADOUSUARIO->_USUA_id = $post['alu_id'];
                     $CURSOGRADOUSUARIO->_GRAD_id = $post['grado'];
                     $CURSOGRADOUSUARIO->_CURS_id = $val->CURS_id;

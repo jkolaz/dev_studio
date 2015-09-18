@@ -45,4 +45,13 @@ class Asignacion_model extends CI_Model{
     public function insertarAsignacionMasivo($data) {
         $this->db->insert_batch(self::$tabla, $data);
     }
+    public function getAsignadoByCurso($id){
+        $this->db->where('CURS_id', $id);
+        $this->db->where('ASIG_flagActivo', 'A');
+        $query = $this->db->get(self::$tabla, 1);
+        if($query->num_rows > 0){
+            return $query->result();
+        }
+        return false;
+    }
 }

@@ -270,7 +270,7 @@ class Usuario extends CI_Controller {
         $idGrado = $datosAlumno[0]->GRAD_id;
         $data['alumno'] = $datosAlumno[0];
         $listaCursos = $this->curso_model->listar_cursos_por_alumno($idUsuario);
-        imprimir($listaCursos);
+        imprimir($datosAlumno[0]);
         if ($listaCursos) {
             foreach ($listaCursos as $curso) {
                 $idCurso = $curso->CURS_id;
