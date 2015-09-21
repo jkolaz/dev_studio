@@ -209,22 +209,22 @@ if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
                     <td style="text-align: center;"><?=$i?></td>
                     <td style="text-align: left;"><?=$objeto->CURS_nombre?></td>
                     <td style="text-align: right;">
-                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/1" title="<?=  validar_parciales_bimestre($NOTAS, 1)?>">
+                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/1/<?=$objeto->ASIG_id?>" title="<?=  validar_parciales_bimestre($NOTAS, 1)?>">
                             <?=  validar_parciales_bimestre($NOTAS, 1)?>
                         </a>
                     </td>
                     <td style="text-align: right;">
-                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/2" title="<?=  validar_parciales_bimestre($NOTAS, 2)?>">
+                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/2/<?=$objeto->ASIG_id?>" title="<?=  validar_parciales_bimestre($NOTAS, 2)?>">
                             <?=  validar_parciales_bimestre($NOTAS, 2)?>
                         </a>
                     </td>
                     <td style="text-align: right;">
-                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/3" title="<?=  validar_parciales_bimestre($NOTAS, 3)?>">
+                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/3/<?=$objeto->ASIG_id?>" title="<?=  validar_parciales_bimestre($NOTAS, 3)?>">
                             <?=  validar_parciales_bimestre($NOTAS, 3)?>
                         </a>
                     </td>
                     <td style="text-align: right;">
-                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/4" title="<?=  validar_parciales_bimestre($NOTAS, 4)?>">
+                        <a class="ver_parciales" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$idAlumno?>/<?=$idGrado?>/<?=$idCurso?>/4/<?=$objeto->ASIG_id?>" title="<?=  validar_parciales_bimestre($NOTAS, 4)?>">
                             <?=  validar_parciales_bimestre($NOTAS, 4)?>
                         </a>
                     </td>

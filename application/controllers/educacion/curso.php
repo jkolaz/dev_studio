@@ -121,6 +121,13 @@ class Curso extends CI_Controller {
     }
 
     public function ver_detalle($idUsuario, $idGrado, $idCurso, $idBimestre, $asig=0) {
+        if($asig > 0){
+            $objAsignacion = $this->Asignacion->getAsignado($asig);
+            if($objAsignacion){
+                $criterios = $objAsignacion[0]->ASIG_criterio;
+                imprimir(json_decode($criterios));
+            }
+        }
         $this->load->model('matricula/bimestre_model', 'bimestre');
         $bimestre = $this->bimestre->getBimestreById($idBimestre);
         $data['bimestre'] = $bimestre;

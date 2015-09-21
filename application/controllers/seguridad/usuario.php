@@ -306,11 +306,11 @@ class Usuario extends CI_Controller {
                 }else{
                     $curso->comentarios = 0;
                     $curso->profesor = "";
-                    $curso->notas = array();
+                    $curso->notas = array("hola"=>"hola");
                 }
             }
         }
-        
+        imprimir($listaCursos);
         $data['listaCursos'] = $listaCursos;
         $listaDocumentos = $this->documento_model->contar_documentos('A');
         $listaDocumentosEntregados = $this->documento_model->contar_documentos_entregados($idUsuario, $idGrado);

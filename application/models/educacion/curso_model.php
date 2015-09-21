@@ -80,7 +80,9 @@ class Curso_model extends CI_Model {
         $sqlCurso = "select * from curso where CURS_id='{$idCurso}'";
         $queryCurso = $this->db->query($sqlCurso);
         $row = $queryCurso->result();
-        imprimir($row);
+        //imprimir($row);
+        $where = "";
+        
         $sql = "select *
                 from calificacion_detalle a, criterio b
                 where a.USUA_id = $idUsuario
@@ -117,6 +119,7 @@ class Curso_model extends CI_Model {
         $insert['GRAD_id'] = $idGrado;
         $insert['CURS_id'] = $idCurso;
         $insert['BIME_id'] = $idBimestre;
+        $insert['CALI_fechaRegistro'] = date('Y-m-d H:i:s');
         if($asignado > 0){
             $insert['ASIG_id'] = $asignado;
         }
@@ -130,6 +133,7 @@ class Curso_model extends CI_Model {
         $insert['BIME_id'] = $idBimestre;
         $insert['CALI_id'] = $idCalificacion;
         $insert['CRIT_id'] = $idCriterio;
+        $insert['CALD_fechaRegistro'] = date('Y-m-d H:i:s');
         $this->db->insert('calificacion_detalle', $insert);
         return $this->db->insert_id();
     }
