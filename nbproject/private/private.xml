@@ -6,12 +6,13 @@
             <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/educacion/curso.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/models/educacion/curso_model.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/views/configuracion/form_criterio.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/config/database.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/configuracion/criterio.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/configuracion/criterio_index.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/models/educacion/criterio_model.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/views/configuracion/criterio_index.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/profesor/profesor.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/configuracion/configuracion.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/educacion/curso_nuevo.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/config/config.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/matricula/matricula.php</file>
         </group>
     </open-files>
 </project-private>
