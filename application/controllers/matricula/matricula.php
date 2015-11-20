@@ -20,9 +20,11 @@ class Matricula extends CI_Controller{
         $this->load->model('educacion/nivel_model', 'Nivel');
         $this->load->model('educacion/asignacion_model', 'ASIGNACION');
         $this->load->model('matricula/cursogrado_model', 'GradoUsuario');
+        $this->load->model('configuracion/tipo_matricula_model', 'TIPO_MATRICULA');
         $this->siLogin();
     }
     public function newMatricula(){
+        $data['tipo_matricula'] = $this->TIPO_MATRICULA->getTipoMatricula();
         $data['nivel'] = $this->Nivel->listar_niveles();
         $data['action'] = "matricula/matricula/insertMatricula";
         $data['titulo'] = 'REGISTRO DE  MATRICULA';
@@ -39,6 +41,7 @@ class Matricula extends CI_Controller{
         $OBGRADOUSUARIO->_GRAD_id = $post['grado'];
         $OBGRADOUSUARIO->_GXUS_anhoReferencia = date('Y');
         $OBGRADOUSUARIO->_ANIO_id = $anio_actual[0]->ANI_id;
+        $OBGRADOUSUARIO->_tm_id = $post['tipo_matricula'];
         if($OBGRADOUSUARIO->verificar() > 0){
             if($OBGRADOUSUARIO->insertar() == 1){
                 /* curso_x_grado_x_usuario*/

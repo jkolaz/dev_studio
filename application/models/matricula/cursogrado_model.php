@@ -20,6 +20,7 @@ class Cursogrado_model extends CI_Model{
     public $_GXUS_anhoReferencia;
     public $_GXUS_aula = "UNICO";
     public $_ANIO_id;
+    public $_tm_id;
     public function __construct() {
         parent::__construct();
         $this->load->database();
@@ -32,6 +33,7 @@ class Cursogrado_model extends CI_Model{
         $insert['GXUS_aula'] = $this->_GXUS_aula;
         $insert['ANIO_id'] = $this->_ANIO_id;
         $insert['GXUS_anhoReferencia'] = $this->_GXUS_anhoReferencia;
+        $insert['tm_id'] = $this->_tm_id;
         if($this->db->insert(self::$_table, $insert)){
             return 1;
         }

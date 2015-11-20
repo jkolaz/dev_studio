@@ -118,6 +118,21 @@
             <table class="tabla" id="usuarios">
                 <tbody>
                     <tr>
+                        <td>Tipo Matricula</td>
+                        <td>
+                            <select name="tipo_matricula" id="tipo_matricula" class="require">
+                                <option value="">--Seleccione Tipo Matricula--</option>
+                                <?php
+                                foreach ($tipo_matricula as $value){
+                                ?>
+                                <option value="<?=$value->tm_id?>"><?=$value->tm_nombre?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>D.N.I. :</td>
                         <td>
                             <input type="input" name="dni" id="dni" class="require relacion" maxlength="8" tipo="ALU"/>
