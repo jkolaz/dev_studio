@@ -29,11 +29,11 @@
         <script>
             $(document).ready( function(){
                 var nota = 0;
-                var criterio = 10;
+                var criterio = 5;
                 $('.criterio').each( function(index, value){
                     nota += parseFloat($(this).val());
                 });
-                $('#prom').val((nota/criterio).toFixed(2));
+                $('#prom').val(Math.round((nota/criterio).toFixed(2)));
                 $('.criterio').keypress( function(e){
                     //alert(e.which);
                     if(e.which < 8){
@@ -49,6 +49,20 @@
                     }else if(e.which > 110 && e.which > 190){
                         return false;
                     }else if(e.which > 190){
+                        return false;
+                    }
+                });
+                
+                $('#btn').click(function(){
+                    var contador = 0;
+                    $('.criterio').each( function(index, value){
+                        if($(this).val() < 0 || $(this).val() > 20){
+                            contador ++;
+                            $('#criterio_'+$(this).attr('id_nota')).attr('style', 'border-color: red; width: 40px;');
+                        }
+                        
+                    });
+                    if(contador > 0){
                         return false;
                     }
                 });
@@ -98,7 +112,7 @@
                         <?php
                         if($value->CALD_estado == 1){
                         ?>
-                        <input type="text" class="criterio" name="criterio[<?=$value->CALD_id?>]" id="criterio_<?=$value->CALD_id?>" value="<?=$value->CALD_nota?>" style="width: 40px;"/>
+                        <input type="text" class="criterio" id_nota="<?=$value->CALD_id?>" name="criterio[<?=$value->CALD_id?>]" id="criterio_<?=$value->CALD_id?>" value="<?=$value->CALD_nota?>" style="width: 40px;"/>
                         <?php    
                         }else{
                             echo $value->CALD_nota;

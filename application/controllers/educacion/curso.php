@@ -125,7 +125,7 @@ class Curso extends CI_Controller {
             $objAsignacion = $this->Asignacion->getAsignado($asig);
             if($objAsignacion){
                 $criterios = $objAsignacion[0]->ASIG_criterio;
-                imprimir(json_decode($criterios));
+                //imprimir(json_decode($criterios));
             }
         }
         $this->load->model('matricula/bimestre_model', 'bimestre');

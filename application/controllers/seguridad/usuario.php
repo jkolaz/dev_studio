@@ -310,7 +310,7 @@ class Usuario extends CI_Controller {
                 }
             }
         }
-        imprimir($listaCursos);
+        //imprimir($listaCursos);
         $data['listaCursos'] = $listaCursos;
         $listaDocumentos = $this->documento_model->contar_documentos('A');
         $listaDocumentosEntregados = $this->documento_model->contar_documentos_entregados($idUsuario, $idGrado);
