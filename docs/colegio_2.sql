@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.7
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 15-09-2015 a las 12:30:09
--- Versión del servidor: 5.6.23
--- Versión de PHP: 5.4.31
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 23-02-2016 a las 12:40:38
+-- Versión del servidor: 5.6.21
+-- Versión de PHP: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `bvtyslko_edusoft_end_1`
+-- Base de datos: `colegio_2`
 --
 
 -- --------------------------------------------------------
@@ -27,16 +27,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `anio` (
-  `ANI_id` int(11) NOT NULL AUTO_INCREMENT,
+`ANI_id` int(11) NOT NULL,
   `ANI_inicio_clases` date NOT NULL,
   `ANI_fin_clases` date NOT NULL,
   `ANI_inicio_matricula` date NOT NULL,
   `ANI_estado` enum('0','1') NOT NULL DEFAULT '1',
   `ANI_fecha_reg` datetime NOT NULL,
   `ANI_fecha_mod` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `ANI_desc` varchar(40) NOT NULL,
-  PRIMARY KEY (`ANI_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `ANI_desc` varchar(40) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `anio`
@@ -53,7 +52,7 @@ INSERT INTO `anio` (`ANI_id`, `ANI_inicio_clases`, `ANI_fin_clases`, `ANI_inicio
 --
 
 CREATE TABLE IF NOT EXISTS `asignado` (
-  `ASIG_id` int(11) NOT NULL AUTO_INCREMENT,
+`ASIG_id` int(11) NOT NULL,
   `CURS_id` int(11) NOT NULL,
   `USUA_id` int(11) NOT NULL,
   `ASIG_horasNominales` int(11) NOT NULL,
@@ -62,9 +61,8 @@ CREATE TABLE IF NOT EXISTS `asignado` (
   `ASIG_estado` char(2) NOT NULL DEFAULT 'AC',
   `ASIG_fechaRegistro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ASIG_usuarioRegistro` varchar(20) NOT NULL,
-  `ASIG_criterio` text NOT NULL,
-  PRIMARY KEY (`ASIG_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=70 ;
+  `ASIG_criterio` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `asignado`
@@ -72,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `asignado` (
 
 INSERT INTO `asignado` (`ASIG_id`, `CURS_id`, `USUA_id`, `ASIG_horasNominales`, `ASIG_horasReales`, `ASIG_flagActivo`, `ASIG_estado`, `ASIG_fechaRegistro`, `ASIG_usuarioRegistro`, `ASIG_criterio`) VALUES
 (21, 1, 107, 0, 0, 'A', 'AC', '2015-09-14 15:56:59', '', ''),
-(22, 2, 107, 0, 0, 'A', 'AC', '2015-09-14 15:57:24', '', '["1","2","3","4","5"]'),
+(22, 2, 107, 0, 0, 'A', 'AC', '2015-09-14 15:57:24', '', '["2","3","4","5","1"]'),
 (23, 3, 107, 0, 0, 'A', 'AC', '2015-09-14 15:57:57', '', ''),
 (24, 4, 107, 0, 0, 'A', 'AC', '2015-09-14 15:58:56', '', ''),
 (25, 5, 107, 0, 0, 'A', 'AC', '2015-09-14 15:59:34', '', ''),
@@ -127,12 +125,11 @@ INSERT INTO `asignado` (`ASIG_id`, `CURS_id`, `USUA_id`, `ASIG_horasNominales`, 
 --
 
 CREATE TABLE IF NOT EXISTS `bimestre` (
-  `BIME_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`BIME_id` int(10) unsigned NOT NULL,
   `BIME_nombre` varchar(20) NOT NULL,
   `BIME_abreviatura` varchar(5) NOT NULL,
-  `BIME_orden` int(11) NOT NULL,
-  PRIMARY KEY (`BIME_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `BIME_orden` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `bimestre`
@@ -151,16 +148,17 @@ INSERT INTO `bimestre` (`BIME_id`, `BIME_nombre`, `BIME_abreviatura`, `BIME_orde
 --
 
 CREATE TABLE IF NOT EXISTS `calificacion` (
-  `CALI_id` int(11) NOT NULL AUTO_INCREMENT,
+`CALI_id` int(11) NOT NULL,
   `USUA_id` int(11) NOT NULL,
+  `ASIG_id` int(10) NOT NULL DEFAULT '0',
   `GRAD_id` int(11) NOT NULL,
   `CURS_id` int(11) NOT NULL,
   `BIME_id` int(11) NOT NULL,
   `CALI_parcial1` decimal(10,2) NOT NULL DEFAULT '0.00',
   `CALI_parcial2` decimal(10,2) NOT NULL DEFAULT '0.00',
   `CALI_estado` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`CALI_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `CALI_fechaRegistro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -169,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `calificacion` (
 --
 
 CREATE TABLE IF NOT EXISTS `calificacion_detalle` (
-  `CALD_id` int(11) NOT NULL AUTO_INCREMENT,
+`CALD_id` int(11) NOT NULL,
   `CALI_id` int(11) NOT NULL,
   `USUA_id` int(11) NOT NULL,
   `GRAD_id` int(11) NOT NULL,
@@ -179,9 +177,8 @@ CREATE TABLE IF NOT EXISTS `calificacion_detalle` (
   `CALD_parcial` int(11) NOT NULL DEFAULT '0',
   `CALD_nota` decimal(10,2) NOT NULL DEFAULT '0.00',
   `CALD_estado` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`CALD_id`),
-  KEY `CALI_id` (`CALI_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `CALD_fechaRegistro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -190,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `calificacion_detalle` (
 --
 
 CREATE TABLE IF NOT EXISTS `comentario` (
-  `COME_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`COME_id` int(10) unsigned NOT NULL,
   `COME_titulo` varchar(50) DEFAULT NULL,
   `COME_texto` varchar(500) NOT NULL,
   `COME_fechaRegistro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -202,11 +199,8 @@ CREATE TABLE IF NOT EXISTS `comentario` (
   `COME_fechaEliminacion` datetime DEFAULT NULL,
   `COME_usuarioEliminacion` varchar(20) DEFAULT NULL,
   `COME_estado` char(2) NOT NULL DEFAULT 'AC',
-  `COME_flagActivo` char(1) NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`COME_id`),
-  KEY `fk_comentario_usuario1` (`USUA_idDestino`),
-  KEY `fk_comentario_usuario2` (`USUA_idRegistro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `COME_flagActivo` char(1) NOT NULL DEFAULT 'A'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -220,8 +214,7 @@ CREATE TABLE IF NOT EXISTS `comentario_edicion` (
   `CEDI_fechaEdicion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `CEDI_usuarioEdicion` varchar(20) NOT NULL,
   `CEDI_estado` char(2) NOT NULL DEFAULT 'AC',
-  `CEDI_flagActivo` char(1) NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`COME_id`,`CEDI_edicion`)
+  `CEDI_flagActivo` char(1) NOT NULL DEFAULT 'A'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -231,11 +224,10 @@ CREATE TABLE IF NOT EXISTS `comentario_edicion` (
 --
 
 CREATE TABLE IF NOT EXISTS `criterio` (
-  `CRIT_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`CRIT_id` int(10) unsigned NOT NULL,
   `CRIT_nombre` varchar(50) NOT NULL,
-  `CRIT_abreviatura` varchar(20) NOT NULL,
-  PRIMARY KEY (`CRIT_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `CRIT_abreviatura` varchar(20) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `criterio`
@@ -255,7 +247,7 @@ INSERT INTO `criterio` (`CRIT_id`, `CRIT_nombre`, `CRIT_abreviatura`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `cuota` (
-  `CUOT_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`CUOT_id` int(10) unsigned NOT NULL,
   `CUOT_numero` int(11) NOT NULL,
   `CUOT_anhoMesReferencia` char(6) NOT NULL,
   `CUOT_monto` double DEFAULT NULL,
@@ -269,9 +261,8 @@ CREATE TABLE IF NOT EXISTS `cuota` (
   `CUOT_fechaEliminacion` datetime DEFAULT NULL,
   `CUOT_usuarioEliminacion` varchar(20) DEFAULT NULL,
   `CUOT_estado` char(2) NOT NULL DEFAULT 'AC',
-  `CUOT_flagActivo` char(1) NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`CUOT_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `CUOT_flagActivo` char(1) NOT NULL DEFAULT 'A'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -280,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `cuota` (
 --
 
 CREATE TABLE IF NOT EXISTS `curso` (
-  `CURS_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`CURS_id` int(10) unsigned NOT NULL,
   `CURS_nombre` varchar(100) NOT NULL,
   `CURS_abreviatura` varchar(30) NOT NULL,
   `CURS_horas` int(11) NOT NULL,
@@ -291,10 +282,8 @@ CREATE TABLE IF NOT EXISTS `curso` (
   `CURS_usuarioModificacion` varchar(20) DEFAULT NULL,
   `CURS_estado` char(2) NOT NULL DEFAULT 'AC',
   `CURS_flagActivo` char(1) NOT NULL DEFAULT 'A',
-  `GRAD_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`CURS_id`),
-  KEY `fk_curso_grado1` (`GRAD_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
+  `GRAD_id` int(10) unsigned NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `curso`
@@ -357,14 +346,14 @@ INSERT INTO `curso` (`CURS_id`, `CURS_nombre`, `CURS_abreviatura`, `CURS_horas`,
 --
 
 CREATE TABLE IF NOT EXISTS `curso_x_grado_x_usuario` (
-  `CGU_id` int(10) unsigned NOT NULL,
+`CGU_id` int(10) unsigned NOT NULL,
   `USUA_id` int(10) unsigned NOT NULL,
   `GRAD_id` int(10) unsigned NOT NULL,
   `CURS_id` int(10) unsigned NOT NULL,
   `CGU_cant` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`CGU_id`),
-  KEY `fk_curso_x_grado_usuario_curso1` (`CURS_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+  `ASIG_id` int(10) NOT NULL DEFAULT '0',
+  `CGU_stado` int(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -373,12 +362,11 @@ CREATE TABLE IF NOT EXISTS `curso_x_grado_x_usuario` (
 --
 
 CREATE TABLE IF NOT EXISTS `documento` (
-  `DOCU_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`DOCU_id` int(10) unsigned NOT NULL,
   `DOCU_nombre` varchar(200) NOT NULL,
   `DOCU_tipo` char(1) NOT NULL,
-  `DOCU_flagActivo` char(1) NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`DOCU_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+  `DOCU_flagActivo` char(1) NOT NULL DEFAULT 'A'
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `documento`
@@ -404,13 +392,12 @@ INSERT INTO `documento` (`DOCU_id`, `DOCU_nombre`, `DOCU_tipo`, `DOCU_flagActivo
 --
 
 CREATE TABLE IF NOT EXISTS `documento_x_entregar` (
-  `DXEN_id` int(11) NOT NULL AUTO_INCREMENT,
+`DXEN_id` int(11) NOT NULL,
   `USUA_id` int(10) NOT NULL,
   `CURS_id` int(10) NOT NULL,
   `DOCU_id` int(10) NOT NULL,
-  `DXEN_fechaEntrega` datetime DEFAULT NULL,
-  PRIMARY KEY (`DXEN_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `DXEN_fechaEntrega` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -422,9 +409,7 @@ CREATE TABLE IF NOT EXISTS `documento_x_grado_x_usuario` (
   `USUA_id` int(10) unsigned NOT NULL,
   `GRAD_id` int(10) unsigned NOT NULL,
   `DOCU_id` int(10) unsigned NOT NULL,
-  `DXGU_fechaEntrega` datetime NOT NULL,
-  PRIMARY KEY (`USUA_id`,`GRAD_id`,`DOCU_id`),
-  KEY `fk_documento_entregado_documento1` (`DOCU_id`)
+  `DXGU_fechaEntrega` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -434,7 +419,7 @@ CREATE TABLE IF NOT EXISTS `documento_x_grado_x_usuario` (
 --
 
 CREATE TABLE IF NOT EXISTS `grado` (
-  `GRAD_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`GRAD_id` int(10) unsigned NOT NULL,
   `GRAD_nombre` varchar(50) NOT NULL,
   `GRAD_abreviatura` varchar(20) NOT NULL,
   `GRAD_numero` int(11) DEFAULT NULL,
@@ -451,10 +436,8 @@ CREATE TABLE IF NOT EXISTS `grado` (
   `GRAD_usuarioEliminacion` varchar(20) DEFAULT NULL,
   `GRAD_estado` char(2) NOT NULL DEFAULT 'AC',
   `GRAD_flagActivo` char(1) NOT NULL DEFAULT 'A',
-  `NIVE_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`GRAD_id`),
-  KEY `fk_grado_nivel1` (`NIVE_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+  `NIVE_id` int(10) unsigned NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `grado`
@@ -480,17 +463,15 @@ INSERT INTO `grado` (`GRAD_id`, `GRAD_nombre`, `GRAD_abreviatura`, `GRAD_numero`
 --
 
 CREATE TABLE IF NOT EXISTS `grado_x_usuario` (
-  `USUA_id` int(10) unsigned NOT NULL,
-  `GRAD_id` int(10) unsigned NOT NULL,
-  `GXUS_estado` char(2) NOT NULL DEFAULT 'AC',
+`GXU_id` int(11) NOT NULL,
+  `USUA_id` int(11) NOT NULL,
+  `GRAD_id` int(11) NOT NULL,
+  `GXUS_estado` varchar(2) CHARACTER SET utf8 NOT NULL DEFAULT 'AC',
   `GXUS_anhoReferencia` int(11) NOT NULL,
-  `GXUS_aula` varchar(20) DEFAULT NULL,
+  `GXUS_aula` varchar(20) CHARACTER SET utf8 NOT NULL,
   `ANIO_id` int(11) NOT NULL,
-  PRIMARY KEY (`USUA_id`,`GRAD_id`,`ANIO_id`),
-  KEY `fk_grado_x_usuario_usuario1` (`USUA_id`),
-  KEY `fk_grado_x_usuario_grado1` (`GRAD_id`),
-  KEY `ANIO_id` (`ANIO_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `tm_id` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf16;
 
 -- --------------------------------------------------------
 
@@ -499,16 +480,15 @@ CREATE TABLE IF NOT EXISTS `grado_x_usuario` (
 --
 
 CREATE TABLE IF NOT EXISTS `menu` (
-  `MENU_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`MENU_id` int(10) unsigned NOT NULL,
   `MENU_nombre` varchar(50) NOT NULL,
   `MENU_ruta` varchar(500) DEFAULT NULL,
   `MENU_idPadre` int(10) unsigned NOT NULL DEFAULT '0',
   `MENU_fechaRegistro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `MENU_flagActivo` char(1) NOT NULL DEFAULT 'A',
   `MENU_orden` int(11) DEFAULT NULL,
-  `MENU_estado` varchar(1) CHARACTER SET utf8 NOT NULL DEFAULT '1',
-  PRIMARY KEY (`MENU_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
+  `MENU_estado` varchar(1) CHARACTER SET utf8 NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `menu`
@@ -539,7 +519,8 @@ INSERT INTO `menu` (`MENU_id`, `MENU_nombre`, `MENU_ruta`, `MENU_idPadre`, `MENU
 (47, 'Estudiantes Matriculados', 'seguridad/usuario/estudiante/M', 3, '2015-06-15 20:36:39', 'A', NULL, '1'),
 (48, 'Configuración', NULL, 0, '2015-06-19 20:29:37', 'D', NULL, '1'),
 (49, 'Año Escolar', 'configuracion/configuracion/getAnioEscolar', 1, '2015-06-19 20:29:37', 'A', NULL, '1'),
-(50, 'Rol', 'seguridad/rol', 1, '2015-09-14 14:44:58', 'D', NULL, '1');
+(50, 'Rol', 'seguridad/rol', 1, '2015-09-14 14:44:58', 'D', NULL, '1'),
+(51, 'Tipo de matricula', 'configuracion/tipo_matricula', 1, '2015-11-20 03:11:02', 'A', NULL, '1');
 
 -- --------------------------------------------------------
 
@@ -548,7 +529,7 @@ INSERT INTO `menu` (`MENU_id`, `MENU_nombre`, `MENU_ruta`, `MENU_idPadre`, `MENU
 --
 
 CREATE TABLE IF NOT EXISTS `nivel` (
-  `NIVE_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`NIVE_id` int(10) unsigned NOT NULL,
   `NIVE_nombre` varchar(50) NOT NULL,
   `NIVE_abreviatura` varchar(20) NOT NULL,
   `NIVE_alumnos` int(11) DEFAULT '0',
@@ -564,9 +545,8 @@ CREATE TABLE IF NOT EXISTS `nivel` (
   `NIVE_fechaEliminacion` datetime DEFAULT NULL,
   `NIVE_usuarioEliminacion` varchar(20) DEFAULT NULL,
   `NIVE_estado` char(2) NOT NULL DEFAULT 'AC',
-  `NIVE_flagActivo` char(1) NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`NIVE_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+  `NIVE_flagActivo` char(1) NOT NULL DEFAULT 'A'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `nivel`
@@ -594,9 +574,7 @@ CREATE TABLE IF NOT EXISTS `pago` (
   `PAGO_fechaRegistro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `PAGO_usuarioRegistro` varchar(20) NOT NULL,
   `PAGO_fechaPago` datetime DEFAULT NULL,
-  `PAGO_estado` char(2) NOT NULL DEFAULT 'PE',
-  PRIMARY KEY (`USUA_id`,`CUOT_id`),
-  KEY `fk_cuota_x_alumno_cuota1` (`CUOT_id`)
+  `PAGO_estado` char(2) NOT NULL DEFAULT 'PE'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -606,16 +584,15 @@ CREATE TABLE IF NOT EXISTS `pago` (
 --
 
 CREATE TABLE IF NOT EXISTS `panel` (
-  `PAN_id` int(11) NOT NULL AUTO_INCREMENT,
+`PAN_id` int(11) NOT NULL,
   `PAN_nombre` varchar(20) NOT NULL,
   `PAN_url` text NOT NULL,
   `PAN_image` text,
   `PAN_permanente` enum('0','1') NOT NULL DEFAULT '0',
   `PAN_estado` enum('0','1') NOT NULL DEFAULT '1',
   `PAN_fecha_reg` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `PAN_fecha_mod` datetime NOT NULL,
-  PRIMARY KEY (`PAN_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+  `PAN_fecha_mod` datetime NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `panel`
@@ -640,9 +617,7 @@ CREATE TABLE IF NOT EXISTS `pariente` (
   `USUA_idHijo` int(10) unsigned NOT NULL,
   `USUA_idPadre` int(10) unsigned NOT NULL,
   `PARI_tipo` varchar(3) NOT NULL DEFAULT 'PAD',
-  `PARI_flagActivo` char(1) NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`USUA_idHijo`,`USUA_idPadre`),
-  KEY `fk_pariente_usuario2` (`USUA_idPadre`)
+  `PARI_flagActivo` char(1) NOT NULL DEFAULT 'A'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -692,7 +667,13 @@ INSERT INTO `pariente` (`USUA_idHijo`, `USUA_idPadre`, `PARI_tipo`, `PARI_flagAc
 (101, 102, 'PAD', 'A'),
 (101, 103, 'MAD', 'A'),
 (104, 105, 'PAD', 'A'),
-(104, 106, 'MAD', 'A');
+(104, 106, 'MAD', 'A'),
+(115, 116, 'PAD', 'A'),
+(115, 117, 'MAD', 'A'),
+(118, 119, 'PAD', 'A'),
+(118, 120, 'MAD', 'A'),
+(121, 122, 'PAD', 'A'),
+(121, 123, 'MAD', 'A');
 
 -- --------------------------------------------------------
 
@@ -703,9 +684,7 @@ INSERT INTO `pariente` (`USUA_idHijo`, `USUA_idPadre`, `PARI_tipo`, `PARI_flagAc
 CREATE TABLE IF NOT EXISTS `permiso` (
   `ROL_id` int(10) unsigned NOT NULL,
   `MENU_id` int(10) unsigned NOT NULL,
-  `PERM_flagActivo` char(1) NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`ROL_id`,`MENU_id`),
-  KEY `fk_permiso_menu1_idx` (`MENU_id`)
+  `PERM_flagActivo` char(1) NOT NULL DEFAULT 'A'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -721,16 +700,51 @@ INSERT INTO `permiso` (`ROL_id`, `MENU_id`, `PERM_flagActivo`) VALUES
 (2, 22, 'A'),
 (2, 30, 'A'),
 (5, 1, 'A'),
+(5, 2, 'A'),
+(5, 3, 'A'),
 (5, 10, 'A'),
 (5, 11, 'A'),
 (5, 12, 'A'),
+(5, 20, 'A'),
+(5, 22, 'A'),
+(5, 23, 'A'),
+(5, 30, 'A'),
 (5, 31, 'A'),
 (5, 40, 'A'),
 (5, 41, 'A'),
 (5, 43, 'A'),
 (5, 44, 'A'),
 (5, 45, 'A'),
-(5, 49, 'A');
+(5, 46, 'A'),
+(5, 47, 'A'),
+(5, 49, 'A'),
+(5, 51, 'A'),
+(6, 1, 'A'),
+(6, 2, 'A'),
+(6, 3, 'A'),
+(6, 4, 'A'),
+(6, 5, 'A'),
+(6, 10, 'A'),
+(6, 11, 'A'),
+(6, 12, 'A'),
+(6, 20, 'A'),
+(6, 21, 'A'),
+(6, 22, 'A'),
+(6, 23, 'A'),
+(6, 30, 'A'),
+(6, 31, 'A'),
+(6, 40, 'A'),
+(6, 41, 'A'),
+(6, 42, 'A'),
+(6, 43, 'A'),
+(6, 44, 'A'),
+(6, 45, 'A'),
+(6, 46, 'A'),
+(6, 47, 'A'),
+(6, 48, 'A'),
+(6, 49, 'A'),
+(6, 50, 'A'),
+(6, 51, 'A');
 
 -- --------------------------------------------------------
 
@@ -739,14 +753,11 @@ INSERT INTO `permiso` (`ROL_id`, `MENU_id`, `PERM_flagActivo`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `permiso_panel` (
-  `PP_id` int(11) NOT NULL AUTO_INCREMENT,
+`PP_id` int(11) NOT NULL,
   `ROL_id` int(11) NOT NULL,
   `PAN_id` int(11) NOT NULL,
-  `PP_estado` int(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`PP_id`),
-  KEY `ROL_id` (`ROL_id`),
-  KEY `PAN_id` (`PAN_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `PP_estado` int(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -755,16 +766,15 @@ CREATE TABLE IF NOT EXISTS `permiso_panel` (
 --
 
 CREATE TABLE IF NOT EXISTS `rol` (
-  `ROL_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`ROL_id` int(10) unsigned NOT NULL,
   `ROL_nombre` varchar(50) NOT NULL,
   `ROL_fechaRegistro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ROL_usuarioRegistro` varchar(20) NOT NULL,
   `ROL_fechaModificacion` datetime DEFAULT NULL,
   `ROL_usuarioModificacion` varchar(20) DEFAULT NULL,
   `ROL_estado` char(2) NOT NULL DEFAULT 'AC',
-  `ROL_flagActivo` char(1) NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`ROL_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `ROL_flagActivo` char(1) NOT NULL DEFAULT 'A'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `rol`
@@ -775,7 +785,31 @@ INSERT INTO `rol` (`ROL_id`, `ROL_nombre`, `ROL_fechaRegistro`, `ROL_usuarioRegi
 (2, 'Profesor', '2014-06-07 18:40:45', '', NULL, NULL, 'AC', 'A'),
 (3, 'Padre de familia', '2014-06-07 18:40:45', '', NULL, NULL, 'AC', 'A'),
 (4, 'Apoderado', '2014-06-07 18:40:45', '', NULL, NULL, 'AC', 'A'),
-(5, 'Personal Administrativo', '2014-06-07 18:40:45', '', NULL, NULL, 'AC', 'A');
+(5, 'Personal Administrativo', '2014-06-07 18:40:45', '', NULL, NULL, 'AC', 'A'),
+(6, 'Aministrador', '2015-09-19 00:12:55', '1', NULL, NULL, 'AC', 'A');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_matricula`
+--
+
+CREATE TABLE IF NOT EXISTS `tipo_matricula` (
+`tm_id` int(11) NOT NULL,
+  `tm_nombre` varchar(30) NOT NULL,
+  `tm_estado` int(1) NOT NULL DEFAULT '1',
+  `tm_fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tm_fecha_modificacion` datetime DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `tipo_matricula`
+--
+
+INSERT INTO `tipo_matricula` (`tm_id`, `tm_nombre`, `tm_estado`, `tm_fecha_registro`, `tm_fecha_modificacion`) VALUES
+(1, 'Matricula Nueva', 1, '2015-11-20 03:49:53', '0000-00-00 00:00:00'),
+(2, 'Traslado', 1, '2015-11-20 03:49:53', '0000-00-00 00:00:00'),
+(3, 'Matricula Año Nuevo', 1, '2015-11-20 03:50:45', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -784,7 +818,7 @@ INSERT INTO `rol` (`ROL_id`, `ROL_nombre`, `ROL_fechaRegistro`, `ROL_usuarioRegi
 --
 
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `USUA_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+`USUA_id` int(10) unsigned NOT NULL,
   `USUA_codigo` varchar(20) DEFAULT NULL,
   `USUA_nombres` varchar(100) DEFAULT NULL,
   `USUA_apellidoPaterno` varchar(50) DEFAULT NULL,
@@ -808,10 +842,8 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `USUA_usuarioEliminacion` varchar(20) DEFAULT NULL,
   `USUA_estado` char(2) NOT NULL DEFAULT 'AC',
   `USUA_flagActivo` char(1) NOT NULL DEFAULT 'A',
-  `ROL_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`USUA_id`),
-  KEY `fk_usuario_tipo_usuario_idx` (`ROL_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=115 ;
+  `ROL_id` int(10) unsigned NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -915,97 +947,283 @@ INSERT INTO `usuario` (`USUA_id`, `USUA_codigo`, `USUA_nombres`, `USUA_apellidoP
 (111, 'PROF2015005', 'Miriam', 'CÃ¡ceres', 'HernÃ¡ndez', 'PROF2015005', 'e10adc3949ba59abbe56e057f20f883e', ' ', ' ', NULL, 'F', 0, 0, NULL, NULL, '', '2015-09-14 15:51:37', '', NULL, NULL, NULL, NULL, 'AC', 'A', 2),
 (112, 'PROF2015006', 'Rosa MarÃ­a ', 'Cruces', 'Torres', 'PROF2015006', 'e10adc3949ba59abbe56e057f20f883e', ' ', ' ', NULL, 'F', 0, 0, NULL, NULL, '', '2015-09-14 15:52:36', '', NULL, NULL, NULL, NULL, 'AC', 'A', 2),
 (113, 'PROF2015007', 'Jesica', 'Morales', 'FernÃ¡ndez', 'PROF2015007', 'e10adc3949ba59abbe56e057f20f883e', ' ', ' ', NULL, 'F', 0, 0, NULL, NULL, '', '2015-09-14 15:53:14', '', NULL, NULL, NULL, NULL, 'AC', 'A', 2),
-(114, 'PROF2015008', 'Wendy', 'Villafuerte', 'Rojas', 'PROF2015008', 'e10adc3949ba59abbe56e057f20f883e', ' ', ' ', NULL, 'F', 0, 0, NULL, NULL, '', '2015-09-14 15:53:48', '', NULL, NULL, NULL, NULL, 'AC', 'A', 2);
+(114, 'PROF2015008', 'Wendy', 'Villafuerte', 'Rojas', 'PROF2015008', 'e10adc3949ba59abbe56e057f20f883e', ' ', ' ', NULL, 'F', 0, 0, NULL, NULL, '', '2015-09-14 15:53:48', '', NULL, NULL, NULL, NULL, 'AC', 'A', 2),
+(115, '20150001', 'Jose', 'Cenizario', 'Rojas', '20150001', '43d22c02ddb4957ae93a1afdfe46f1f2', '45667300', 'jlcenizario@', NULL, 'M', 0, 0, NULL, NULL, '', '2015-09-26 01:55:42', '', NULL, NULL, NULL, NULL, 'AC', 'A', 1),
+(116, 'PD00044', 'jose', 'cenizario', 'andrade', 'PD00044', 'e5f7158c561277baed80d9aa372f5974', '45646540', NULL, NULL, 'M', 0, 0, NULL, NULL, '', '2015-09-26 01:55:42', '', NULL, NULL, NULL, NULL, 'AC', 'A', 3),
+(117, 'PD00045', 'silvia', 'rojas', 'zuniga', 'PD00045', '3d0bf4c37136b93d1ae09f0fe9033b22', '45646460', NULL, NULL, 'F', 0, 0, NULL, NULL, '', '2015-09-26 01:55:42', '', NULL, NULL, NULL, NULL, 'AC', 'A', 3),
+(118, '20150001', 'jose', 'cenizario', 'rojas', '20150001', '25d55ad283aa400af464c76d713c07ad', '12345678', 'dgdsdfsdfsdfs', NULL, 'M', 0, 0, NULL, NULL, '', '2015-11-20 20:54:57', '', NULL, NULL, NULL, NULL, 'AC', 'A', 1),
+(119, 'PD00046', 'dddd', 'dddd', 'dsfdsd', 'PD00046', 'dbf1dce93899e32fc39abc15c667fc13', '44354345', NULL, NULL, 'M', 0, 0, NULL, NULL, '', '2015-11-20 20:54:57', '', NULL, NULL, NULL, NULL, 'AC', 'A', 3),
+(120, 'PD00047', 'ssss', 'ssdfs', 'fsdfsfs', 'PD00047', '463843f093bf389abc3a5c6f9c1f74b8', '352545', NULL, NULL, 'F', 0, 0, NULL, NULL, '', '2015-11-20 20:54:57', '', NULL, NULL, NULL, NULL, 'AC', 'A', 3),
+(121, '20150001', 'jose', 'cenizario', 'rojas', '20150001', '43d22c02ddb4957ae93a1afdfe46f1f2', '45667300', 'assdasd', NULL, 'M', 0, 0, NULL, NULL, '', '2015-11-21 01:45:29', '', NULL, NULL, NULL, NULL, 'AC', 'A', 1),
+(122, 'PD00048', 'rewr', 'werwe', 'werwe', 'PD00048', '13d2dec5f5233da47a21548cd71807c1', '54353453', NULL, NULL, 'M', 0, 0, NULL, NULL, '', '2015-11-21 01:45:29', '', NULL, NULL, NULL, NULL, 'AC', 'A', 3),
+(123, 'PD00049', 'werwe', 'werwe', 'werw', 'PD00049', '03809a4e69571c8205cade600a849d8d', '534534', NULL, NULL, 'F', 0, 0, NULL, NULL, '', '2015-11-21 01:45:29', '', NULL, NULL, NULL, NULL, 'AC', 'A', 3);
 
 --
--- Restricciones para tablas volcadas
+-- Índices para tablas volcadas
 --
 
 --
--- Filtros para la tabla `calificacion_detalle`
+-- Indices de la tabla `anio`
+--
+ALTER TABLE `anio`
+ ADD PRIMARY KEY (`ANI_id`);
+
+--
+-- Indices de la tabla `asignado`
+--
+ALTER TABLE `asignado`
+ ADD PRIMARY KEY (`ASIG_id`);
+
+--
+-- Indices de la tabla `bimestre`
+--
+ALTER TABLE `bimestre`
+ ADD PRIMARY KEY (`BIME_id`);
+
+--
+-- Indices de la tabla `calificacion`
+--
+ALTER TABLE `calificacion`
+ ADD PRIMARY KEY (`CALI_id`);
+
+--
+-- Indices de la tabla `calificacion_detalle`
 --
 ALTER TABLE `calificacion_detalle`
-  ADD CONSTRAINT `calificacion_detalle_ibfk_1` FOREIGN KEY (`CALI_id`) REFERENCES `calificacion` (`CALI_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`CALD_id`), ADD KEY `CALI_id` (`CALI_id`);
 
 --
--- Filtros para la tabla `comentario`
+-- Indices de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  ADD CONSTRAINT `fk_comentario_usuario1` FOREIGN KEY (`USUA_idDestino`) REFERENCES `usuario` (`USUA_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_comentario_usuario2` FOREIGN KEY (`USUA_idRegistro`) REFERENCES `usuario` (`USUA_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`COME_id`), ADD KEY `fk_comentario_usuario1` (`USUA_idDestino`), ADD KEY `fk_comentario_usuario2` (`USUA_idRegistro`);
 
 --
--- Filtros para la tabla `comentario_edicion`
+-- Indices de la tabla `comentario_edicion`
 --
 ALTER TABLE `comentario_edicion`
-  ADD CONSTRAINT `fk_comentario_edicion_comentario1` FOREIGN KEY (`COME_id`) REFERENCES `comentario` (`COME_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`COME_id`,`CEDI_edicion`);
 
 --
--- Filtros para la tabla `curso`
+-- Indices de la tabla `criterio`
+--
+ALTER TABLE `criterio`
+ ADD PRIMARY KEY (`CRIT_id`);
+
+--
+-- Indices de la tabla `cuota`
+--
+ALTER TABLE `cuota`
+ ADD PRIMARY KEY (`CUOT_id`);
+
+--
+-- Indices de la tabla `curso`
 --
 ALTER TABLE `curso`
-  ADD CONSTRAINT `fk_curso_grado1` FOREIGN KEY (`GRAD_id`) REFERENCES `grado` (`GRAD_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`CURS_id`), ADD KEY `fk_curso_grado1` (`GRAD_id`);
 
 --
--- Filtros para la tabla `curso_x_grado_x_usuario`
+-- Indices de la tabla `curso_x_grado_x_usuario`
 --
 ALTER TABLE `curso_x_grado_x_usuario`
-  ADD CONSTRAINT `fk_curso_x_grado_usuario_curso1` FOREIGN KEY (`CURS_id`) REFERENCES `curso` (`CURS_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_curso_x_grado_usuario_grado_x_usuario1` FOREIGN KEY (`USUA_id`, `GRAD_id`) REFERENCES `grado_x_usuario` (`USUA_id`, `GRAD_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`CGU_id`), ADD KEY `fk_curso_x_grado_usuario_curso1` (`CURS_id`), ADD KEY `fk_curso_x_grado_usuario_grado_x_usuario1` (`USUA_id`,`GRAD_id`);
 
 --
--- Filtros para la tabla `documento_x_grado_x_usuario`
+-- Indices de la tabla `documento`
+--
+ALTER TABLE `documento`
+ ADD PRIMARY KEY (`DOCU_id`);
+
+--
+-- Indices de la tabla `documento_x_entregar`
+--
+ALTER TABLE `documento_x_entregar`
+ ADD PRIMARY KEY (`DXEN_id`);
+
+--
+-- Indices de la tabla `documento_x_grado_x_usuario`
 --
 ALTER TABLE `documento_x_grado_x_usuario`
-  ADD CONSTRAINT `fk_documento_entregado_documento1` FOREIGN KEY (`DOCU_id`) REFERENCES `documento` (`DOCU_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_documento_pendiente_grado_x_usuario1` FOREIGN KEY (`USUA_id`, `GRAD_id`) REFERENCES `grado_x_usuario` (`USUA_id`, `GRAD_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`USUA_id`,`GRAD_id`,`DOCU_id`), ADD KEY `fk_documento_entregado_documento1` (`DOCU_id`);
 
 --
--- Filtros para la tabla `grado`
+-- Indices de la tabla `grado`
 --
 ALTER TABLE `grado`
-  ADD CONSTRAINT `fk_grado_nivel1` FOREIGN KEY (`NIVE_id`) REFERENCES `nivel` (`NIVE_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`GRAD_id`), ADD KEY `fk_grado_nivel1` (`NIVE_id`);
 
 --
--- Filtros para la tabla `grado_x_usuario`
+-- Indices de la tabla `grado_x_usuario`
 --
 ALTER TABLE `grado_x_usuario`
-  ADD CONSTRAINT `fk_grado_x_usuario_anio1` FOREIGN KEY (`ANIO_id`) REFERENCES `anio` (`ANI_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_grado_x_usuario_grado1` FOREIGN KEY (`GRAD_id`) REFERENCES `grado` (`GRAD_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_grado_x_usuario_usuario1` FOREIGN KEY (`USUA_id`) REFERENCES `usuario` (`USUA_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`GXU_id`);
+ALTER TABLE `grado_x_usuario` CHANGE `GXU_id` `GXU_id` INT(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Filtros para la tabla `pago`
+-- Indices de la tabla `menu`
+--
+ALTER TABLE `menu`
+ ADD PRIMARY KEY (`MENU_id`);
+
+--
+-- Indices de la tabla `nivel`
+--
+ALTER TABLE `nivel`
+ ADD PRIMARY KEY (`NIVE_id`);
+
+--
+-- Indices de la tabla `pago`
 --
 ALTER TABLE `pago`
-  ADD CONSTRAINT `fk_cuota_x_alumno_cuota1` FOREIGN KEY (`CUOT_id`) REFERENCES `cuota` (`CUOT_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_cuota_x_alumno_usuario1` FOREIGN KEY (`USUA_id`) REFERENCES `usuario` (`USUA_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`USUA_id`,`CUOT_id`), ADD KEY `fk_cuota_x_alumno_cuota1` (`CUOT_id`);
 
 --
--- Filtros para la tabla `pariente`
+-- Indices de la tabla `panel`
+--
+ALTER TABLE `panel`
+ ADD PRIMARY KEY (`PAN_id`);
+
+--
+-- Indices de la tabla `pariente`
 --
 ALTER TABLE `pariente`
-  ADD CONSTRAINT `fk_pariente_usuario1` FOREIGN KEY (`USUA_idHijo`) REFERENCES `usuario` (`USUA_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_pariente_usuario2` FOREIGN KEY (`USUA_idPadre`) REFERENCES `usuario` (`USUA_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`USUA_idHijo`,`USUA_idPadre`), ADD KEY `fk_pariente_usuario2` (`USUA_idPadre`);
 
 --
--- Filtros para la tabla `permiso`
+-- Indices de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  ADD CONSTRAINT `fk_permiso_menu1` FOREIGN KEY (`MENU_id`) REFERENCES `menu` (`MENU_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_permiso_rol1` FOREIGN KEY (`ROL_id`) REFERENCES `rol` (`ROL_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`ROL_id`,`MENU_id`), ADD KEY `fk_permiso_menu1_idx` (`MENU_id`);
 
 --
--- Filtros para la tabla `permiso_panel`
+-- Indices de la tabla `permiso_panel`
 --
 ALTER TABLE `permiso_panel`
-  ADD CONSTRAINT `PAN_id1` FOREIGN KEY (`PAN_id`) REFERENCES `panel` (`PAN_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`PP_id`), ADD KEY `ROL_id` (`ROL_id`), ADD KEY `PAN_id` (`PAN_id`);
 
 --
--- Filtros para la tabla `usuario`
+-- Indices de la tabla `rol`
+--
+ALTER TABLE `rol`
+ ADD PRIMARY KEY (`ROL_id`);
+
+--
+-- Indices de la tabla `tipo_matricula`
+--
+ALTER TABLE `tipo_matricula`
+ ADD PRIMARY KEY (`tm_id`);
+
+--
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `fk_usuario_tipo_usuario` FOREIGN KEY (`ROL_id`) REFERENCES `rol` (`ROL_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ ADD PRIMARY KEY (`USUA_id`), ADD KEY `fk_usuario_tipo_usuario_idx` (`ROL_id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `anio`
+--
+ALTER TABLE `anio`
+MODIFY `ANI_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `asignado`
+--
+ALTER TABLE `asignado`
+MODIFY `ASIG_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=70;
+--
+-- AUTO_INCREMENT de la tabla `bimestre`
+--
+ALTER TABLE `bimestre`
+MODIFY `BIME_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `calificacion`
+--
+ALTER TABLE `calificacion`
+MODIFY `CALI_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `calificacion_detalle`
+--
+ALTER TABLE `calificacion_detalle`
+MODIFY `CALD_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `comentario`
+--
+ALTER TABLE `comentario`
+MODIFY `COME_id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `criterio`
+--
+ALTER TABLE `criterio`
+MODIFY `CRIT_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `cuota`
+--
+ALTER TABLE `cuota`
+MODIFY `CUOT_id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `curso`
+--
+ALTER TABLE `curso`
+MODIFY `CURS_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
+--
+-- AUTO_INCREMENT de la tabla `curso_x_grado_x_usuario`
+--
+ALTER TABLE `curso_x_grado_x_usuario`
+MODIFY `CGU_id` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `documento`
+--
+ALTER TABLE `documento`
+MODIFY `DOCU_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT de la tabla `documento_x_entregar`
+--
+ALTER TABLE `documento_x_entregar`
+MODIFY `DXEN_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `grado`
+--
+ALTER TABLE `grado`
+MODIFY `GRAD_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT de la tabla `menu`
+--
+ALTER TABLE `menu`
+MODIFY `MENU_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
+--
+-- AUTO_INCREMENT de la tabla `nivel`
+--
+ALTER TABLE `nivel`
+MODIFY `NIVE_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `panel`
+--
+ALTER TABLE `panel`
+MODIFY `PAN_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `permiso_panel`
+--
+ALTER TABLE `permiso_panel`
+MODIFY `PP_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+MODIFY `ROL_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `tipo_matricula`
+--
+ALTER TABLE `tipo_matricula`
+MODIFY `tm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+MODIFY `USUA_id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=124;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
