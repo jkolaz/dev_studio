@@ -120,7 +120,7 @@ class Curso extends CI_Controller {
         }
     }
 
-    public function ver_detalle($idUsuario, $idGrado, $idCurso, $idBimestre, $asig=0) {
+    public function ver_detalle($idUsuario, $idGrado, $idCurso, $idBimestre, $asig=0, $id=0) {
         if($asig > 0){
             $objAsignacion = $this->Asignacion->getAsignado($asig);
             if($objAsignacion){
@@ -147,6 +147,24 @@ class Curso extends CI_Controller {
         $this->load->view('educacion/notas_detalle_popup', $data);
     }
 
+    public function ver_detalle_curso($id){
+        $objCalificacion = $this->calificacion->getCalificacionByID($id);
+        
+        $this->load->model('matricula/bimestre_model', 'bimestre');
+        $bimestre = $this->bimestre->getBimestreById($objCalificacion[0]->BIME_id);
+        $data['bimestre'] = $bimestre;
+        
+        $usuario = $this->usuario_model->obtener_usuario_por_id($objCalificacion[0]->USUA_id);
+        $data['usuario'] = $usuario;
+        
+        $listaDetalleNotas = $this->curso_model->listar_detalle_notas_new($objCalificacion[0]->CALI_id);
+        $data['lista'] = $listaDetalleNotas;
+        
+        //imprimir($objCalificacion);
+        $data['calificacion'] = $objCalificacion;
+        $this->load->view('educacion/notas_detalle_popup_new', $data);
+    }
+    
     public function updateNota(){
         $idUsuario = $this->input->post('idUsuario',TRUE);
         $idGrado = $this->input->post('idGrado',TRUE);
@@ -164,6 +182,20 @@ class Curso extends CI_Controller {
         $promedio = $nota/$cant_criterio;
         $this->calificacion->update($idCALI,$promedio);
         redirect('educacion/curso/ver_detalle/'.$idUsuario.'/'.$idGrado.'/'.$idCurso.'/'.$idBimestre);
+    }
+    
+    public function updateNotaNew(){
+        $idCalificacion = $this->input->post('idCalificacion',TRUE);
+        $criterio = $this->input->post('criterio',TRUE);
+        $cant_criterio = $this->criterio->countCriterio();
+        $nota = 0;
+        foreach ($criterio as $id=>$value){
+            $this->curso_model->updateNota($id, $value);
+            $nota += $value;
+        }
+        $promedio = $nota/$cant_criterio;
+        $this->calificacion->update($idCalificacion,$promedio);
+        redirect('educacion/curso/ver_detalle_curso/'.$idCalificacion);
     }
     
     public function mostrar_nuevo() {

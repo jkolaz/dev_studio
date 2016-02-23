@@ -97,7 +97,7 @@ class Curso_model extends CI_Model {
         }else{
             $idCalificacion = $this->insertar_nota_inicial($idUsuario, $idGrado, $idCurso, $idBimestre, $asignado);
             if($idCalificacion > 0){
-                $sql_criterio = "SELECT * FROM `criterio`";
+                $sql_criterio = "SELECT * FROM criterio";
                 $query_criterio = $this->db->query($sql_criterio);
                 if ($query_criterio->num_rows > 0){
                     foreach ($query_criterio->result() as $value){
@@ -107,6 +107,23 @@ class Curso_model extends CI_Model {
                 }
             }
             $query = $this->db->query($sql);
+            if ($query->num_rows > 0){
+                return $query->result();
+            }
+            return null;
+        }
+    }
+    
+    public function listar_detalle_notas_new($idCalificacion){
+        $where = array();
+        $where['CALI_id'] = $idCalificacion;
+        $where['CALD_estado'] = 1;
+        $query = $this->db->where($where)->join('criterio', 'criterio.CRIT_id = calificacion_detalle.CRIT_id')->get('calificacion_detalle');
+        if ($query->num_rows > 0){
+            return $query->result();
+        }else{
+            $this->insertar_nota_detalle_inicial_new($idCalificacion);
+            $query = $this->db->where($where)->join('criterio', 'criterio.CRIT_id = calificacion_detalle.CRIT_id')->get('calificacion_detalle');
             if ($query->num_rows > 0){
                 return $query->result();
             }
@@ -138,6 +155,31 @@ class Curso_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    public function insertar_nota_detalle_inicial_new($idCalificacion){
+        $CI =& get_instance();
+        $CI->load->model('nota/calificacion_model', 'calificacion');
+        $objCalificacion = $CI->calificacion->getCalificacionByID($idCalificacion);
+        if($objCalificacion){
+            $cal = $objCalificacion[0];
+            $sql_criterio = "SELECT * FROM criterio";
+            $query_criterio = $this->db->query($sql_criterio);
+            if ($query_criterio->num_rows > 0){
+                foreach ($query_criterio->result() as $i=>$value){
+                    $insert['USUA_id'] = $cal->USUA_id;
+                    $insert['GRAD_id'] = $cal->GRAD_id;
+                    $insert['CURS_id'] = $cal->CURS_id;
+                    $insert['BIME_id'] = $cal->	BIME_id;
+                    $insert['CALI_id'] = $idCalificacion;
+                    $insert['CRIT_id'] = $value->CRIT_id;
+                    $insert['CALD_fechaRegistro'] = date('Y-m-d H:i:s');
+                    $this->db->insert('calificacion_detalle', $insert);
+                    //return $this->db->insert_id();
+                }
+            }
+        }
+        
+        
+    }
 
     public function listar_criterios() {
         $query = $this->db->get('criterio');

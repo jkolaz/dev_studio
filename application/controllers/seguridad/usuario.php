@@ -276,7 +276,7 @@ class Usuario extends CI_Controller {
         $objGrado->GRAD_id = 0;
         $objGrado->GRAD_nombre = "---";
         $objGrado->NIVE_nombre = "---";
-        $idGrado = 0;
+        $idGrado = $objGradoUsuario[0]->GRAD_id;
         if($objGradoUsuario){
             $objGrado->GRAD_id =$objGradoUsuario[0]->GRAD_id;
             $objGradoNivel = $this->GRADO->getNivelByGrado($objGradoUsuario[0]->GRAD_id);
@@ -339,8 +339,9 @@ class Usuario extends CI_Controller {
                 $parcial1 = $nota->CALI_parcial1;
                 $parcial2 = $nota->CALI_parcial2;
                 $promedio = round(($parcial1 + $parcial2) / 2);
-                $parciales = utf8_encode($nombreCurso) . ' : Primer Parcial = ' . $parcial1 . ', Segundo Parcial = ' . $parcial2;
-                $NOTAS[$bimestre] = array('promedio' => $promedio, 'parciales' => $parciales);
+//                $parciales = utf8_encode($nombreCurso) . ' : Primer Parcial = ' . $parcial1 . ', Segundo Parcial = ' . $parcial2;
+                $parciales = number_format($nota->CALI_parcial1, 0);
+                $NOTAS[$bimestre] = array('id'=>$nota->CALI_id,'promedio' => $promedio, 'parciales' => $parciales);
             }
         }
         return $NOTAS;

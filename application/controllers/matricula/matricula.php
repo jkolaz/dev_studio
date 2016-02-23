@@ -65,15 +65,15 @@ class Matricula extends CI_Controller{
                     $CURSOGRADOUSUARIO->_CURS_id = $val->CURS_id;
                     $CURSOGRADOUSUARIO->insertar();
                     /*calificacion*/
-//                    foreach ($BIMESTRE->getBimestre() as $value){
-//                        $CALIFICACION->_USUA_id = $post['alu_id'];
-//                        $CALIFICACION->_GRAD_id = $post['grado'];
-//                        $CALIFICACION->_CURS_id = $val->CURS_id;
-//                        $CALIFICACION->_BIME_id = $value->BIME_id;
-//                        $CALIFICACION->_CALI_parcial1 = 0;
-//                        $CALIFICACION->_CALI_parcial2 = 0;
-//                        $CALIFICACION->insertar();
-//                    }
+                    foreach ($BIMESTRE->getBimestre() as $value){
+                        $CALIFICACION->_USUA_id = $post['alu_id'];
+                        $CALIFICACION->_GRAD_id = $post['grado'];
+                        $CALIFICACION->_CURS_id = $val->CURS_id;
+                        $CALIFICACION->_BIME_id = $value->BIME_id;
+                        $CALIFICACION->_CALI_parcial1 = 0;
+                        $CALIFICACION->_CALI_parcial2 = 0;
+                        $CALIFICACION->insertar();
+                    }
                 }
                 redirect('seguridad/usuario/estudiante/M');
             }else{

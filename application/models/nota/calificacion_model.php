@@ -43,4 +43,16 @@ class Calificacion_model extends CI_Model{
             return NULL;
         }
     }
+    
+    public function getCalificacionByID($id){
+        $where = array();
+        $where['CALI_id'] = $id;
+        $where['CALI_estado'] = 1;
+        $query = $this->db->where($where)->get(self::$tabla);
+        if($query->num_rows > 0){
+            return $query->result();
+        }else{
+            return NULL;
+        }
+    }
 }
