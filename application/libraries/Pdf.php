@@ -29,14 +29,6 @@ class Pdf extends FPDF {
     // El encabezado del PDF
     public function Header(){
         $this->Image($this->DIR.'/img/pdf/logo_miniatura.png',10,8,50);
-        $this->SetFont('Arial','B',13);
-        $this->Cell(30);
-        $this->Cell(120,10,'ESCUELA X'.$this->DIR,0,0,'C');
-        $this->Ln('5');
-        $this->SetFont('Arial','B',8);
-        $this->Cell(30);
-        $this->Cell(120,10,'INFORMACION DE CONTACTO',0,0,'C');
-        $this->Ln(20);
     }
     // El pie del pdf
     public function Footer(){
