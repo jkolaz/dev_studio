@@ -89,7 +89,7 @@ if($idRol == 5){
            </div>
         <div class="col-md-4 centro">
                 <h4 class="ayuda">Cursos</h4>
-                <a target='_blank' href="<?php echo base_url() . 'index.php/educacion/curso/listar/' ?>">
+                <a href="<?php echo base_url() . 'index.php/educacion/curso/listar/' ?>">
                     <img src="<?php echo base_url() . 'img/cursos.jpg' ?>" 
                          border='0' title='Cursos' />
                 </a>
@@ -109,7 +109,7 @@ if($idRol == 5){
        </div>
         <div class="col-md-4 centro">
                 <h4 class="ayuda">Reportes</h4>
-                <a href="#">
+                <a href="<?php echo base_url() . 'index.php/reporte/Reporte'?>">
                     <img src="<?php echo base_url() . 'img/reportes.png' ?>" 
                          border='0' title='Reportes' />
                 </a>
