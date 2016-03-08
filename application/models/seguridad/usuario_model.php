@@ -437,6 +437,24 @@ class Usuario_Model extends CI_Model {
         }
         return $codigo;
     }
+    public function getAlumnoNotasNowByDNI($dni){
+        $where = [
+            'USUA_dni' => $dni,
+            'USUA_flagActivo' => 'A',
+            'ROL_id' => 1,
+            'GXUS_estado' => 'AC'
+        ];
+        $data = array();
+        $query = $this->db->where($where)
+                    ->join('grado_x_usuario', 'grado_x_usuario.USUA_id='.self::$tabla.'.USUA_id')
+                    ->join('grado', 'grado.GRAD_id=grado_x_usuario.GRAD_id')
+                    ->join('nivel', 'nivel.NIVE_id=grado.NIVE_id')
+                    ->get(self::$tabla);
+        if($query->num_rows > 0){
+            $data = $query->result();
+        }
+        return $data;
+    }
 }
 
 ?>

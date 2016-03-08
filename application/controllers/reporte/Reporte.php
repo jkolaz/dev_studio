@@ -17,6 +17,8 @@ class Reporte extends CI_Controller{
         parent::__construct();
         $this->load->library('layout', 'layout');
         $this->load->library('pdf');
+        $this->load->model('seguridad/usuario_model', 'USUARIO');
+        $this->load->helper(array('url', 'form', 'utilitarios'));
         $this->pdf = new Pdf();
     }
     
@@ -29,16 +31,17 @@ class Reporte extends CI_Controller{
         if($_SERVER['REQUEST_METHOD'] == "POST"){
             /*DNI PRUEBA : 10874854*/
             $dni = $_POST['txt_dni'];
-            
-            $idAlumno = 0;
-            $this->generatePDFReporteAcademico($idAlumno);
+            $obj = $this->USUARIO->getAlumnoNotasNowByDNI($dni);
+            $this->generatePDFReporteAcademico($obj);
             $this->layout->view('reporte/reporteRendimientoAcademico');
         }else{
             redirect('reporte/Reporte');
         }
     }
     
-    public function generatePDFReporteAcademico($id){
+    public function generatePDFReporteAcademico($obj){
+        imprimir($obj);
+            exit;
         $title = "RENDIMIENTO ACADEMICO";
         $relleno = FALSE;
         $borde = 0;
@@ -59,17 +62,17 @@ class Reporte extends CI_Controller{
         $this->pdf->SetFont('Arial', 'B', 10);
         $this->pdf->Cell(20,6,'ALUMNO: ',$borde,0,'J',$relleno);
         $this->pdf->SetFont('Arial', '', 10);
-        $this->pdf->Cell(155,6, utf8_decode('Julio Alcides Salsavilca Huamanyauri'),$borde,0,'J',$relleno);
+        $this->pdf->Cell(155,6, utf8_decode($obj[0]->USUA_nombres.' '.$obj[0]->USUA_apellidoPaterno.' '.$obj[0]->USUA_apellidoMaterno),$borde,0,'J',$relleno);
         $this->pdf->ln();
         $this->pdf->SetFont('Arial', 'B', 10);
         $this->pdf->Cell(20,6, utf8_decode('CÓDIGO: '),$borde,0,'J',$relleno);
         $this->pdf->SetFont('Arial', '', 10);
-        $this->pdf->Cell(155,6, utf8_decode('47140697'),$borde,0,'J',$relleno);
+        $this->pdf->Cell(155,6, utf8_decode($obj[0]->USUA_codigo),$borde,0,'J',$relleno);
         $this->pdf->ln();
         $this->pdf->SetFont('Arial', 'B', 10);
         $this->pdf->Cell(20,6,'GRADO: ',$borde,0,'J',$relleno);
         $this->pdf->SetFont('Arial', '', 10);
-        $this->pdf->Cell(155,6, utf8_decode('1° Grado'),$borde,0,'J',$relleno);
+        $this->pdf->Cell(155,6, utf8_decode($obj[0]->GRAD_abreviatura.' de '.$obj[0]->NIVE_nombre),$borde,0,'J',$relleno);
         $this->pdf->ln(10);
         $this->pdf->SetFont('Arial', 'B', 9);
         /*Color de fuente*/
@@ -89,6 +92,20 @@ class Reporte extends CI_Controller{
         $this->pdf->Cell(23, 6,'III',$borde, 0,'C', TRUE);
         $this->pdf->Cell(23, 6,'IV',$borde, 0,'C', TRUE);
         $this->pdf->ln(6);
+        /*Color de fuente*/
+        $this->pdf->SetTextColor(0, 0, 0);
+        /*borde*/
+        $this->pdf->SetDrawColor(0, 0, 0);
+        /*relleno*/
+        $this->pdf->SetFillColor(255, 255, 255);
+        
+        $this->pdf->Cell(63, 6,'MATEMATICA',$borde, 0,'C', TRUE);
+        $this->pdf->Cell(23, 6,'16',$borde, 0,'C', TRUE);
+        $this->pdf->Cell(23, 6,'16',$borde, 0,'C', TRUE);
+        $this->pdf->Cell(23, 6,'16',$borde, 0,'C', TRUE);
+        $this->pdf->Cell(23, 6,'16',$borde, 0,'C', TRUE);
+        $this->pdf->Cell(20, 6,'16',$borde, 0,'C', TRUE);
+        
         $this->pdf->Output("Lista de alumnos.pdf", 'I');
     }
 }
