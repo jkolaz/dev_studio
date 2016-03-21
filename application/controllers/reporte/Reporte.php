@@ -40,6 +40,7 @@ class Reporte extends CI_Controller{
     }
     
     public function generatePDFReporteAcademico($obj){
+        /*DNI PRUEBA : 10874854*/
         imprimir($obj);
             exit;
         $title = "RENDIMIENTO ACADEMICO";

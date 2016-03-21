@@ -452,6 +452,9 @@ class Usuario_Model extends CI_Model {
                     ->get(self::$tabla);
         if($query->num_rows > 0){
             $data = $query->result();
+            foreach ($data as $value){
+                
+            }
         }
         return $data;
     }
