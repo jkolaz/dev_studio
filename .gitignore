@@ -5,4 +5,4 @@ nbproject/
 # Files
 #4app/view/templates_c/*.php
 /PDF/
-/application/logs/
+/application/logs/*.log
