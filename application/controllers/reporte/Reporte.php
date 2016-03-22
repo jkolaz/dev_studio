@@ -32,8 +32,12 @@ class Reporte extends CI_Controller{
             /*DNI PRUEBA : 10874854*/
             $dni = $_POST['txt_dni'];
             $obj = $this->USUARIO->getAlumnoNotasNowByDNI($dni);
-            $this->generatePDFReporteAcademico($obj);
-            $this->layout->view('reporte/reporteRendimientoAcademico');
+            $archivo = $this->generatePDFReporteAcademico($obj);
+            
+            $obj[0]->PDF = $archivo;
+            $data['lista'] = $obj[0];
+            $data['titulo'] = 'Reporte de Notas';
+            $this->layout->view('reporte/reporteRendimientoAcademico', $data);
         }else{
             redirect('reporte/Reporte');
         }
@@ -110,7 +114,30 @@ class Reporte extends CI_Controller{
             $this->pdf->Cell(20, 6, number_format($prom/4), $borde, 0,'C', TRUE);
             $this->pdf->ln(6);
         }
+        $archivo = "Notas_".$obj[0]->USUA_dni."_".$obj[0]->GRAD_id."_".date('Ymd').".pdf";
+        $this->pdf->Output(PATH_PDF.$archivo, 'F');
+        return $archivo;
+    }
+    public function enviarPDF($pdf){
+        $data['action'] = 'sendMail';
+        $data['pdf'] = $pdf;
+        $this->load->view('reporte/sendMail', $data);
+    }
+    
+    public function sendMail(){
+        $correo = $_POST['txt_correo'];
+        $pdf = $_POST['txt_pdf'];
         
-        $this->pdf->Output("Lista de alumnos.pdf", 'D');
+        $subject = 'Reporte de notas';
+        $destino = $correo;
+        $cuerpo = '<p>Estimado:<p>';
+        $cuerpo .= '<p>Nos es grato dirigirnos hacia su persona para hacerle llegar el reporte de nots que solicito.<p>';
+        $cuerpo .= '<p>Gracias.<p>';
+        $from_name = 'I. E. P. Mi Jazmincito';
+        $patch_attach = PATH_PDF.$pdf;
+        
+        if($correo != ""){
+            $this->senMailNew($subject, $destino, $cuerpo, '', $from_name, '', $patch_attach);
+        }
     }
 }

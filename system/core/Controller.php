@@ -57,6 +57,31 @@ class CI_Controller {
 	{
 		return self::$instance;
 	}
+        
+        public function senMailNew($subject, $destino, $cuerpo, $reply = "", $from_name = "", $nombre_usuario="", $patch_attach = ""){
+            $this->load->library('My_PHPMailer');
+            $mail = new My_PHPMailer();
+            $mail->IsSMTP();
+            if($from_name != ""){
+                $mail->FromName = $from_name;
+            }
+            if($reply == ""){
+                $reply = 'info@jkolaz.com';
+            }
+            $mail->AddReplyTo($reply);
+            $mail->Subject    = $subject;  //Asunto del mensaje
+            $mail->Body      = $cuerpo;
+            $mail->AltBody    = $subject;
+            $mail->AddAddress($destino, $nombre_usuario);
+            if (!empty($patch_attach)) {
+                $mail->AddAttachment($patch_attach);      // attachment
+            }
+            $rs_mail = $mail->Send();
+            if (!$rs_mail) {
+                imprimir($mail->ErrorInfo); 
+                exit;
+            }
+        }
 }
 // END Controller class
 
