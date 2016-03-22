@@ -3,10 +3,13 @@
 class Usuario_Model extends CI_Model {
 
     private static $tabla = 'usuario';
+    
+    var $ci;
 
     public function __construct() {
         parent :: __construct();
         $this->load->database();
+        $this->ci = &get_instance();
     }
 
     // verifica si el nombre de usuario y clave ingresadas son correctas
@@ -452,8 +455,9 @@ class Usuario_Model extends CI_Model {
                     ->get(self::$tabla);
         if($query->num_rows > 0){
             $data = $query->result();
-            foreach ($data as $value){
-                
+            $this->ci->load->model('matricula/calificacion_model', 'CALIFICACION');
+            foreach ($data as $i=>$value){
+                $data[$i]->CURSOS = $this->ci->CALIFICACION->getCursoByMatricula($value->GXU_id);
             }
         }
         return $data;

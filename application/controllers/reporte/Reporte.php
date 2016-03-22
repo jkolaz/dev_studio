@@ -41,8 +41,8 @@ class Reporte extends CI_Controller{
     
     public function generatePDFReporteAcademico($obj){
         /*DNI PRUEBA : 10874854*/
-        imprimir($obj);
-            exit;
+//        imprimir($obj);
+//        exit;
         $title = "RENDIMIENTO ACADEMICO";
         $relleno = FALSE;
         $borde = 0;
@@ -100,13 +100,17 @@ class Reporte extends CI_Controller{
         /*relleno*/
         $this->pdf->SetFillColor(255, 255, 255);
         
-        $this->pdf->Cell(63, 6,'MATEMATICA',$borde, 0,'C', TRUE);
-        $this->pdf->Cell(23, 6,'16',$borde, 0,'C', TRUE);
-        $this->pdf->Cell(23, 6,'16',$borde, 0,'C', TRUE);
-        $this->pdf->Cell(23, 6,'16',$borde, 0,'C', TRUE);
-        $this->pdf->Cell(23, 6,'16',$borde, 0,'C', TRUE);
-        $this->pdf->Cell(20, 6,'16',$borde, 0,'C', TRUE);
+        foreach($obj[0]->CURSOS as $value){
+            $this->pdf->Cell(63, 6, "  ".utf8_decode($value->CURS_nombre), $borde, 0, 'J', TRUE);
+            $prom = 0;
+            foreach ($value->NOTAS as $val){
+                $this->pdf->Cell(23, 6, number_format($val->CALI_parcial1), $borde, 0,'C', TRUE);
+                $prom += $val->CALI_parcial1;
+            }
+            $this->pdf->Cell(20, 6, number_format($prom/4), $borde, 0,'C', TRUE);
+            $this->pdf->ln(6);
+        }
         
-        $this->pdf->Output("Lista de alumnos.pdf", 'I');
+        $this->pdf->Output("Lista de alumnos.pdf", 'D');
     }
 }

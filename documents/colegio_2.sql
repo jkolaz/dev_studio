@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-11-2015 a las 23:38:07
+-- Tiempo de generación: 21-03-2016 a las 21:37:54
 -- Versión del servidor: 10.0.17-MariaDB
 -- Versión de PHP: 5.5.30
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `colegio_2`
+-- Base de datos: `prueba`
 --
 
 -- --------------------------------------------------------
@@ -541,21 +541,22 @@ INSERT INTO `grado` (`GRAD_id`, `GRAD_nombre`, `GRAD_abreviatura`, `GRAD_numero`
 --
 
 CREATE TABLE `grado_x_usuario` (
+  `GXU_id` int(11) NOT NULL,
   `USUA_id` int(10) UNSIGNED NOT NULL,
   `GRAD_id` int(10) UNSIGNED NOT NULL,
-  `GXUS_estado` char(2) NOT NULL DEFAULT 'AC',
+  `GXUS_estado` char(2) CHARACTER SET latin1 NOT NULL DEFAULT 'AC',
   `GXUS_anhoReferencia` int(11) NOT NULL,
-  `GXUS_aula` varchar(20) DEFAULT NULL,
+  `GXUS_aula` varchar(20) CHARACTER SET latin1 DEFAULT NULL,
   `ANIO_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `grado_x_usuario`
 --
 
-INSERT INTO `grado_x_usuario` (`USUA_id`, `GRAD_id`, `GXUS_estado`, `GXUS_anhoReferencia`, `GXUS_aula`, `ANIO_id`) VALUES
-(2, 1, 'AC', 2015, 'UNICO', 2),
-(4, 1, 'AC', 2015, 'UNICO', 2);
+INSERT INTO `grado_x_usuario` (`GXU_id`, `USUA_id`, `GRAD_id`, `GXUS_estado`, `GXUS_anhoReferencia`, `GXUS_aula`, `ANIO_id`) VALUES
+(1, 2, 1, 'AC', 2015, 'UNICO', 2),
+(2, 4, 1, 'AC', 2015, 'UNICO', 2);
 
 -- --------------------------------------------------------
 
@@ -1138,9 +1139,9 @@ ALTER TABLE `grado`
 -- Indices de la tabla `grado_x_usuario`
 --
 ALTER TABLE `grado_x_usuario`
-  ADD PRIMARY KEY (`USUA_id`,`GRAD_id`,`ANIO_id`),
-  ADD KEY `fk_grado_x_usuario_usuario1` (`USUA_id`),
-  ADD KEY `fk_grado_x_usuario_grado1` (`GRAD_id`),
+  ADD PRIMARY KEY (`GXU_id`),
+  ADD KEY `USUA_id` (`USUA_id`) USING BTREE,
+  ADD KEY `GRAD_id` (`GRAD_id`) USING BTREE,
   ADD KEY `ANIO_id` (`ANIO_id`);
 
 --
@@ -1279,6 +1280,11 @@ ALTER TABLE `documento_x_entregar`
 ALTER TABLE `grado`
   MODIFY `GRAD_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
+-- AUTO_INCREMENT de la tabla `grado_x_usuario`
+--
+ALTER TABLE `grado_x_usuario`
+  MODIFY `GXU_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT de la tabla `menu`
 --
 ALTER TABLE `menu`
@@ -1346,29 +1352,19 @@ ALTER TABLE `curso`
 -- Filtros para la tabla `curso_x_grado_x_usuario`
 --
 ALTER TABLE `curso_x_grado_x_usuario`
-  ADD CONSTRAINT `fk_curso_x_grado_usuario_curso1` FOREIGN KEY (`CURS_id`) REFERENCES `curso` (`CURS_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_curso_x_grado_usuario_grado_x_usuario1` FOREIGN KEY (`USUA_id`,`GRAD_id`) REFERENCES `grado_x_usuario` (`USUA_id`, `GRAD_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_curso_x_grado_usuario_curso1` FOREIGN KEY (`CURS_id`) REFERENCES `curso` (`CURS_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `documento_x_grado_x_usuario`
 --
 ALTER TABLE `documento_x_grado_x_usuario`
-  ADD CONSTRAINT `fk_documento_entregado_documento1` FOREIGN KEY (`DOCU_id`) REFERENCES `documento` (`DOCU_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_documento_pendiente_grado_x_usuario1` FOREIGN KEY (`USUA_id`,`GRAD_id`) REFERENCES `grado_x_usuario` (`USUA_id`, `GRAD_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_documento_entregado_documento1` FOREIGN KEY (`DOCU_id`) REFERENCES `documento` (`DOCU_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `grado`
 --
 ALTER TABLE `grado`
   ADD CONSTRAINT `fk_grado_nivel1` FOREIGN KEY (`NIVE_id`) REFERENCES `nivel` (`NIVE_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `grado_x_usuario`
---
-ALTER TABLE `grado_x_usuario`
-  ADD CONSTRAINT `fk_grado_x_usuario_anio1` FOREIGN KEY (`ANIO_id`) REFERENCES `anio` (`ANI_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_grado_x_usuario_grado1` FOREIGN KEY (`GRAD_id`) REFERENCES `grado` (`GRAD_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_grado_x_usuario_usuario1` FOREIGN KEY (`USUA_id`) REFERENCES `usuario` (`USUA_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `pago`

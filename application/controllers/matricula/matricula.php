@@ -43,7 +43,8 @@ class Matricula extends CI_Controller{
         $OBGRADOUSUARIO->_ANIO_id = $anio_actual[0]->ANI_id;
         $OBGRADOUSUARIO->_tm_id = $post['tipo_matricula'];
         if($OBGRADOUSUARIO->verificar() > 0){
-            if($OBGRADOUSUARIO->insertar() == 1){
+            $idGU = $OBGRADOUSUARIO->insertar();
+            if($idGU > 0){
                 /* curso_x_grado_x_usuario*/
                 $this->load->model('educacion/curso_model', 'CURSO');
                 $CURSO = $this->CURSO;
@@ -63,6 +64,7 @@ class Matricula extends CI_Controller{
                     $CURSOGRADOUSUARIO->_USUA_id = $post['alu_id'];
                     $CURSOGRADOUSUARIO->_GRAD_id = $post['grado'];
                     $CURSOGRADOUSUARIO->_CURS_id = $val->CURS_id;
+                    $CURSOGRADOUSUARIO->_GXU_id = $idGU;
                     $CURSOGRADOUSUARIO->insertar();
                     /*calificacion*/
                     foreach ($BIMESTRE->getBimestre() as $value){
@@ -72,6 +74,7 @@ class Matricula extends CI_Controller{
                         $CALIFICACION->_BIME_id = $value->BIME_id;
                         $CALIFICACION->_CALI_parcial1 = 0;
                         $CALIFICACION->_CALI_parcial2 = 0;
+                        $CALIFICACION->_GXU_id = $idGU;
                         $CALIFICACION->insertar();
                     }
                 }

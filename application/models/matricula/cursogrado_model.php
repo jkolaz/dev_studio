@@ -35,7 +35,7 @@ class Cursogrado_model extends CI_Model{
         $insert['GXUS_anhoReferencia'] = $this->_GXUS_anhoReferencia;
         $insert['tm_id'] = $this->_tm_id;
         if($this->db->insert(self::$_table, $insert)){
-            return 1;
+            return $this->db->insert_id();
         }
         return 0;
     }
