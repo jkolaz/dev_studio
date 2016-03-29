@@ -58,9 +58,33 @@ class CI_Controller {
 		return self::$instance;
 	}
         
-        public function senMailNew($subject, $destino, $cuerpo, $reply = "", $from_name = "", $nombre_usuario="", $patch_attach = ""){
+        public function senMailNew($subjet, $destino, $cuerpo, $reply = "", $from_name = "", $nombre_usuario="", $patch_attach = "", $template_main = "", $template = ""){
             $this->load->library('My_PHPMailer');
+            $this->load->library('Template_Mail');
+            
+            if ($template_main == "") {
+                $main_template = "main";
+            } else {
+                $main_template = $template_main;
+            }
+            
+            if ($template == "") {
+                $template = "generic";
+            }
+            
+            $html = new Template_Mail();
             $mail = new My_PHPMailer();
+            
+            $html->templateMail($template.".html");
+            $mailBody = $html->getHtml($cuerpo);
+            
+            $mail_vars['title'] = $mail->FromName;
+            $mail_vars['html_mail_content'] = $mailBody;
+            
+            $mailing = new Template_Mail();
+            $mailing->templateMail($main_template.".html");
+            $body_html = $mailing->getHtml($mail_vars);
+            
             $mail->IsSMTP();
             if($from_name != ""){
                 $mail->FromName = $from_name;
@@ -69,9 +93,10 @@ class CI_Controller {
                 $reply = 'info@jkolaz.com';
             }
             $mail->AddReplyTo($reply);
-            $mail->Subject    = $subject;  //Asunto del mensaje
-            $mail->Body      = $cuerpo;
-            $mail->AltBody    = $subject;
+            $mail->Subject    = $subjet;  //Asunto del mensaje
+            $body = $mail->MsgHTML($body_html);
+            $mail->Body = $body;
+            $mail->AltBody = strip_tags($body);
             $mail->AddAddress($destino, $nombre_usuario);
             if (!empty($patch_attach)) {
                 $mail->AddAttachment($patch_attach);      // attachment

@@ -45,8 +45,8 @@ class Reporte extends CI_Controller{
     
     public function generatePDFReporteAcademico($obj){
         /*DNI PRUEBA : 10874854*/
-//        imprimir($obj);
-//        exit;
+        $archivo = uniqid("Notas_".$obj[0]->USUA_dni."_".$obj[0]->GRAD_id."_".date('Y')."_").".pdf";
+        
         $title = "RENDIMIENTO ACADEMICO";
         $relleno = FALSE;
         $borde = 0;
@@ -114,7 +114,7 @@ class Reporte extends CI_Controller{
             $this->pdf->Cell(20, 6, number_format($prom/4), $borde, 0,'C', TRUE);
             $this->pdf->ln(6);
         }
-        $archivo = "Notas_".$obj[0]->USUA_dni."_".$obj[0]->GRAD_id."_".date('Ymd').".pdf";
+        
         $this->pdf->Output(PATH_PDF.$archivo, 'F');
         return $archivo;
     }
@@ -130,14 +130,18 @@ class Reporte extends CI_Controller{
         
         $subject = 'Reporte de notas';
         $destino = $correo;
-        $cuerpo = '<p>Estimado:<p>';
-        $cuerpo .= '<p>Nos es grato dirigirnos hacia su persona para hacerle llegar el reporte de nots que solicito.<p>';
-        $cuerpo .= '<p>Gracias.<p>';
+        $cuerpo = array();
+        $cuerpo['line'] = '<p>Nos es grato dirigirnos hacia su persona para hacerle llegar el reporte de notas que solicito.<p>';
         $from_name = 'I. E. P. Mi Jazmincito';
         $patch_attach = PATH_PDF.$pdf;
         
         if($correo != ""){
-            $this->senMailNew($subject, $destino, $cuerpo, '', $from_name, '', $patch_attach);
+            $this->senMailNew($subject, $destino, $cuerpo, '', $from_name, '', $patch_attach, '', 'generic_1');
+            ?>
+            <script>
+                parent.jQuery.fancybox.close();
+            </script>
+            <?php
         }
     }
 }

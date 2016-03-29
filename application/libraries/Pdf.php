@@ -23,12 +23,12 @@ class Pdf extends FPDF {
     public function __construct() {
         parent::__construct();
         
-        $this->DIR = $_SERVER['DOCUMENT_ROOT'];
+        $this->DIR = PATH_ADMIN;
         
     }
     // El encabezado del PDF
     public function Header(){
-        $this->Image($this->DIR.'/img/pdf/logo_miniatura.png',10,8,50);
+        $this->Image($this->DIR.'img/pdf/logo_miniatura.png',10,8,50);
     }
     // El pie del pdf
     public function Footer(){

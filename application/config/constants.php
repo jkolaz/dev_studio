@@ -50,11 +50,18 @@ define('URL_JS', 'http://localhost/edusoft/js/');
 define('URL_CSS', 'http://localhost/edusoft/css');
 define('URL_BASE', 'http://localhost/edusoft/');
 
+define("IS_PRODUCTION", FALSE);
 define("SERVER_HTTPS_PRO", "http://");
-define("SERVER_NAME", SERVER_HTTPS_PRO . 'www.colegio.devel/');
 define("SUBCARPETA_NAME", "/");
 define("SERVER_PATH", $_SERVER['DOCUMENT_ROOT'] . SUBCARPETA_NAME);
-define("PATH_ADMIN", SERVER_PATH );
+if(IS_PRODUCTION){
+    define("SERVER_NAME", SERVER_HTTPS_PRO . 'www.jkolaz.com/tesis/');
+    define("PATH_ADMIN", SERVER_PATH.'tesis/' );
+}else{
+    define("SERVER_NAME", SERVER_HTTPS_PRO . 'www.colegio.devel/');
+    define("PATH_ADMIN", SERVER_PATH );
+}
+define("PATH_LIBRARY", PATH_ADMIN . "application/libraries/");
 define("PATH_GALLERY", PATH_ADMIN . "img/upload/");
 define("PATH_PDF", PATH_ADMIN . "PDF/");
 define("SERVER_PDF", SERVER_NAME . "PDF/");
