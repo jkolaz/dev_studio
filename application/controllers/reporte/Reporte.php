@@ -13,6 +13,7 @@
  */
 class Reporte extends CI_Controller{
     //put your code here
+    var $tarea;
     public function __construct() {
         parent::__construct();
         $this->load->library('layout', 'layout');
@@ -20,6 +21,7 @@ class Reporte extends CI_Controller{
         $this->load->model('seguridad/usuario_model', 'USUARIO');
         $this->load->helper(array('url', 'form', 'utilitarios', 'log'));
         $this->pdf = new Pdf();
+        $this->tarea  = 'Reporte';
     }
     
     public function index(){
@@ -32,6 +34,9 @@ class Reporte extends CI_Controller{
             /*DNI PRUEBA : 10874854*/
             $dni = $_POST['txt_dni'];
             $obj = $this->USUARIO->getAlumnoNotasNowByDNI($dni);
+            if(count($obj) <= 0){
+                redirect('reporte/Reporte');
+            }
             $archivo = $this->generatePDFReporteAcademico($obj);
             
             $obj[0]->PDF = $archivo;
@@ -114,7 +119,8 @@ class Reporte extends CI_Controller{
             $this->pdf->Cell(20, 6, number_format($prom/4), $borde, 0,'C', TRUE);
             $this->pdf->ln(6);
         }
-        createLog("reporte", $archivo, $this->session->userdata('idUsuario'), "REGISTRO", "ALU-".$obj[0]->USUA_id);
+        $this->tarea = 'Rendimiento Academico';
+        createLog("reporte", 'Se generó un reporte de notas ('.$archivo.')', $this->tarea, $this->session->userdata('idUsuario'), "REGISTRO", "ALU-".$obj[0]->USUA_id);
         $this->pdf->Output(PATH_PDF.$archivo, 'F');
         return $archivo;
     }
@@ -125,6 +131,7 @@ class Reporte extends CI_Controller{
     }
     
     public function sendMail(){
+        $this->tarea = 'Rendimiento Academico';
         $correo = $_POST['txt_correo'];
         $pdf = $_POST['txt_pdf'];
         
@@ -136,7 +143,8 @@ class Reporte extends CI_Controller{
         $patch_attach = PATH_PDF.$pdf;
         
         if($correo != ""){
-            $this->senMailNew($subject, $destino, $cuerpo, '', $from_name, '', $patch_attach, '', 'generic_1');
+            //$this->senMailNew($subject, $destino, $cuerpo, '', $from_name, '', $patch_attach, '', 'generic_1');
+            createLog('reporte', 'Envio de correo con reporte de nota a '.$correo, $this->tarea, $this->session->userdata('idUsuario'), 'REGISTRO');
             ?>
             <script>
                 parent.jQuery.fancybox.close();

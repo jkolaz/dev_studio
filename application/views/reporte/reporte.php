@@ -1,6 +1,9 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>css/usuario.css" media="screen" />
 <script type="text/javascript">
     $(document).ready( function() {
+        
+        $('#txt_dni').focus();
+        
         $('#guardar_RA').click(function(e){
             var contador = 0;
             $('.require').each(function(){
@@ -27,7 +30,7 @@
                     <tr>
                         <td>Rendimiento Academico</td>
                         <td>
-                            <input type="text" name="txt_dni" id="txt_dni" class="required email" placeholder="Ingrese DNI del alumno" autocomplete="off"/>
+                            <input type="text" name="txt_dni" id="txt_dni" class="required number" maxlength="8" minlength="8" placeholder="Ingrese DNI del alumno" autocomplete="off"/>
                         </td>
                         <td><input type="submit" class="btn add" name="guardar_RA" id="guardar_RA" value="Generar Reporte"></td>
                         <td><input type="reset" class="btn danger" name="cancelar" id="cancelar" value="Limpiar"></td>

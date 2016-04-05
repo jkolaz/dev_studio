@@ -1,3 +1,0 @@
-REGISTRO | 1 | 2016-04-03 18:37:23 | Notas_10874854_1_2016_5701a93321254.pdf | www.colegio.devel/index.php/reporte/Reporte/rendimientoAcademico | Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0 | ALU-2
-REGISTRO | 1 | 2016-04-03 18:37:35 | Notas_10874854_1_2016_5701a93fd7b25.pdf | www.colegio.devel/index.php/reporte/Reporte/rendimientoAcademico | Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0 | ALU-2
-REGISTRO | 1 | 2016-04-03 18:37:39 | Notas_10874854_1_2016_5701a943a862f.pdf | www.colegio.devel/index.php/reporte/Reporte/rendimientoAcademico | Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0 | ALU-2

@@ -462,6 +462,19 @@ class Usuario_Model extends CI_Model {
         }
         return $data;
     }
+    
+    public function getUserById($id){
+        $where = [
+            'USUA_id' => $id
+        ];
+        $query = $this->db->where($where)
+                ->get(self::$tabla);
+        
+        if($query->num_rows > 0){
+            return $query->result();
+        }
+        return NULL;
+    }
 }
 
 ?>

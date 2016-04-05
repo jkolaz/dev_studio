@@ -10,7 +10,7 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 if(!function_exists('create_log')){
-    function createLog($fichero, $mensaje, $admin, $type="ERROR", $user= ""){
+    function createLog($fichero, $mensaje, $tarea, $admin, $type="ERROR", $user= ""){
         switch ($type){
             case "REGISTRO":
                 break;
@@ -24,7 +24,7 @@ if(!function_exists('create_log')){
         }
         $message = '';
         $message .= $type.' | '. $admin . ' | ' .date('Y-m-d H:i:s'). ' | '.$mensaje. ' | '. $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'] . ' | '. $_SERVER['HTTP_USER_AGENT'];
-        $message .= (($user == '') ? '' : " | ".$user)."\n";
+        $message .= ' | '.$tarea.' | '. $user ."||\n";
         flock($fp, LOCK_EX);
         fwrite($fp, $message);
         flock($fp, LOCK_UN);

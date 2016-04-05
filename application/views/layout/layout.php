@@ -23,7 +23,23 @@
         <script type="text/javascript" src="<?php echo base_url() ?>js/calendario/calendar-es.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>js/calendario/calendar-setup.js"></script>
         
+        <?php
+        $class = $this->router->fetch_class();
+        switch ($class){
+            case 'Reporte':
+            case 'Log':
+                $method = $this->router->fetch_method();
+                switch ($method){
+                    case 'index':
+                    case 'reporte':
+        ?>
+        <script type="text/javascript" src="<?php echo base_url() ?>js/validate/jquery.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>js/validate/jquery.validate.js"></script>
+        <?php
+                }
+                break;
+        }
+        ?>
     </head>
     <body style="background:#E8E9EC;">
         <div class="contenedor"><div class="trileft2"></div> <div class="trileft"></div></div>
