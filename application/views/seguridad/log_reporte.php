@@ -13,23 +13,23 @@
                 return false;
             }
         });
-        $('#form1').validate();
     });
 </script>
 <br><br>
-<div class="header">REPORTES</div>
+<div class="header">Registro de reporte</div>
 <div id="container">
     <div class="demo_jui">
     <!-- asa -->
-        <form name="form1" id="form1" action="<?=base_url() ?>index.php/reporte/Reporte/<?=$action?>" method="post">
+        <form name="form1" id="form1" action="<?=base_url() ?>index.php/seguridad/log/search" method="post">
+            <input type="hidden" name="action" id="action" value="<?=$action?>" />
             <table class="tabla" id="usuarios">
                 <tbody>
                     <tr>
-                        <td>Rendimiento Academico</td>
+                        <td>Fecha</td>
                         <td>
-                            <input type="text" name="txt_dni" id="txt_dni" class="required email" placeholder="Ingrese DNI del alumno" autocomplete="off"/>
+                            <input type="text" name="txt_fecha" id="txt_fecha" class="require" placeholder="Ingrese día" autocomplete="off"/>
                         </td>
-                        <td><input type="submit" class="btn add" name="guardar_RA" id="guardar_RA" value="Generar Reporte"></td>
+                        <td><input type="submit" class="btn add" name="guardar_RA" id="guardar_RA" value="Buscar"></td>
                         <td><input type="reset" class="btn danger" name="cancelar" id="cancelar" value="Limpiar"></td>
                     </tr>
                 </tbody>

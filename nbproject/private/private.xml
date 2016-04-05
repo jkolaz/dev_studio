@@ -3,27 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/reporte/reporteRendimientoAcademico.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/rol_index.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/libraries/class.template_mail.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/libraries/Pdf.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/profesor_nuevo.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/usuario_profesor_ver.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/rol_nuevo.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/reporte/sendMail.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/reporte/reporte.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/system/core/Controller.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/profesor/alumno.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/usuario_observaciones_popup.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/permiso_add.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/libraries/templates/template1.html</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/rol_ver.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/libraries/PHPMailer_5.2.4/class.phpmailer.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/usuario_comentarios_popup.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/usuario_index.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/helpers/log_helper.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/seguridad/Log.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/logs/reporte/2016_04_03.txt</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/helpers/utilitarios_helper.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/reporte/Reporte.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/config/constants.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/usuario_nuevo.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/log_reporte.php</file>
         </group>
     </open-files>
 </project-private>

@@ -22,6 +22,8 @@
         <script type="text/javascript" src="<?php echo base_url() ?>js/calendario/calendar.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>js/calendario/calendar-es.js"></script>
         <script type="text/javascript" src="<?php echo base_url() ?>js/calendario/calendar-setup.js"></script>
+        
+        <script type="text/javascript" src="<?php echo base_url() ?>js/validate/jquery.validate.js"></script>
     </head>
     <body style="background:#E8E9EC;">
         <div class="contenedor"><div class="trileft2"></div> <div class="trileft"></div></div>

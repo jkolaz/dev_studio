@@ -18,7 +18,7 @@ class Reporte extends CI_Controller{
         $this->load->library('layout', 'layout');
         $this->load->library('pdf');
         $this->load->model('seguridad/usuario_model', 'USUARIO');
-        $this->load->helper(array('url', 'form', 'utilitarios'));
+        $this->load->helper(array('url', 'form', 'utilitarios', 'log'));
         $this->pdf = new Pdf();
     }
     
@@ -114,7 +114,7 @@ class Reporte extends CI_Controller{
             $this->pdf->Cell(20, 6, number_format($prom/4), $borde, 0,'C', TRUE);
             $this->pdf->ln(6);
         }
-        
+        createLog("reporte", $archivo, $this->session->userdata('idUsuario'), "REGISTRO", "ALU-".$obj[0]->USUA_id);
         $this->pdf->Output(PATH_PDF.$archivo, 'F');
         return $archivo;
     }
