@@ -9,7 +9,7 @@ class Index extends CI_Controller {
 
     public function __construct() {
         parent :: __construct();
-        $this->load->helper(array('url', 'form', 'utilitarios'));
+        $this->load->helper(array('url', 'form'));
         $this->load->library('form_validation');
         $this->load->library('layout', 'layout');
         $this->load->model('seguridad/usuario_model');
@@ -90,9 +90,9 @@ class Index extends CI_Controller {
     public function principal() {
         $this->load->library('layout', 'layout');
 
-        if (!$this->session->userdata('login')) {
-            redirect('index/inicio');
-        }
+//        if (!$this->session->userdata('login')) {
+//            redirect('index/inicio');
+//        }
 
         $data['itemsProcesados'] = 1;
 

@@ -19,7 +19,7 @@ class Reporte extends CI_Controller{
         $this->load->library('layout', 'layout');
         $this->load->library('pdf');
         $this->load->model('seguridad/usuario_model', 'USUARIO');
-        $this->load->helper(array('url', 'form', 'utilitarios', 'log'));
+        $this->load->helper(array('url', 'form', 'log'));
         $this->pdf = new Pdf();
         $this->tarea  = 'Reporte';
     }
@@ -44,7 +44,7 @@ class Reporte extends CI_Controller{
             $data['titulo'] = 'Reporte de Notas';
             $this->layout->view('reporte/reporteRendimientoAcademico', $data);
         }else{
-            redirect('reporte/Reporte');
+            redirect('reporte/reporte');
         }
     }
     

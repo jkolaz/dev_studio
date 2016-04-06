@@ -61,6 +61,22 @@ class Permiso_Model extends CI_Model {
         }
         return null;
     }
+    public function getPermiso($directory, $class, $method, $param){
+        $rol  = $this->session->userdata('idRol');
+        $where = array();
+        $where['MENU_carpeta'] = $directory;
+        $where['MENU_controlador'] = $class;
+        $where['MENU_funcion'] = $method;
+        $where['MENU_parametro'] = $param;
+        $where['MENU_estado'] = 1;
+        $where['ROL_id'] = $rol;
+        $where['PERM_flagActivo1'] = 'A';
+        $query = $this->db->where($where)
+                ->join('menu', 'menu.MENU_id=permiso.MENU_id')
+                ->get(self::$tabla, 1);
+        echo $query->num_rows;
+        return true;
+    }
 
 }
 

@@ -30,7 +30,7 @@
 class CI_Controller {
 
 	private static $instance;
-
+        var $_carpeta, $_class, $_method, $_param;
 	/**
 	 * Constructor
 	 */
@@ -47,10 +47,15 @@ class CI_Controller {
 		}
 
 		$this->load =& load_class('Loader', 'core');
-
 		$this->load->initialize();
-		
+                
+		$this->_carpeta = str_replace('/', '', $this->router->fetch_directory());
+		$this->_class = $this->router->fetch_class();
+		$this->_method = $this->router->fetch_method();
+                $path_controller = '/'.$this->_carpeta.'/'.$this->_class.'/'.$this->_method;
+                $this->_param = str_replace($path_controller, '', $_SERVER['PATH_INFO']);
 		log_message('debug', "Controller Class Initialized");
+                $this->verificar();
 	}
 
 	public static function &get_instance()
@@ -105,6 +110,39 @@ class CI_Controller {
             if (!$rs_mail) {
                 imprimir($mail->ErrorInfo); 
                 exit;
+            }
+        }
+        
+        public function verificar(){
+            $session  = $this->session->userdata;
+            switch ($this->_carpeta){
+                case '':
+                    if($this->_class == 'index'){
+                        switch ($this->_method){
+                            case 'principal':
+                                if(isset($session['idUsuario']) && $session['idUsuario'] > 0){
+                    
+                                }else{
+                                    redirect();
+                                }
+                                break;
+                            default :
+                                return false;
+                        }
+                    }else{
+                        redirect();
+                    }
+                    break;
+                default :
+                    $this->verificar_acceso();
+            }
+        }
+        
+        public function verificar_acceso(){
+            $this->load->model('seguridad/permiso_model', 'PERMISO');
+            $permiso = $this->PERMISO->getPermiso($this->_carpeta, $this->_class, $this->_method, $this->_param);
+            if(!$permiso){
+                redirect('index/principal');
             }
         }
 }
