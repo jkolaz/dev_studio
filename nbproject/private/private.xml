@@ -3,12 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/helpers/log_helper.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/seguridad/Log.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/logs/reporte/2016_04_03.txt</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/helpers/utilitarios_helper.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/reporte/Reporte.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/log_reporte.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/models/seguridad/permiso_model.php</file>
         </group>
     </open-files>
 </project-private>

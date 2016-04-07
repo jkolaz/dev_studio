@@ -17,7 +17,18 @@ class Menu extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->load->library('layout', 'layout');
-        $this->load->helper(array('url', 'form', 'menu'));
+        $this->load->helper(array('url', 'form'));
+        $this->load->model('configuracion/menu_model', 'MENU');
         self::$__session = $this->session->userdata;
+    }
+    
+    public function index(){
+        $objMenu = $this->MENU->getMenu(0, FALSE, 'MENU_nombre');
+        foreach ($objMenu as $i=>$value){
+            $objSubMenu = $this->MENU->getMenu($value->MENU_id, FALSE, 'MENU_nombre');
+            $objMenu[$i]->SUB_MENU = $objSubMenu;
+        }
+        $data['lista'] = $objMenu;
+        $this->layout->view(NULL, $data);
     }
 }

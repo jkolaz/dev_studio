@@ -44,6 +44,7 @@ class Permiso_Model extends CI_Model {
         $this->db->join('permiso', 'permiso.MENU_id = menu.MENU_id');
         $this->db->where('permiso.ROL_id', $idRol);
         $this->db->where('menu.MENU_idPadre', 0);
+        $this->db->where('menu.MENU_estado', 1);
         $this->db->order_by('menu.MENU_orden');
         $query = $this->db->get();
         if ($query->num_rows > 0) {
@@ -53,6 +54,7 @@ class Permiso_Model extends CI_Model {
                 $this->db->join('permiso', 'permiso.MENU_id = menu.MENU_id');
                 $this->db->where('permiso.ROL_id', $idRol);
                 $this->db->where('menu.MENU_idPadre', $row->MENU_id);
+                $this->db->where('menu.MENU_estado', 1);
                 $this->db->order_by('menu.MENU_nombre');
                 $query = $this->db->get();
                 $row->sub_menus = $query->result();
@@ -62,6 +64,9 @@ class Permiso_Model extends CI_Model {
         return null;
     }
     public function getPermiso($directory, $class, $method, $param){
+        if($param == ''){
+            $param = NULL;
+        }
         $rol  = $this->session->userdata('idRol');
         $where = array();
         $where['MENU_carpeta'] = $directory;
@@ -70,12 +75,16 @@ class Permiso_Model extends CI_Model {
         $where['MENU_parametro'] = $param;
         $where['MENU_estado'] = 1;
         $where['ROL_id'] = $rol;
-        $where['PERM_flagActivo1'] = 'A';
+        $where['PERM_flagActivo'] = 'A';
         $query = $this->db->where($where)
                 ->join('menu', 'menu.MENU_id=permiso.MENU_id')
                 ->get(self::$tabla, 1);
-        echo $query->num_rows;
-        return true;
+        $array = array();
+        $array['permiso'] = FALSE;
+        if($query->num_rows > 0){
+            $array['permiso'] = TRUE;
+        }
+        return $array;
     }
 
 }

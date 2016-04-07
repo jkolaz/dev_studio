@@ -30,7 +30,7 @@
 class CI_Controller {
 
 	private static $instance;
-        var $_carpeta, $_class, $_method, $_param;
+        var $_carpeta, $_class, $_method, $_param= '';
 	/**
 	 * Constructor
 	 */
@@ -53,7 +53,9 @@ class CI_Controller {
 		$this->_class = $this->router->fetch_class();
 		$this->_method = $this->router->fetch_method();
                 $path_controller = '/'.$this->_carpeta.'/'.$this->_class.'/'.$this->_method;
-                $this->_param = str_replace($path_controller, '', $_SERVER['PATH_INFO']);
+                if(isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] !=""){
+                    $this->_param = str_replace($path_controller, '', $_SERVER['PATH_INFO']);
+                }
 		log_message('debug', "Controller Class Initialized");
                 $this->verificar();
 	}
@@ -141,7 +143,7 @@ class CI_Controller {
         public function verificar_acceso(){
             $this->load->model('seguridad/permiso_model', 'PERMISO');
             $permiso = $this->PERMISO->getPermiso($this->_carpeta, $this->_class, $this->_method, $this->_param);
-            if(!$permiso){
+            if(!$permiso['permiso']){
                 redirect('index/principal');
             }
         }

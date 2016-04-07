@@ -17,8 +17,11 @@ class Layout {
         $this->layout = $layout;
     }
 
-    function view($view, $data = null, $return = false) {
+    function view($view = null, $data = null, $return = false) {
         $loadedData = array();
+        if($view == NULL){
+            $view = $this->obj->_carpeta.'/'.$this->obj->_class.'_'.$this->obj->_method;
+        }
         $loadedData['content_for_layout'] = $this->obj->load->view($view, $data, true);
         if ($return) {
             $output = $this->obj->load->view($this->layout, $loadedData, true);
