@@ -33,7 +33,32 @@
         } );
     } );
 </script>
-
+<style>
+    #menu th{
+        background-color: #494C73;
+        font-weight: bold;
+        color: #EBEFFC;
+        text-align: center;
+        padding: 10px;
+        font-size: 12px;
+    }
+    .padre{
+        background-color: #B2B7D6;
+        color: #494C73;
+        font-weight: bold;
+        border-top: 1px #000; 
+    }
+    .info{
+        background-color: #A5A9CF;
+        color: #404366;
+        font-weight: bold;
+    }
+    .number{
+        background-color: #494C73;
+        color: #EBEFFC;
+        font-weight: bold;
+    }
+</style>
 <br><br>
 <div id="botonera">
     <ul href="<?php echo base_url() ?>index.php/seguridad/rol/mostrar_nuevo" id="nuevo_rol" 
@@ -47,14 +72,17 @@
 
 <div id="container">
     <div class="demo_jui">
-        <table cellpadding="0" cellspacing="0" border="1" class="display" id="rolesd">
+        <table cellpadding="0" cellspacing="0" border="1" class="display" id="menu">
             <thead>
                 <tr>
                     <th> N </th>
                     <th> NOMBRE </th>
                     <th> RUTA</th>
                     <th> DEPENDENCIAS</th>
+                    <th> PUBLICO</th>
+                    <th> VISTA</th>
                     <th> ESTADO </th>
+                    <th> ACCIONES </th>
                 </tr>
             </thead>
             <tbody>
@@ -63,30 +91,46 @@
                     $i = 1;
                     foreach ($lista as $objeto) {
                         $sub_menu = 0;
-                        if($objeto->SUB_MENU){
+                        if(is_array($objeto->SUB_MENU)){
                             $sub_menu = count($objeto->SUB_MENU);
-                        }
-                        $row = $sub_menu+1;
+                            $row = $sub_menu+2;
+                        }else{
+                            $row = $sub_menu+1;
+                        }                  
 ?>
                 <tr>
-                    <td rowspan="<?=$row?>"><?=$i?></td>
-                    <td rowspan="<?=$row?>"><?=$objeto->MENU_nombre?> <b>(<?=$sub_menu?>)</b></td>
-                    <td rowspan="<?=$row?>"><b><?=$objeto->MENU_ruta?></b></td>
+                    <td class="number" rowspan="<?=$row?>"><?=$i?></td>
+                    <td class="info" rowspan="<?=$row?>"><?=$objeto->MENU_nombre?> <b>(<?=$sub_menu?>)</b></td>
+                    
 <?php
                         if($sub_menu == 0){
 ?>
-                    <td>-</td>
-                    <td>-</td>
+                    <td class="padre">PADRE</td>
+                    <td class="padre"><b><?=$objeto->MENU_ruta?></td>
+                    <td class="padre">-</td>
+                    <td class="padre">-</td>
+                    <td class="padre">-</td>
+                    <td class="padre">-</td>
 <?php                            
                         }
 ?>
                 </tr>
 <?php
                         if($sub_menu > 0){
+?>
+                <tr>
+                    <td class="padre">PADRE</td>
+                    <td class="padre"><b><?=$objeto->MENU_ruta?></b></td>
+                    <td class="padre">-</td>
+                    <td class="padre">-</td>
+                    <td class="padre">-</td>
+                </tr>
+<?php
                             foreach ($objeto->SUB_MENU as $val){
                 ?>
                 <tr>
                     <td><?=$val->MENU_nombre?></td>
+                    <td><b><?=$val->MENU_ruta?></b></td>
                     <td>-</td>
                 </tr>
                 <?php
