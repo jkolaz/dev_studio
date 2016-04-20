@@ -15,6 +15,17 @@ if (!function_exists('imprimir')) {
 
 }
 
+if(!function_exists('estado_publico')){
+    function estado_publico($estado){
+        $estado_text = '<b style="color: #FF0000, font-weight: bold;">NO</b>';
+        switch($estado){
+            case 1:
+                $estado_text = '<b style="color: #00FF00, font-weight: bold;">SÍ</b>';
+        }
+        return $estado_text;
+    }
+}
+
 if (!function_exists('importar_excel')) {
 
     function importar_excel($nombreArchivo, &$hoja, &$numFilas, &$filaInicio) {

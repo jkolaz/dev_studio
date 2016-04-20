@@ -31,4 +31,10 @@ class Menu extends CI_Controller{
         $data['lista'] = $objMenu;
         $this->layout->view(NULL, $data);
     }
+    public function update($id){
+        
+    }
+    public function delete($id){
+        
+    }
 }

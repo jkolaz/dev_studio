@@ -64,7 +64,7 @@ class Permiso_Model extends CI_Model {
         return null;
     }
     public function getPermiso($directory, $class, $method, $param){
-        if($param == ''){
+        if($param == '' || $param == '/'){
             $param = NULL;
         }
         $rol  = $this->session->userdata('idRol');
@@ -72,17 +72,31 @@ class Permiso_Model extends CI_Model {
         $where['MENU_carpeta'] = $directory;
         $where['MENU_controlador'] = $class;
         $where['MENU_funcion'] = $method;
-        $where['MENU_parametro'] = $param;
         $where['MENU_estado'] = 1;
         $where['ROL_id'] = $rol;
         $where['PERM_flagActivo'] = 'A';
         $query = $this->db->where($where)
                 ->join('menu', 'menu.MENU_id=permiso.MENU_id')
-                ->get(self::$tabla, 1);
+                ->get(self::$tabla);
         $array = array();
         $array['permiso'] = FALSE;
         if($query->num_rows > 0){
-            $array['permiso'] = TRUE;
+            $objMenu = $query->result();
+            foreach ($objMenu as $value){
+                switch ($value->MENU_parametro){
+                    case '*':
+                        if($param != NULL){
+                            $array['permiso'] = TRUE;
+                            return $array;
+                        }
+                        break;
+                    default:
+                        if($value->MENU_parametro == $param){
+                            $array['permiso'] = TRUE;
+                            return $array;
+                        }
+                }
+            }
         }
         return $array;
     }
