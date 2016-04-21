@@ -75,12 +75,17 @@ class Usuario_Model extends CI_Model {
         return null;
     }
     
-    public function listar_usuarios_alumnos_matriculados() {
+    public function listar_usuarios_alumnos_matriculados($where = "") {
         /*
          * GXUS_estado :
          * VI: Matricula actualizada
          * NC: No actualizo matricula
-         */
+         */      
+        $sql_where = '';
+        if($where != ""){
+            $sql_where = " and USUA_dni like '%{$where}%'";
+        }
+        
         $sql = "select *
                 from usuario U, grado_x_usuario GR, rol R, grado G, nivel N
                 where U.ROL_id = R.ROL_id
@@ -91,6 +96,7 @@ class Usuario_Model extends CI_Model {
                       and U.ROL_id = 1
                       and G.GRAD_id != 100
                       and GR.GXUS_estado = 'AC'
+                      {$sql_where}
                 order by U.GRAD_id, USUA_apellidoPaterno";
         $query = $this->db->query($sql);
         if ($query->num_rows > 0)

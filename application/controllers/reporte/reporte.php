@@ -152,4 +152,14 @@ class Reporte extends CI_Controller{
             <?php
         }
     }
+    
+    function getAlumnos(){
+        $search = '';
+        if(isset($_GET['term'])){
+            $search = $_GET['term'];
+        }
+        $lista = $this->USUARIO->listar_usuarios_alumnos_matriculados($search);
+        
+        echo json_encode($lista);
+    }
 }
