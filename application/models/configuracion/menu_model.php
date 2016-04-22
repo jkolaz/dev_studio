@@ -21,9 +21,11 @@ class menu_model extends CI_Model{
         $this->load->database();
     }
     
-    public function getMenu($padre = 0, $all = FALSE, $order= ''){
+    public function getMenu($padre = 0, $all = FALSE, $order= '', $id = 0){
         $where = array();
-        
+        if($id > 0){
+            $where['MENU_id'] = $id;
+        }
         if($all){
             $where['MENU_is_public'] = $all;
         }
@@ -31,7 +33,9 @@ class menu_model extends CI_Model{
         if($order==''){
             $order = self::$_PK_col;
         }
-        $where['MENU_idPadre'] = $padre;
+        if($id == 0){
+            $where['MENU_idPadre'] = $padre;
+        }
         $query = $this->db->where($where)
                 ->order_by($order)
                 ->get(self::$_table);
@@ -39,5 +43,24 @@ class menu_model extends CI_Model{
             return $query->result();
         }
         return FALSE;
+    }
+    
+    public function update($post){
+        $update = array();
+        $update['MENU_nombre'] = $post['txt_MENU_nombre'];
+        $update['MENU_carpeta'] = $post['txt_MENU_carpeta'];
+        $update['MENU_controlador'] = $post['txt_MENU_controlador'];
+        $update['MENU_funcion'] = $post['txt_MENU_funcion'];
+        $update['MENU_parametro'] = $post['txt_MENU_parametro'];
+        $update['MENU_is_public'] = $post['txt_MENU_is_public'];
+        $update['MENU_is_view'] = $post['txt_MENU_is_view'];
+        $update['MENU_ruta'] = $post['txt_MENU_carpeta'].'/'.$post['txt_MENU_controlador'].'/'.$post['txt_MENU_funcion'];
+        if($post['txt_MENU_parametro'] == '*'){
+            $update['MENU_ruta'] .= '/'.$post['txt_MENU_parametro'];
+        }else{
+            $update['MENU_ruta'] .= $post['txt_MENU_parametro'];
+        }
+        
+        $this->db->where(self::$_PK_col, $post['txt_MENU_id'])->update(self::$_table, $update);
     }
 }

@@ -17,7 +17,7 @@ $objMenuBase = $objInstancia->permiso_model->obtener_permisos_por_rol($idRol);
     foreach ($objMenuBase as $var) {
         $text = ($var->MENU_ruta != '') ?
                 '<a href="' . site_url($var->MENU_ruta) . '">' . $var->MENU_nombre . '</a>' :
-                '<a href="javascript:;">' . utf8_encode($var->MENU_nombre) . '</a>';
+                '<a href="javascript:;">' . $var->MENU_nombre . '</a>';
         $enlaces = $var->sub_menus;
         ?>
         <li><?php echo $text ?>
@@ -28,7 +28,7 @@ $objMenuBase = $objInstancia->permiso_model->obtener_permisos_por_rol($idRol);
                         $subtext = '';
                         if ($enlace->MENU_ruta != '') {
                             $subtext = '<a href="' . site_url($enlace->MENU_ruta) . '">';
-                            $subtext .= utf8_encode($enlace->MENU_nombre) . '</a>';
+                            $subtext .= $enlace->MENU_nombre . '</a>';
                         } else
                             $subtext = '<a href="javascript:;">' . $enlace->MENU_nombre . '</a>';
                         echo '<li>' . $subtext . '</li>';

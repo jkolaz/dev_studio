@@ -32,7 +32,22 @@ class Menu extends CI_Controller{
         $this->layout->view(NULL, $data);
     }
     public function update($id){
-        
+        if(isset($_POST['action']) && $_POST['action'] != ''){
+            $this->MENU->update($_POST);
+            redirect('configuracion/menu/index');
+        }else{
+            $objMenu = $this->MENU->getMenu(0, FALSE, '', $id);
+            if($objMenu){
+                $data = array();
+                $data['titulo'] = 'Editar Menú';
+                $data['action'] = 'editar';
+                $data['menu'] = $objMenu[0];
+                $data['js'] = base_url().'js/'.$this->_carpeta.'/'.  $this->_class.'.js';
+                $this->layout->view(NULL, $data);
+            }else{
+                redirect('configuracion/menu/index');
+            }
+        }
     }
     public function delete($id){
         
