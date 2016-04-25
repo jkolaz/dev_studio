@@ -24,31 +24,48 @@ class Profesor extends CI_Controller{
         $this->load->model('educacion/alumnocurso_model', 'AlumnoCurso');
         $this->load->library('layout', 'layout');
     }
-    public function index($id){
-        $obCursoAlumno = $this->AlumnoCurso->getAlumnoByCurso($id);
-        if($obCursoAlumno){
-            foreach ($obCursoAlumno as $index => $value){
-                foreach ($this->Bimestre->getBimestre() as $index1 => $value1){
-                    $notaBimestre = $this->Calificacion->getCalifiacion($value->USUA_id, $value->GRAD_id, $value->CURS_id, $value1->BIME_id);
-                    $stdNotaBimestre = new stdClass();
-                    $stdNotaBimestre->BIME_id = $value1->BIME_id;
-                    $stdNotaBimestre->CALI_parcial1 = 0;
-                    if(is_array($notaBimestre)){
-                        foreach ($notaBimestre as $bime){
-                            if($bime->CALI_parcial1 != 0){
-                            $stdNotaBimestre->CALI_parcial1 = $bime->CALI_parcial1;
-                            }
-                        }
-                    }
-                    $obCursoAlumno[$index]->nota[] = $stdNotaBimestre;
-                }
+    
+    public function pasar_formato_notas($listaNotas, $nombreCurso){
+        $NOTAS = array();
+        if ($listaNotas) {
+            foreach ($listaNotas as $nota) {
+                $bimestre = $nota->BIME_id;
+                $parcial1 = $nota->CALI_parcial1;
+                $parcial2 = $nota->CALI_parcial2;
+                $promedio = round(($parcial1 + $parcial2) / 2);
+//                $parciales = utf8_encode($nombreCurso) . ' : Primer Parcial = ' . $parcial1 . ', Segundo Parcial = ' . $parcial2;
+                $parciales = number_format($nota->CALI_parcial1, 0);
+                $NOTAS[$bimestre] = array('id'=>$nota->CALI_id,'promedio' => $promedio, 'parciales' => $parciales);
             }
         }
-        $data['asignado'] = $id;
-        $curso = $this->Curso->obtener_curso($id);
-        $data['titulo'] = $curso[0]->CURS_nombre;
-        $data['lista'] = $obCursoAlumno;
-        $this->layout->view('profesor/alumno', $data);
+        return $NOTAS;
+    }
+    
+    public function index($id){
+        /*
+         * @id : (INT) Id de Curso
+         */
+        $redireccion = FALSE;
+        $objCurso = $this->Curso->obtener_curso($id);
+        if($objCurso){
+            $obCursoAlumno = $this->AlumnoCurso->getAlumnoByCurso($id);
+            if($obCursoAlumno){
+                $redireccion = TRUE;
+                foreach($obCursoAlumno as $id=>$value){
+                    $listaNotas = $this->Curso->obtener_notas_por_curso_alumno($value->USUA_id, $value->GRAD_id, $value->CURS_id);
+                    $arrayNotas = $this->pasar_formato_notas($listaNotas, $objCurso[0]->CURS_nombre);
+                    $obCursoAlumno[$id]->notas = $arrayNotas;
+                }
+                $data['titulo'] = $objCurso[0]->CURS_nombre;
+                $data['lista'] = $obCursoAlumno;
+                $this->layout->view(NULL, $data);
+            }
+        }
+        
+        if(!$redireccion){
+            
+        }
+        
     }
     
     public function criterio($id){

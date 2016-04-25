@@ -119,7 +119,9 @@ class Curso extends CI_Controller {
             echo "<script languaje='javascript' type='text/javascript'>window.close();</script>";
         }
     }
-
+    public function ver_detalle_nota(){
+        
+    }
     public function ver_detalle($idUsuario, $idGrado, $idCurso, $idBimestre, $asig=0, $id=0) {
         if($asig > 0){
             $objAsignacion = $this->Asignacion->getAsignado($asig);
@@ -329,7 +331,7 @@ class Curso extends CI_Controller {
         $objCurso = $this->curso_model->cursoByProfesor($profesor);
         $data['lista'] = $objCurso;
         $data['titulo'] = 'LISTA DE CURSOS';
-        $this->layout->view('educacion/curso_profesor',$data);
+        $this->layout->view(NULL,$data);
     }
 
 }

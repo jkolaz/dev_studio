@@ -57,7 +57,7 @@ class CI_Controller {
                     $this->_param = str_replace($path_controller, '', $_SERVER['PATH_INFO']);
                 }
 		log_message('debug', "Controller Class Initialized");
-                $this->verificar();
+                //$this->verificar();
 	}
 
 	public static function &get_instance()

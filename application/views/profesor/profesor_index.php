@@ -87,20 +87,20 @@
                     </td>
                     <td style="text-align: justify"><?=$objeto->USUA_nombres?></td>
                 <?php
-                        $notaBimestre = 0;
-                        $cantBimestre = count($objeto->nota);
-                        foreach ($objeto->nota as $nota){
+                        $total = 0;
+                        $count = count($objeto->notas);
+                        foreach($objeto->notas as $val){
+                            $total += $val['parciales'];
                 ?>
                     <td style="text-align: left">
-                        <a class="ver_nota" href="<?=base_url()?>index.php/educacion/curso/ver_detalle/<?=$objeto->USUA_id?>/<?=$objeto->GRAD_id?>/<?=$objeto->CURS_id?>/<?=$nota->BIME_id?>/<?=$asignado?>">
-                            <?=$nota->CALI_parcial1?>
+                        <a class="ver_nota" href="<?=base_url()?>index.php/educacion/curso/ver_detalle_curso/<?=$val['id']?>">
+                            <?=$val['parciales']?>
                         </a>
                     </td>
                 <?php
-                            $notaBimestre += $nota->CALI_parcial1;
                         }
                 ?>
-                    <td style="text-align: left"><?=grupo_nota(number_format($notaBimestre/$cantBimestre, 2))?></td>
+                    <td style="text-align: left"><?=grupo_nota(number_format($total/$count, 2))?></td>
                 </tr>
                 <?php
                         $i++;

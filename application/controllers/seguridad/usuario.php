@@ -306,7 +306,7 @@ class Usuario extends CI_Controller {
                 }else{
                     $curso->comentarios = 0;
                     $curso->profesor = "";
-                    $curso->notas = array("hola"=>"hola");
+                    $curso->notas = array();
                 }
             }
         }
