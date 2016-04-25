@@ -3,9 +3,13 @@ var controlador_menu = "index.php/configuracion/menu/";
 
 jQuery(document).ready( function() {
     base_url = $("#base_url").val();
-    oTable = $('#roles').dataTable( {
-        } );
-    
+    $('#nuevoPadre').click(function(){
+        var ruta = base_url + controlador_menu +$(this).attr('ruta')+'/0';
+        location.href = ruta;
+    });
+    if(validate_permiso == 1){
+        $('#form1').validate();
+    }
 } );
 
 function desactivar(codigo, tipo) {
@@ -14,12 +18,12 @@ function desactivar(codigo, tipo) {
         texto = "Esta seguro desea activar este rol?";
     }
     if ( confirm(texto) ) {
-        url = base_url +controlador_menu+ "delete/"+tipo+"/" + codigo;
+        var url = base_url +controlador_menu+ "delete/"+tipo+"/" + codigo;
         location.href = url;
     }
 }
 
 function editar(codigo){
-    url = base_url + controlador_menu +"update/"+codigo;
+    var url = base_url + controlador_menu +"update/"+codigo;
     location.href = url;
 }

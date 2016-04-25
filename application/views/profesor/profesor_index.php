@@ -15,8 +15,6 @@
         $(".ver_nota").fancybox( {
             'width'          : 450,
             'height'         : 420,
-            'transitionIn'   : 'elastic',
-            'transitionOut'  : 'elastic',
             'type'	     : 'iframe'
         } );
         $(".ver_curso").fancybox( {
@@ -37,24 +35,13 @@
             location.href = $(this).attr('href');
         });
         $('#fancybox-close').click(function(){
-            if(refrescar == 1){
-                refrescar = 0;
+            
                 document.location.reload();
-            }
         });
     } );
-    function refreshPage(param){
-        refrescar = param;
-    }
 </script>
 
 <br><br>
-<div id="botonera">
-    <ul href="<?php echo base_url() ?>index.php/educacion/curso/mostrar_nuevo" id="nuevo_curso" 
-        class="lista_botones">
-        <li id="nuevo"> Agregar Curso </li>
-    </ul>
-</div>
 
 <br>
 <div class="header"><?php echo $titulo ?></div>

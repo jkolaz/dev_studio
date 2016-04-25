@@ -102,70 +102,77 @@
         if(is_object($alumno)){
 ?>
         <div align="center">
-            <b><?php echo 'ALUMNO' ?></b>
+            <b>ALUMNO</b>
         </div>
         <br>
-        <?php
-        echo "<table width='95%' align='center' border=1 cellpadding=2 cellspacing=0 class='tablaLineaSimple'>";
-        echo "<thead class='cabeceraTablaInicio'>";
-        echo "<tr align='center'>";
-        echo "<td width='10%'><b> CÓDIGO </b></td>";
-        echo "<td width='15%'><b> APELLIDO<br>PATERNO </b></td>";
-        echo "<td width='15%'><b> APELLIDO<br>MATERNO </b></td>";
-        echo "<td width='20%'><b> NOMBRES </b></td>";
-        echo "<td width='10%'><b> USUARIO </b></td>";
-        echo "<td width='8%'><b> GRADO<br>NIVEL </b></td>";
-        echo "<td width='10%'><b> ESTADO </b></td>";
-        echo '</tr>';
-        echo '</thead>';
-        $nombreEstado = describir_estado($alumno->USUA_estado);
-        echo '<tr>';
-        echo "<td align='center'>" . $alumno->USUA_codigo . "</td>";
-        echo "<td align='center'>" . utf8_encode($alumno->USUA_apellidoPaterno) . "</td>";
-        echo "<td align='center'>" . utf8_encode($alumno->USUA_apellidoMaterno) . "</td>";
-        echo "<td align='center'>" . utf8_encode($alumno->USUA_nombres) . "</td>";
-        echo "<td align='center'>" . $alumno->USUA_login . "</td>";
-        echo "<td align='center'>" . $alumno->GRAD_abreviatura . ' ' . $alumno->NIVE_abreviatura . "</td>";
-        echo "<td align='center'>" . $nombreEstado . "</td>";
-        echo '<tr>';
-        echo '</table>';
-        ?>
+        <table  width="95%" align="center" border=1 cellpadding=2 cellspacing=0 class="tablaLineaSimple">
+            <thead class="cabeceraTablaInicio">
+                <tr style="text-align: center;">
+                    <td><b>CÓDIGO</b></td>
+                    <td><b>APELLIDO<br>PATERNO</b></td>
+                    <td><b>APELLIDO<br>MATERNO</b></td>
+                    <td><b>NOMBRES</b></td>
+                    <td><b>USUARIO</b></td>
+                    <td><b>GRADO<br>NIVEL</b></td>
+                    <td><b>ESTADO</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center"><?=$alumno->USUA_codigo?></td>
+                    <td style="text-align: center"><?=$alumno->USUA_apellidoPaterno?></td>
+                    <td style="text-align: center"><?=$alumno->USUA_apellidoMaterno?></td>
+                    <td style="text-align: center"><?=$alumno->USUA_nombres?></td>
+                    <td style="text-align: center"><?=$alumno->USUA_login?></td>
+                    <td style="text-align: center"><?=$alumno->GRAD_abreviatura?> <?=$alumno->NIVE_abreviatura?></td>
+                    <td style="text-align: center"><?=describir_estado($alumno->USUA_estado)?></td>
+                </tr>
+            </tbody>
+        </table>
 <?php   
         }
 ?>
         <br><br>
+<?php
+if($listaHermanos){
+?>
         <div align="center">
             <b><?php echo 'HERMANOS' ?></b>
         </div>
         <br>
-        <?php
-        echo "<table width='95%' align='center' border=1 cellpadding=2 cellspacing=0 class='tablaLineaSimple'>";
-        echo "<thead class='cabeceraTablaInicio'>";
-        echo "<tr align='center'>";
-        echo "<td width='10%'><b> CÓDIGO </b></td>";
-        echo "<td width='15%'><b> APELLIDO<br>PATERNO </b></td>";
-        echo "<td width='15%'><b> APELLIDO<br>MATERNO </b></td>";
-        echo "<td width='20%'><b> NOMBRES </b></td>";
-        echo "<td width='10%'><b> USUARIO </b></td>";
-        echo "<td width='10%'><b> GRADO<br>NIVEL </b></td>";
-        echo "<td width='10%'><b> ESTADO </b></td>";
-        echo '</tr>';
-        echo '</thead>';
-        if ($listaHermanos) {
+        <table width="95%" align="center" border=1 cellpadding=2 cellspacing=0 class="tablaLineaSimple">
+            <thead class="cabeceraTablaInicio">
+                <tr style="text-align: center">
+                    <td><b>CÓDIGO</b></td>
+                    <td><b>APELLIDO<br>PATERNO</b></td>
+                    <td><b>APELLIDO<br>MATERNO</b></td>
+                    <td><b>NOMBRES</b></td>
+                    <td><b>USUARIO</b></td>
+                    <td><b>GRADO<br>NIVEL</b></td>
+                    <td><b>ESTADO</b></td>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
             foreach ($listaHermanos as $hermano) {
                 $nombreEstado = describir_estado($hermano->USUA_estado);
-                echo '<tr>';
-                echo "<td align='center'>" . $hermano->USUA_codigo . "</td>";
-                echo "<td align='center'>" . utf8_encode($hermano->USUA_apellidoPaterno) . "</td>";
-                echo "<td align='center'>" . utf8_encode($hermano->USUA_apellidoMaterno) . "</td>";
-                echo "<td align='center'>" . utf8_encode($hermano->USUA_nombres) . "</td>";
-                echo "<td align='center'>" . $hermano->USUA_login . "</td>";
-                echo "<td align='center'>" . $hermano->GRAD_abreviatura . ' ' . $hermano->NIVE_abreviatura . "</td>";
-                echo "<td align='center'>" . $nombreEstado . "</td>";
-                echo '<tr>';
+            ?>
+                <tr>
+                    <td style="text-align: center"><?=$hermano->USUA_codigo?></td>
+                    <td style="text-align: center"><?=$hermano->USUA_apellidoPaterno?></td>
+                    <td style="text-align: center"><?=$hermano->USUA_apellidoMaterno?></td>
+                    <td style="text-align: center"><?=$hermano->USUA_nombres?></td>
+                    <td style="text-align: center"><?=$hermano->USUA_login?></td>
+                    <td style="text-align: center"><?=$hermano->GRAD_abreviatura?> <?=$hermano->NIVE_abreviatura?></td>
+                    <td style="text-align: center"><?=$nombreEstado?></td>
+                </tr>
+            <?php
             }
-        }
-        echo '</table>';
+            ?>    
+            </tbody>
+        </table>
+        <?php
+}
         ?>
         <br>
     </body>

@@ -52,4 +52,18 @@ class Menu extends CI_Controller{
     public function delete($id){
         
     }
+    
+    public function insert($padre=0){
+        if(isset($_POST['action']) && $_POST['action'] == 'insert'){
+            $this->MENU->insert($_POST);
+            redirect('configuracion/menu/index');
+        }else{
+            $data = array();
+            $data['titulo'] = 'Nuevo Menú';
+            $data['action'] = 'insert';
+            $data['padre'] = $padre;
+            $data['js'] = base_url().'js/'.$this->_assets.'.js';
+            $this->layout->view(NULL, $data);
+        }
+    }
 }

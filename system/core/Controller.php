@@ -30,7 +30,7 @@
 class CI_Controller {
 
 	private static $instance;
-        var $_carpeta, $_class, $_method, $_param= '';
+        var $_carpeta, $_class, $_method, $_param= '', $_view, $_assets;
 	/**
 	 * Constructor
 	 */
@@ -52,6 +52,8 @@ class CI_Controller {
 		$this->_carpeta = str_replace('/', '', $this->router->fetch_directory());
 		$this->_class = $this->router->fetch_class();
 		$this->_method = $this->router->fetch_method();
+                $this->_view = $this->_carpeta.'/'.  $this->_class.'_'.  $this->_method;
+                $this->_assets = $this->_carpeta.'/'.  $this->_class;
                 $path_controller = '/'.$this->_carpeta.'/'.$this->_class.'/'.$this->_method;
                 if(isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] !=""){
                     $this->_param = str_replace($path_controller, '', $_SERVER['PATH_INFO']);

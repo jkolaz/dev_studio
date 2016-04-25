@@ -10,15 +10,16 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 if(!function_exists('create_log')){
-    function createLog($fichero, $mensaje, $tarea, $admin, $type="ERROR", $user= ""){
+    function createLog($fichero, $mensaje, $tarea, $admin, $type="ERROR", $user= "", $typFile = 'txt'){
         switch ($type){
             case "REGISTRO":
+            case "UPDATE":
                 break;
             default :
                 return FALSE;
         }
         
-        $archivo = PATH_ADMIN."application/logs/".$fichero."/".date("Y_m_d").".txt";
+        $archivo = PATH_ADMIN."application/logs/".$fichero."/".date("Y_m_d").".".$typFile;
         if ( ! $fp = @fopen($archivo, FOPEN_WRITE_CREATE)){
             return FALSE;
         }

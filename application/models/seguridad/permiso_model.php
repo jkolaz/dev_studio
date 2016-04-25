@@ -45,7 +45,7 @@ class Permiso_Model extends CI_Model {
         $this->db->where('permiso.ROL_id', $idRol);
         $this->db->where('menu.MENU_idPadre', 0);
         $this->db->where('menu.MENU_estado', 1);
-        $this->db->order_by('menu.MENU_orden');
+        $this->db->order_by('menu.MENU_nombre');
         $query = $this->db->get();
         if ($query->num_rows > 0) {
             $lista = $query->result();

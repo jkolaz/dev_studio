@@ -147,6 +147,16 @@ class Usuario extends CI_Controller {
     public function ver_padres($idAlumno) {
         $data['titulo'] = 'PADRES DE FAMILIA';
         $alumno = $this->usuario_model->obtener_usuario_por_id($idAlumno);
+        if($alumno){
+            $alumno[0]->GRAD_abreviatura = '';
+            $alumno[0]->NIVE_abreviatura = '';
+            $this->load->model('matricula/cursogrado_model', 'GRADOUSUARIO');
+            $objGrado = $this->GRADOUSUARIO->getGradoById($alumno[0]->USUA_id);
+            if($objGrado){
+                $alumno[0]->GRAD_abreviatura = $objGrado[0]->GRAD_abreviatura;
+                $alumno[0]->NIVE_abreviatura = $objGrado[0]->NIVE_abreviatura;
+            }
+        }
         $data['alumno'] = $alumno[0];
         $listaHermanos = $this->listar_hermanos($idAlumno);
         $data['listaHermanos'] = $listaHermanos;
@@ -165,7 +175,7 @@ class Usuario extends CI_Controller {
         }
 
         $data['listaPadres'] = $lista;
-        $this->load->view('seguridad/usuario_ver_padres_popup', $data);
+        $this->load->view($this->_view, $data);
     }
     
     public function ver_pagos($idAlumno) {

@@ -51,4 +51,18 @@ class Cursogrado_model extends CI_Model{
         }
         return 1;
     }
+    
+    public function getGradoById($id){
+        $where = array();
+        $where['USUA_id'] = $id;
+        $where['GXUS_estado'] = 'AC';
+        $query = $this->db->where($where)
+                ->join('grado', 'grado.GRAD_id='.self::$_table.'.GRAD_id')
+                ->join('nivel', 'nivel.NIVE_id=grado.NIVE_id')
+                ->get(self::$_table);
+        if($query->num_rows >0){
+            return $query->result();
+        }
+        return NULL;
+    }
 }

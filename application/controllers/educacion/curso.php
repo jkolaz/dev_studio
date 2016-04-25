@@ -4,7 +4,7 @@ class Curso extends CI_Controller {
 
     public function __construct() {
         parent :: __construct();
-        $this->load->helper(array('url', 'form', 'utilitarios'));
+        $this->load->helper(array('url', 'form', 'utilitarios', 'log'));
         $this->load->library('form_validation', 'pagination', 'html');
         $this->load->model('educacion/curso_model');
         $this->load->model('educacion/grado_model');
@@ -164,7 +164,7 @@ class Curso extends CI_Controller {
         
         //imprimir($objCalificacion);
         $data['calificacion'] = $objCalificacion;
-        $this->load->view('educacion/notas_detalle_popup_new', $data);
+        $this->load->view($this->_view, $data);
     }
     
     public function updateNota(){
@@ -197,6 +197,8 @@ class Curso extends CI_Controller {
         }
         $promedio = $nota/$cant_criterio;
         $this->calificacion->update($idCalificacion,$promedio);
+        $objCalificacion = $this->calificacion->getCalificacionByID($idCalificacion);
+        createLog("notas", 'Se Actualizo la nota del alumno ', $this->tarea, $this->session->userdata('idUsuario'), "UPDATE", "ALU-".$objCalificacion[0]->USUA_id, 'log');
         redirect('educacion/curso/ver_detalle_curso/'.$idCalificacion);
     }
     

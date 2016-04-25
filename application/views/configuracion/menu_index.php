@@ -1,38 +1,10 @@
-<script type="text/javascript" src="<?php echo base_url() ?>js/configuracion/menu.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-<script type="text/javascript" charset="utf-8">
-    $(document).ready( function() {
-        
-    } );
-</script>
 <script type="text/javascript">
-    $(document).ready( function() {
-        base_url   = $("#base_url").val();
-        $("#nuevo_rol").fancybox( {
-            'width'          : 700,
-            'height'         : 650,
-            'transitionIn'   : 'elastic',
-            'transitionOut'  : 'elastic',
-            'type'	     : 'iframe'
-        } );
-        $(".editar_rol").fancybox( {
-            'width'          : 700,
-            'height'         : 650,
-            'transitionIn'   : 'elastic',
-            'transitionOut'  : 'elastic',
-            'type'	     : 'iframe'
-        } ); 
-        $(".ver_rol").fancybox( {
-            'width'          : 700,
-            'height'         : 650,
-            'transitionIn'   : 'elastic',
-            'transitionOut'  : 'elastic',
-            'type'	     : 'iframe'
-        } );
-    } );
+    var validate_permiso = 0;
 </script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/configuracion/menu.js"></script>
 <style>
     #menu th{
         background-color: #494C73;
@@ -70,9 +42,9 @@
 </style>
 <br><br>
 <div id="botonera">
-    <ul href="<?php echo base_url() ?>index.php/seguridad/rol/mostrar_nuevo" id="nuevo_rol" 
+    <ul ruta="insert" id="nuevoPadre" 
         class="lista_botones">
-        <li id="nuevo"> Agregar Anio Escolar </li>
+        <li id="nuevo"> Agregar Menú Padre</li>
     </ul>
 </div>
 
