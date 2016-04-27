@@ -2,6 +2,7 @@
 
 class Curso extends CI_Controller {
 
+    var $tarea;
     public function __construct() {
         parent :: __construct();
         $this->load->helper(array('url', 'form', 'utilitarios', 'log'));
@@ -14,6 +15,7 @@ class Curso extends CI_Controller {
         $this->load->model('seguridad/usuario_model');
         $this->load->model('layout/menu_model');
         $this->load->library('layout', 'layout');
+        $this->tarea = 'Actualización de nota';
     }
 
     public function index() {

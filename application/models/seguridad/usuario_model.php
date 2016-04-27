@@ -447,12 +447,12 @@ class Usuario_Model extends CI_Model {
         return $codigo;
     }
     public function getAlumnoNotasNowByDNI($dni){
-        $where = [
+        $where = array(
             'USUA_dni' => $dni,
             'USUA_flagActivo' => 'A',
             'ROL_id' => 1,
             'GXUS_estado' => 'AC'
-        ];
+        );
         $data = array();
         $query = $this->db->where($where)
                     ->join('grado_x_usuario', 'grado_x_usuario.USUA_id='.self::$tabla.'.USUA_id')
@@ -470,9 +470,9 @@ class Usuario_Model extends CI_Model {
     }
     
     public function getUserById($id){
-        $where = [
+        $where = array(
             'USUA_id' => $id
-        ];
+        );
         $query = $this->db->where($where)
                 ->get(self::$tabla);
         

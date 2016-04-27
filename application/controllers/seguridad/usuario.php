@@ -286,13 +286,16 @@ class Usuario extends CI_Controller {
         $objGrado->GRAD_id = 0;
         $objGrado->GRAD_nombre = "---";
         $objGrado->NIVE_nombre = "---";
-        $idGrado = $objGradoUsuario[0]->GRAD_id;
+        $idGrado = 0;
         if($objGradoUsuario){
-            $objGrado->GRAD_id =$objGradoUsuario[0]->GRAD_id;
-            $objGradoNivel = $this->GRADO->getNivelByGrado($objGradoUsuario[0]->GRAD_id);
-            if($objGradoNivel){
-                $objGrado->GRAD_nombre = $objGradoNivel[0]->GRAD_nombre;
-                $objGrado->NIVE_nombre = $objGradoNivel[0]->NIVE_nombre;
+            $idGrado = $objGradoUsuario[0]->GRAD_id;
+            if($objGradoUsuario){
+                $objGrado->GRAD_id =$objGradoUsuario[0]->GRAD_id;
+                $objGradoNivel = $this->GRADO->getNivelByGrado($objGradoUsuario[0]->GRAD_id);
+                if($objGradoNivel){
+                    $objGrado->GRAD_nombre = $objGradoNivel[0]->GRAD_nombre;
+                    $objGrado->NIVE_nombre = $objGradoNivel[0]->NIVE_nombre;
+                }
             }
         }
         $data['grado'] = $objGrado;

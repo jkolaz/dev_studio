@@ -11,7 +11,7 @@
 <div id="container">
     <div class="demo_jui">
     <!-- asa -->
-        <form name="form1" id="form1" action="<?=base_url() ?>index.php/reporte/Reporte/<?=$action?>" method="post">
+        <form name="form1" id="form1" action="<?=base_url() ?>index.php/reporte/reporte/<?=$action?>" method="post">
             <table class="tabla" id="usuarios">
                 <tbody>
                     <tr>

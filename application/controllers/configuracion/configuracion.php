@@ -21,6 +21,7 @@ class Configuracion extends CI_Controller{
         self::$__session = $this->session->userdata;
     }
     public function getAnioEscolar(){
+        $data['js'] = base_url().'js/'.$this->_assets.'.js';
         $this->load->model('configuracion/anio_model', 'anio');
         $lista = $this->anio->getAnio();
         $data['lista'] = $lista;
@@ -128,5 +129,11 @@ class Configuracion extends CI_Controller{
             }
         }
         echo json_encode(array('result'=>$result));
+    }
+    
+    function nuevoAnio(){
+        $data['js'] = base_url().'js/'.$this->_assets.'.js';
+        imprimir($this->_controlador);
+        $this->layout->view(NULL, $data);
     }
 }

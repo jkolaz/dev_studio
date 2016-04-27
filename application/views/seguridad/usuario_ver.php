@@ -41,6 +41,10 @@
             'transitionOut'  : 'elastic',
             'type'	     : 'iframe'
         } );
+        $('#fancybox-close').click(function(){
+            
+                document.location.reload();
+        });
     } );
 </script>
 

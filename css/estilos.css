@@ -115,9 +115,10 @@ table {
     text-align: center;
     text-decoration: none;
     font-weight: bold;
-    height: 20px;
+    height: 45px;
     vertical-align: middle;
     border-radius: 5px 5px 0px 0px;
+    padding-top: 12px;
 }
 
 /* botonera */

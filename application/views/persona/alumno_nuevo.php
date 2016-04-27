@@ -100,7 +100,7 @@
     }
 </style>
 <br><br>
-<div class="header">MATRICULA</div>
+<div class="header">Registro de usuario</div>
 <div id="container">
     <div class="demo_jui">
     <!-- asa -->

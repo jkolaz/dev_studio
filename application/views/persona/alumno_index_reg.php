@@ -81,45 +81,39 @@
                     foreach ($lista as $objeto) {
                         $idUsuario = $objeto->USUA_id;
                         $nombreEstado = describir_estado($objeto->USUA_estado);
-                        echo '<tr>';
-                        echo "<td align='center'>" . $i . '</td>';
-                        echo "<td align='center'>" . $objeto->USUA_codigo . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_apellidoPaterno) . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_apellidoMaterno) . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_nombres) . '</td>';
-                        echo "<td align='center'>" . $objeto->USUA_login . '</td>';
-//                        echo "<td align='center'>" . utf8_encode($objeto->ROL_nombre) . '</td>';
-
-                        echo "<td align='center'>";
-                        echo "<a class='ver_padres' href='" . base_url()
-                        . "index.php/seguridad/usuario/ver_padres/"
-                        . $idUsuario . "' ><img src='" . base_url()
-                        . "img/usuarios.png' width='16' height='16' border='0' title='"
-                        . str_replace('<br>', ' # ', $objeto->padres) . "' /></a>";
-                        echo '</td>';
-
-                        echo "<td align='center'>";
-                        echo "<a class='ver_pagos' href='" . base_url()
-                        . "index.php/seguridad/usuario/ver_pagos/" . $idUsuario . "' > $nombreEstado </a>";
-                        echo '</td>';
-
-                        echo "<td align='center'>";
-                        echo "<a target='_blank' href='" . base_url()
-                        . "index.php/seguridad/usuario/ver_user/"
-                        . $idUsuario . "' ><img src='" . base_url()
-                        . "img/ver.png' width='16' height='16' border='0' title='Ver Usuario' /></a>";
-                        echo '&nbsp;&nbsp;';
-                        echo "<a class='editar_usuario' href='" . base_url()
-                        . "index.php/3_lecturas/usuario/mostrar_editar/"
-                        . $idUsuario . "' ><img src='" . base_url()
-                        . "img/modificar.png' width='16' height='16' border='0' title='Modificar Usuario' /></a>";
-                        echo '&nbsp;&nbsp;';
-                        echo "<a href='#' onclick='eliminar_usuario(" . $idUsuario
-                        . ")'><img src='" . base_url()
-                        . "img/eliminar.png' border='0' width='17' height='17' title='Eliminar Usuario' /></a>";
-                        echo '</td>';
-
-                        echo '</tr>';
+                ?>
+                <tr>
+                    <td style="text-align: center"><?=$i?></td>
+                    <td style="text-align: center"><?=$objeto->USUA_codigo?></td>
+                    <td style="text-align: left"><?=$objeto->USUA_apellidoPaterno?></td>
+                    <td style="text-align: left"><?=$objeto->USUA_apellidoMaterno?></td>
+                    <td style="text-align: left"><?=$objeto->USUA_nombres?></td>
+                    <td style="text-align: left"><?=$objeto->USUA_login?></td>
+                    <td style="text-align: center">
+                        <a class="ver_padres" href="<?=base_url()?>index.php/seguridad/usuario/ver_padres/<?=$idUsuario?>">
+                            <img src="<?=base_url()?>img/usuarios.png" width="16" height="16" border="0" title="<?=str_replace('<br>', '#', $objeto->padres)?>"/>
+                        </a>
+                    </td>
+                    <td style="text-align: center">
+                        <a class="ver_pagos" href="<?=base_url()?>index.php/seguridad/usuario/ver_pagos/<?=$idUsuario?>">
+                            <?=$nombreEstado?>
+                        </a>
+                    </td>
+                    <td style="text-align: center">
+                        <a href="<?=base_url()?>index.php/seguridad/usuario/ver_user/<?=$idUsuario?>">
+                            <img src="<?=base_url()?>img/ver.png" width="16" height="16" border="0" title="Ver usuario"/>
+                        </a>
+                        &nbsp;&nbsp;
+                        <a class="editar_usuarios" href="<?=base_url()?>index.php/3_lecturas/usuario/mostrar_editar/<?=$idUsuario?>">
+                            <img src="<?=base_url()?>img/modificar.png" width="16" height="16" border="0" title="Modificar usuario"/>
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="#" onclick="eliminar_usuario(<?=$idUsuario?>)">
+                            <img src="<?=base_url()?>img/eliminar.png" width="16" height="16" border="0" title="Eliminar usuario"/>
+                        </a>
+                    </td>
+                </tr>
+                <?php
                         $i++;
                     }
                 }

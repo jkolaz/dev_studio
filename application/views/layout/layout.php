@@ -26,8 +26,8 @@
         <?php
         $class = $this->router->fetch_class();
         switch ($class){
-            case 'Reporte':
-            case 'Log':
+            case 'reporte':
+            case 'log':
                 $method = $this->router->fetch_method();
                 switch ($method){
                     case 'index':
