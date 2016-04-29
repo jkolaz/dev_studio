@@ -26,6 +26,7 @@
                     <th> INICIO DE CLASES</th>
                     <th> FIN DE CLASES</th>
                     <th> ESTADO </th>
+                    <th> ACCIONES </th>
                 </tr>
             </thead>
             <tbody>
@@ -42,6 +43,17 @@
                     <td><?=$objeto->ANI_inicio_clases?></td>
                     <td><?=$objeto->ANI_fin_clases?></td>
                     <td><?=$objeto->ANI_estado_html?></td>
+                    <td>
+                        <?php
+                        if($objeto->ANI_estado == 1){
+                        ?>
+                        <a href="javascript:;" onclick="cerrar_anio(<?=$objeto->ANI_id?>)">Cerrar Año</a>
+                        <?php
+                        }else{
+                            echo '---';
+                        }
+                        ?>
+                    </td>
                 </tr>
 <?php
                         $i++;

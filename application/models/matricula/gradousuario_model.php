@@ -29,4 +29,16 @@ class Gradousuario_model extends CI_Controller{
         }
         return NULL;
     }
+    
+    public function getRegistroByAnio($anio){
+        $where = array();
+        $where['ANIO_id'] = $anio;
+        $where['GXUS_estado'] = 'AC';
+        $where['GXU_status'] = 1;
+        $query = $this->db->where($where)->get(self::$tabla);
+        if($query->num_rows > 0){
+            return $query->result();
+        }
+        return NULL;
+    }
 }

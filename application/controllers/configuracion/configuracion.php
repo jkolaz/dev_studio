@@ -18,6 +18,8 @@ class Configuracion extends CI_Controller{
         parent::__construct();
         $this->load->library('layout', 'layout');
         $this->load->helper(array('url', 'form', 'utilitarios'));
+        $this->load->model('educacion/curso_model', 'CURSO');
+        $this->load->model('matricula/gradousuario_model', 'GXU');
         self::$__session = $this->session->userdata;
     }
     public function getAnioEscolar(){
@@ -135,5 +137,44 @@ class Configuracion extends CI_Controller{
         $data['js'] = base_url().'js/'.$this->_assets.'.js';
         imprimir($this->_controlador);
         $this->layout->view(NULL, $data);
+    }
+    function cerrarAnio($id){
+        
+        $obGXU = $this->GXU->getRegistroByAnio($id);
+        if($obGXU){
+            
+            foreach ($obGXU as $val){
+                $idUsuario = $val->USUA_id;
+                $idGrado = $val->GRAD_id;
+                $listaCursos = $this->CURSO->listar_cursos_por_alumno($idUsuario);
+                print_r($listaCursos);
+                if($listaCursos){
+                    foreach ($listaCursos as $curso){
+                        $idCurso = $curso->CURS_id;
+                        $nombreCurso = $curso->CURS_abreviatura;
+                        $listaNotas = $this->CURSO->obtener_notas_por_curso_alumno($idUsuario, $idGrado, $idCurso);
+                        $curso->notas = $this->pasar_formato_notas($listaNotas, $nombreCurso);
+                        
+                    }
+                }
+                imprimir($listaCursos);
+            }
+        }
+        imprimir($obGXU);
+    }
+    private function pasar_formato_notas($listaNotas, $nombreCurso) {
+        $NOTAS = array();
+        if ($listaNotas) {
+            foreach ($listaNotas as $nota) {
+                $bimestre = $nota->BIME_id;
+                $parcial1 = $nota->CALI_parcial1;
+                $parcial2 = $nota->CALI_parcial2;
+                $promedio = round(($parcial1 + $parcial2) / 2);
+//                $parciales = utf8_encode($nombreCurso) . ' : Primer Parcial = ' . $parcial1 . ', Segundo Parcial = ' . $parcial2;
+                $parciales = number_format($nota->CALI_parcial1, 0);
+                $NOTAS[$bimestre] = array('id'=>$nota->CALI_id,'promedio' => $promedio, 'parciales' => $parciales);
+            }
+        }
+        return $NOTAS;
     }
 }

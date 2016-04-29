@@ -31,3 +31,8 @@ $(document).ready( function() {
         location.href = ruta;
     });
 } );
+
+function cerrar_anio(id){
+    var url = controlador+'cerrarAnio/'+id;
+    location.href=url;
+}

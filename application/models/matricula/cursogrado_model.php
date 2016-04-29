@@ -13,6 +13,7 @@
  */
 class Cursogrado_model extends CI_Model{
     //put your code here
+    /*migrar a gradoxusuario_model*/
     private static $_table = 'grado_x_usuario';
     public $_USUA_id;
     public $_GRAD_id;
