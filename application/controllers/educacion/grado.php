@@ -157,5 +157,138 @@ class Grado extends CI_Controller {
         }
         echo json_encode(array("result"=>$result, "title"=>$title, "cursos"=>$cursos_td));
     }
+    
+    public function decargar($id){
+        $obGrado = $this->grado_model->getGradoById($id);
+
+        if($obGrado){
+            $archivo = 'Horario_'.$obGrado[0]->GRAD_nombre.'_'.$obGrado[0]->NIVE_nombre.'_'.date('Y').'.xlsx';
+            $this->load->library('PHPExcel/Classes/PHPExcel.php');
+            $this->phpexcel->getProperties()->setCreator("Arkos Noem Arenom")
+                                    ->setLastModifiedBy("Arkos Noem Arenom")
+                                    ->setTitle("Office 2007 XLSX Test Document")
+                                    ->setSubject("Office 2007 XLSX Test Document")
+                                    ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+                                    ->setKeywords("office 2007 openxml php")
+                                    ->setCategory("Test result file");
+
+            $dia = date('Y-m-d').' 08:00:00';
+            $intervalo = 40*60;
+            $curso = $this->curso_model->getCursoGrado($id);
+            $cant_horas = 8;
+            
+            
+            
+            
+            
+            // agregamos información a las celdas
+            $this->phpexcel->setActiveSheetIndex(0)
+                            ->setCellValue('A1', 'Grado')
+                            ->setCellValue('B1', $obGrado[0]->GRAD_nombre.' '.$obGrado[0]->NIVE_nombre);
+            $this->phpexcel->setActiveSheetIndex(0)
+                            ->setCellValue('A2', 'Inicio')
+                            ->setCellValue('B2', 'Fin')
+                            ->setCellValue('C2', 'Lunes')
+                            ->setCellValue('D2', 'Martes')
+                            ->setCellValue('E2', 'Miercoles')
+                            ->setCellValue('F2', 'Jueves')
+                            ->setCellValue('G2', 'Viernes');
+            
+            $I = 1;
+            $inicio_num = strtotime($dia);
+
+            while ($I <= $cant_horas){
+                $texto = '';
+                $fin_num = $inicio_num+$intervalo;
+                if($I == 4){
+                    $fin_num = $inicio_num+(20*60);
+                    $texto = 'Recreo';
+                }
+                $this->phpexcel->setActiveSheetIndex(0)
+                        ->setCellValue('A' . ($I+2), date('H:i',$inicio_num))
+                        ->setCellValue('B' . ($I+2), date('H:i',$fin_num))
+                        ->setCellValue('C' . ($I+2), $texto)
+                        ->setCellValue('D' . ($I+2), $texto)
+                        ->setCellValue('E' . ($I+2), $texto)
+                        ->setCellValue('F' . ($I+2), $texto)
+                        ->setCellValue('G' . ($I+2), $texto);
+                $inicio_num = $fin_num;
+                $I++;
+            }
+            
+            $this->phpexcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+            $this->phpexcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+            $this->phpexcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+            $this->phpexcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+            $this->phpexcel->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+            $this->phpexcel->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+            $this->phpexcel->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+            
+            $objStyle = $this->phpexcel->getActiveSheet()->getStyle('A1:G1');
+            $objFont = $objStyle->getFont();
+            $objFont->getColor()->setARGB('FFFFFF');
+            $objFill = $objStyle->getFill();
+            $objFill->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+            $objFill->getStartColor()->setARGB('55DCD2');
+            
+            $objStyle1 = $this->phpexcel->getActiveSheet()->getStyle('A2:G2');
+            $objFont1 = $objStyle1->getFont();
+            $objFont1->getColor()->setARGB('FFFFFF');
+            $objFill1 = $objStyle1->getFill();
+            $objFill1->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+            $objFill1->getStartColor()->setARGB('FCAA54');
+            
+            // Renombramos la hoja de trabajo
+            $this->phpexcel->getActiveSheet()->setTitle('Horario');
+            
+            $objWorkSheet = $this->phpexcel->createSheet(1); //Setting index when creating
+
+            //Write cells
+            $objWorkSheet->setCellValue('A1', 'Cursos')
+                    ->setCellValue('A2', 'Código')
+                    ->setCellValue('B2', 'Nombre del curso');
+            $J = 1;
+            if($curso){
+                foreach ($curso as $value){
+                    $objWorkSheet->setCellValue('A'. ($J+2), $value->CURS_abreviatura)
+                                ->setCellValue('B'. ($J+2), $value->CURS_nombre);
+                    $J++;
+                }
+            }
+            $objWorkSheet->getColumnDimension('A')->setAutoSize(true);
+            $objWorkSheet->getColumnDimension('B')->setAutoSize(true);
+            $objStyle2 =$objWorkSheet->getStyle('A2:B2');
+            $objFont2 = $objStyle2->getFont();
+            $objFont2->getColor()->setARGB('FFFFFF');
+            $objFill2 = $objStyle2->getFill();
+            $objFill2->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+            $objFill2->getStartColor()->setARGB('FCAA54');
+            
+            // Rename sheet
+            $objWorkSheet->setTitle("Cursos");
+            
+            // configuramos el documento para que la hoja
+            // de trabajo número 0 sera la primera en mostrarse
+            // al abrir el documento
+            $this->phpexcel->setActiveSheetIndex(0);
+
+
+            // redireccionamos la salida al navegador del cliente (Excel2007)
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="'.$archivo.'"');
+            header('Cache-Control: max-age=0');
+
+            $objWriter = PHPExcel_IOFactory::createWriter($this->phpexcel, 'Excel2007');
+            $objWriter->save('php://output');
+        }
+    }
+    
+    public function horario($id){
+        $data['action'] = 'registrar';
+        $data['idGrado'] = $id;
+        $data['titulo'] = 'Registrar Horario';
+        $data['js'] = base_url().'js/'.$this->_carpeta.'/'.  $this->_class.'.js';
+        $this->layout->view(NULL, $data);
+    }
 }
 ?>

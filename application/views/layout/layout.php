@@ -28,9 +28,11 @@
         switch ($class){
             case 'reporte':
             case 'log':
+            case 'grado':
                 $method = $this->router->fetch_method();
                 switch ($method){
                     case 'index':
+                    case 'horario':
                     case 'reporte':
         ?>
         <script type="text/javascript" src="<?php echo base_url() ?>js/validate/jquery.js"></script>

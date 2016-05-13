@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head><meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+  <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +25,7 @@
     <div class="col-md-3"   >
     </br>
     <ul class="list-group">
-  <li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-search"></span> Localizacion: Av Cordialidad Mz ZZ �C 2 Lote 17</li>
+  <li class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-search"></span> Localización: Av Cordialidad Mz ZZ C 2 Lote 17</li>
   <li style="text-align: left;" class="list-group-item list-group-item-warning"> <span class="glyphicon glyphicon-envelope"></span> Contactenos a : www.jkolaz.com/tesis </li>
 
   <li class="list-group-item list-group-item-danger"> <span class="glyphicon glyphicon-earphone"></span> Telefono: 997243562</li>

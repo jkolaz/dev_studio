@@ -21,6 +21,19 @@ class Grado_model extends CI_Model {
         return null;
     }
     
+    public function getGradoById($id){
+        $where = array();
+        $where['GRAD_id'] = $id;
+        $where['GRAD_estado'] = 'AC';
+        $query = $this->db->where($where)
+                ->join('nivel', 'nivel.NIVE_id=grado.NIVE_id')
+                ->get(self::$tabla);
+        if($query->num_rows > 0){
+            return $query->result();
+        }
+        return NULL;
+    }
+    
     public function getNivelByGrado($id){
         $this->db->where('GRAD_id', $id);
         $this->db->where('GRAD_flagActivo', 'A');

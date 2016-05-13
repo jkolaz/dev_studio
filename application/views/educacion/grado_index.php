@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url() ?>js/educacion/grado.js"></script>
+
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
@@ -66,25 +66,31 @@
                         $idGrado = $objeto->GRAD_id;
                         $nombreGrado = utf8_encode($objeto->GRAD_nombre . ' (' . $objeto->GRAD_abreviatura . ')');
                         $nombreEstado = describir_estado($objeto->GRAD_estado);
-                        echo '<tr>';
-                        echo "<td align='center'>" . $i . '</td>';
-                        echo "<td align='center'>" . $nombreGrado . '</td>';
-                        echo "<td align='center'>" . $objeto->NIVE_nombre . '</td>';
-                        echo "<td align='center'>" . $nombreEstado . '</td>';
-                        echo "<td align='center'>";
-                        echo "<a class='ver_grado' href='" . base_url() . "index.php/educacion/grado/ver/"
-                        . $idGrado . "' ><img src='" . base_url()
-                        . "img/ver.png' width='16' height='16' border='0' title='Ver Grado' /></a>";
-                        echo '&nbsp;&nbsp;';
-                        echo "<a class='editar_grado' href='" . base_url() . "index.php/educacion/grado/mostrar_editar/"
-                        . $idGrado . "' ><img src='" . base_url()
-                        . "img/modificar.png' width='16' height='16' border='0' title='Modificar Grado' /></a>";
-                        echo '&nbsp;&nbsp;';
-                        echo "<a href='#' onclick='eliminar_grado(" . $idGrado
-                        . ")'><img src='" . base_url()
-                        . "img/eliminar.png' border='0' width='17' height='17' title='Eliminar Grado' /></a>";
-                        echo '</td>';
-                        echo '</tr>';
+                ?>
+                <tr>
+                    <td style="text-align: center"><?=$i?></td>
+                    <td style="text-align: center"><?=$nombreGrado?></td>
+                    <td style="text-align: center"><?=$objeto->NIVE_nombre?></td>
+                    <td style="text-align: center"><?=$nombreEstado?></td>
+                    <td style="text-align: center">
+                        <a href="<?=base_url();?>index.php/educacion/grado/decargar/<?=$idGrado?>">
+                            <img src="<?=base_url()?>img/down.png" width="16" height="16" border="0" title="Descargar formato">
+                        </a>&nbsp;&nbsp;
+                        <a href="<?=base_url();?>index.php/educacion/grado/horario/<?=$idGrado?>">
+                            <img src="<?=base_url()?>img/Horario.jpg" width="16" height="16" border="0" title="Subir horario">
+                        </a>&nbsp;&nbsp;
+                        <!--<a class="ver_grado" href="<?=base_url();?>index.php/educacion/grado/ver/<?=$idGrado?>">
+                            <img src="<?=base_url()?>img/ver.png" width="16" height="16" border="0" title="Ver grado">
+                        </a>&nbsp;&nbsp;
+                        <a class="editar_grado" href="<?=base_url();?>index.php/educacion/grado/mostrar_editar/<?=$idGrado?>">
+                            <img src="<?=base_url()?>img/modificar.png" width="16" height="16" border="0" title="Modificar Grado">
+                        </a>&nbsp;&nbsp;
+                        <a href="#" onclick="eliminar_grado(<?=$idGrado?>)">
+                            <img src="<?=base_url()?>img/eliminar.png" width="16" height="16" border="0" title="Eliminar Grado">
+                        </a>-->
+                    </td>
+                </tr>    
+                <?php
                         $i++;
                     }
                 }
