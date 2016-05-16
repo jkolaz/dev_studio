@@ -65,6 +65,7 @@ define("PATH_LIBRARY", PATH_ADMIN . "application/libraries/");
 define("PATH_GALLERY", PATH_ADMIN . "img/upload/");
 define("PATH_PDF", PATH_ADMIN . "PDF/");
 define("SERVER_PDF", SERVER_NAME . "PDF/");
+define("PATH_FILES", PATH_ADMIN . "files/");
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

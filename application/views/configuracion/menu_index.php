@@ -82,14 +82,14 @@
 ?>
                 <tr>
                     <td class="number" rowspan="<?=$row?>"><?=$i?></td>
-                    <td class="info" rowspan="<?=$row?>"><?=$objeto->MENU_nombre?></b></td>
+                    <td class="info" rowspan="<?=$row?>"><b><?=$objeto->MENU_nombre?></b></td>
                     <td class="info" rowspan="<?=$row?>"><?=$sub_menu?></td>
                     
 <?php
                         if($sub_menu == 0){
 ?>
                     <td class="padre">PADRE</td>
-                    <td class="padre"><b><?=$objeto->MENU_ruta?></td>
+                    <td class="padre"><b><?=$objeto->MENU_ruta?></b></td>
                     <td class="padre"><?=estado_publico($objeto->MENU_is_public)?></td>
                     <td class="padre"><?=estado_publico($objeto->MENU_is_view)?></td>
                     <td class="padre">-</td>

@@ -284,11 +284,99 @@ class Grado extends CI_Controller {
     }
     
     public function horario($id){
-        $data['action'] = 'registrar';
-        $data['idGrado'] = $id;
-        $data['titulo'] = 'Registrar Horario';
-        $data['js'] = base_url().'js/'.$this->_carpeta.'/'.  $this->_class.'.js';
-        $this->layout->view(NULL, $data);
+        $num_hora_recreo = 4;
+        $js = base_url().'js/'.$this->_carpeta.'/'.  $this->_class.'.js';
+        if(isset($_POST['action']) && $_POST['action'] == 'registrar'){
+            $name_file = $_FILES['txt_horario']['name'];
+            if(copy($_FILES['txt_horario']['tmp_name'], PATH_FILES.$name_file)){
+                $this->load->library('PHPExcel/Classes/PHPExcel.php');
+                try{
+                    $this->load->model('configuracion/horario_model', 'HOR');
+                    $objPHPExcel = PHPExcel_IOFactory::load(PATH_FILES.$name_file);
+                    $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(NULL, NULL, TRUE, TRUE);
+                    $this->HOR->eliminar($_POST['txt_grado']);
+                    $i = 1;
+                    foreach($allDataInSheet as $index=>$valor){
+                        if($index >= 3){
+                            if($i != $num_hora_recreo){
+                                $inicio = $valor['A'].':00';
+                                $fin = $valor['B'].':00';
+                                $curso1 =  trim($valor['C']);
+                                $curso2 =  trim($valor['D']);
+                                $curso3 =  trim($valor['E']);
+                                $curso4 =  trim($valor['F']);
+                                $curso5 =  trim($valor['G']);
+                                $idCurso1 = $this->curso_model->getIdByCode($curso1);
+                                $idCurso2 = $this->curso_model->getIdByCode($curso2);
+                                $idCurso3 = $this->curso_model->getIdByCode($curso3);
+                                $idCurso4 = $this->curso_model->getIdByCode($curso4);
+                                $idCurso5 = $this->curso_model->getIdByCode($curso5);
+                                
+                                /*Lunes*/
+                                $insert1 = array();
+                                $insert1['HOR_inicio'] = $inicio;
+                                $insert1['HOR_fin'] = $fin;
+                                $insert1['CURS_id'] = $idCurso1;
+                                $insert1['GRAD_id'] = $_POST['txt_grado'];
+                                $insert1['HOR_num_dia'] = 1;
+                                $this->HOR->insertar($insert1);
+                                
+                                /*Martes*/
+                                $insert2 = array();
+                                $insert2['HOR_inicio'] = $inicio;
+                                $insert2['HOR_fin'] = $fin;
+                                $insert2['CURS_id'] = $idCurso2;
+                                $insert2['GRAD_id'] = $_POST['txt_grado'];
+                                $insert2['HOR_num_dia'] = 2;
+                                $this->HOR->insertar($insert2);
+                                
+                                /*Miercoles*/
+                                $insert3 = array();
+                                $insert3['HOR_inicio'] = $inicio;
+                                $insert3['HOR_fin'] = $fin;
+                                $insert3['CURS_id'] = $idCurso3;
+                                $insert3['GRAD_id'] = $_POST['txt_grado'];
+                                $insert3['HOR_num_dia'] = 3;
+                                $this->HOR->insertar($insert3);
+                                
+                                /*Jueves*/
+                                $insert4 = array();
+                                $insert4['HOR_inicio'] = $inicio;
+                                $insert4['HOR_fin'] = $fin;
+                                $insert4['CURS_id'] = $idCurso4;
+                                $insert4['GRAD_id'] = $_POST['txt_grado'];
+                                $insert4['HOR_num_dia'] = 4;
+                                $this->HOR->insertar($insert4);
+                                
+                                /*Viernes*/
+                                $insert5 = array();
+                                $insert5['HOR_inicio'] = $inicio;
+                                $insert5['HOR_fin'] = $fin;
+                                $insert5['CURS_id'] = $idCurso5;
+                                $insert5['GRAD_id'] = $_POST['txt_grado'];
+                                $insert5['HOR_num_dia'] = 5;
+                                $this->HOR->insertar($insert5);
+                            }
+                            $i++;
+                        }
+                    }
+                    
+                    $post['excel'] = $allDataInSheet;
+                    $post['js'] = $js;
+                    $this->layout->view('educacion/grado_horario_post', $post);
+                } catch (Exception $ex) {
+                    $this->resp->success = FALSE;
+                    $this->resp->msg = 'Error al leer el archivo';
+                    echo json_encode($this->resp);
+                }
+            }
+        }else{
+            $data['action'] = 'registrar';
+            $data['idGrado'] = $id;
+            $data['titulo'] = 'Registrar Horario';
+            $data['js'] = $js;
+            $this->layout->view(NULL, $data);
+        }
     }
 }
 ?>

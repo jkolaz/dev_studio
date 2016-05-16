@@ -86,8 +86,13 @@
                     </td>
                 <?php
                         }
+                        if($count > 0){
+                            $_prom = $total/$count;
+                        }else{
+                            $_prom = 0;
+                        }
                 ?>
-                    <td style="text-align: left"><?=grupo_nota(number_format($total/$count, 2))?></td>
+                    <td style="text-align: left"><?=grupo_nota(number_format($_prom, 2))?></td>
                 </tr>
                 <?php
                         $i++;

@@ -1,3 +1,6 @@
+<script type="text/javascript">
+    var validate_permiso = 1;
+</script>
 <script type="text/javascript" src="<?=$js?>"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>css/usuario.css" media="screen" />
 <style>
@@ -10,13 +13,14 @@
 <div id="container">
     <div class="demo_jui">
     <!-- asa -->
-        <form name="form1" id="form1" action="<?=base_url() ?>index.php/educacion/curso/<?=$action?>" method="post">
-            <input type="hidden" name="curso" id="curso" value="<?=$idGrado?>" />
+    <form name="form1" id="form1" action="<?=base_url() ?>index.php/educacion/grado/horario/<?=$idGrado?>" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="txt_grado" id="txt_grado" value="<?=$idGrado?>" />
+            <input type="hidden" name="action" id="action" value="<?=$action?>" />
             <table class="tabla" id="usuarios">
                 <tbody>
                     <tr>
                         <td>Archivo:</td>
-                        <td><input type="file" name="nombre" id="nombre" class="require" value=""/></td>
+                        <td><input type="file" name="txt_horario" id="txt_horario" class="required" value=""/></td>
                     </tr>
                     <tr>
                         <td><input type="submit" class="btn add" name="guardar" id="guardar" value="Guardar"></td>

@@ -307,6 +307,17 @@ class Curso_model extends CI_Model {
         return null;
     }
     
+    public function getIdByCode($code){
+        $where = array();
+        $where['CURS_abreviatura'] = $code;
+        $query = $this->db->where($where)->select('CURS_id')->get(self::$tabla);
+        if($query->num_rows > 0){
+            $result = $query->result();
+            return $result[0]->CURS_id;
+        }
+        return null;
+    }
+    
 }
 
 ?>
