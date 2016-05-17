@@ -3,16 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/config/autoload.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/models/seguridad/usuario_model.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/models/configuracion/horario_model.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/models/educacion/curso_model.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/educacion/grado.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/educacion/grado_horario.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/helpers/utilitarios_helper.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/profesor/profesor_index.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/img/down.png</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/reporte/reporte.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/views/seguridad/usuario_index.php</file>
+            <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/seguridad/usuario.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/controllers/apoderado/padre.php</file>
             <file>file:/C:/xampp/htdocs/dev_studio/application/views/apoderado/padre_hijo.php</file>
-            <file>file:/C:/xampp/htdocs/dev_studio/application/views/educacion/grado_horario_post.php</file>
         </group>
     </open-files>
 </project-private>

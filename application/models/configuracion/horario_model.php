@@ -31,4 +31,20 @@ class Horario_model extends CI_Controller{
         $this->db->where($where)->delete(self::$_table);
     }
     
+    public function getHorarioByGrado($id){
+        $where = array();
+        $where['horario.HOR_estado'] = 1;
+        $where['horario.GRAD_id'] = $id;
+        
+        $query = $this->db->where($where)
+                ->join('curso', 'curso.CURS_id='.self::$_table.'.CURS_id')
+                ->order_by('horario.HOR_inicio')
+                ->get(self::$_table);
+        
+        if($query->num_rows > 0){
+            return $query->result();
+        }
+        return NULL;
+    }
+    
 }

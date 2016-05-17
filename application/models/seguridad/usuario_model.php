@@ -113,8 +113,9 @@ class Usuario_Model extends CI_Model {
             $campoLeer = 'USUA_idPadre';
         }
         $sql = "select USUA_id, USUA_codigo, USUA_login, USUA_estado,
-                       USUA_nombres, USUA_apellidoPaterno, USUA_apellidoMaterno,
-                       G.GRAD_id, GRAD_abreviatura, G.NIVE_id, N.NIVE_abreviatura
+                       USUA_nombres, USUA_apellidoPaterno, USUA_apellidoMaterno, USUA_dni,
+                       G.GRAD_id, GRAD_abreviatura, G.NIVE_id, N.NIVE_abreviatura,
+                       (select count(grado_x_usuario.GXU_id) from grado_x_usuario where grado_x_usuario.GXUS_estado = 'AC' and grado_x_usuario.USUA_id = U.USUA_id) as matricula
                 from pariente P, usuario U, grado G, nivel N
                 where G.GRAD_id = U.GRAD_id
                       and G.NIVE_id = N.NIVE_id
