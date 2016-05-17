@@ -126,6 +126,41 @@ class Usuario_Model extends CI_Model {
             return $query->result();
         return null;
     }
+    public function listar_parientes_por_usuario_minimo1($idUsuario, $tipo) {
+        if ($tipo == 'P') {
+            $campoComparar = 'USUA_idPadre';
+            $campoLeer = 'USUA_idHijo';
+        } else {
+            $campoComparar = 'USUA_idHijo';
+            $campoLeer = 'USUA_idPadre';
+        }
+        $sql = "select 
+                    USUA_id,
+                    USUA_codigo,
+                    USUA_login,
+                    USUA_estado,
+                    USUA_nombres,
+                    USUA_apellidoPaterno,
+                    USUA_apellidoMaterno,
+                    USUA_dni,
+                    (select 
+                            count(grado_x_usuario.GXU_id)
+                        from
+                            grado_x_usuario
+                        where
+                            grado_x_usuario.GXUS_estado = 'AC'
+                                and grado_x_usuario.USUA_id = U.USUA_id) as matricula
+                from
+                    pariente P,
+                    usuario U
+                where
+                    U.USUA_id = P.USUA_idHijo
+                        and P.USUA_idPadre = $idUsuario";
+        $query = $this->db->query($sql);
+        if ($query->num_rows > 0)
+            return $query->result();
+        return null;
+    }
 
     public function listar_parientes_por_usuario($idUsuario, $tipo) {
         if ($tipo == 'P') {

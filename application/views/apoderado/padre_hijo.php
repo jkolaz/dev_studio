@@ -35,7 +35,7 @@
                     <td><?=$objeto->USUA_apellidoPaterno?></td>
                     <td><?=$objeto->USUA_apellidoMaterno?></td>
                     <td><?=$objeto->USUA_nombres?></td>
-                    <td><?=$objeto->GRAD_abreviatura?> <?=$objeto->NIVE_abreviatura?></td>
+                    <td><?=$objeto->GRAD_abreviatura?> <?=$objeto->NIVE_nombre?></td>
                     <td>
                     <?php
                     if($objeto->matricula > 0){

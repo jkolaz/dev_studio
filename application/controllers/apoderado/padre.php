@@ -21,11 +21,21 @@ class Padre extends CI_Controller{
         $this->load->library('pdf');
         $this->pdf = new Pdf();
         $this->load->model('seguridad/usuario_model', 'USUARIO');
+        $this->load->model('matricula/gradousuario_model', 'GXU');
     }
     
     public function hijo(){
         $padre = $this->session->userdata('idUsuario');
-        $listaAlumnos = $this->USUARIO->listar_parientes_por_usuario_minimo($padre, 'P');
+        $listaAlumnos = $this->USUARIO->listar_parientes_por_usuario_minimo1($padre, 'P');
+        if($listaAlumnos){
+            foreach ($listaAlumnos as $id=>$value){
+                $grado = $this->GXU->getGradoByUsuario($value->USUA_id);
+                if($grado){
+                    $listaAlumnos[$id]->GRAD_abreviatura = $grado[0]->GRAD_abreviatura;
+                    $listaAlumnos[$id]->NIVE_nombre = $grado[0]->NIVE_nombre;
+                }
+            }
+        }
         $data['titulo'] = 'PADRE FAMILIA';
         $data['alumno'] = $listaAlumnos;
         $this->layout->view(NULL, $data);

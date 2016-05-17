@@ -23,7 +23,10 @@ class Gradousuario_model extends CI_Controller{
         $where = array();
         $where['USUA_id'] = $id;
         $where['GXUS_estado'] = "AC";
-        $query = $this->db->where($where)->get(self::$tabla, 1);
+        $query = $this->db->where($where)
+                ->join('grado', 'grado.GRAD_id='.self::$tabla.'.GRAD_id')
+                ->join('nivel', 'nivel.NIVE_id=grado.NIVE_id')
+                ->get(self::$tabla, 1);
         if($query->num_rows > 0){
             return $query->result();
         }
