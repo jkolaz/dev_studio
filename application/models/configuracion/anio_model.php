@@ -40,4 +40,9 @@ class Anio_model extends CI_Model{
             return $query->result();
         return null;
     }
+    public function nuevo($insert){
+        $update['ANI_estado'] = 0;
+        $this->db->where('ANI_estado', '1')->update(self::$_table, $update);
+        $this->db->insert(self::$_table, $insert);
+    }
 }

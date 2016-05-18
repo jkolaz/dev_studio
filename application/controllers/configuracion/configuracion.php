@@ -18,14 +18,14 @@ class Configuracion extends CI_Controller{
         parent::__construct();
         $this->load->library('layout', 'layout');
         $this->load->helper(array('url', 'form', 'utilitarios'));
+        $this->load->model('configuracion/anio_model', 'anio');
         $this->load->model('educacion/curso_model', 'CURSO');
         $this->load->model('matricula/gradousuario_model', 'GXU');
         self::$__session = $this->session->userdata;
     }
     public function getAnioEscolar(){
-        $data['js'] = base_url().'js/'.$this->_assets.'.js';
-        $this->load->model('configuracion/anio_model', 'anio');
         $lista = $this->anio->getAnio();
+        $data['js'] = base_url().'js/'.$this->_assets.'.js';
         $data['lista'] = $lista;
         $data['titulo'] = 'Años Escolares';
         $this->layout->view('configuracion/anioIndex', $data);
@@ -134,9 +134,17 @@ class Configuracion extends CI_Controller{
     }
     
     function nuevoAnio(){
-        $data['js'] = base_url().'js/'.$this->_assets.'.js';
-        imprimir($this->_controlador);
-        $this->layout->view(NULL, $data);
+        if(isset($_POST['action']) && $_POST['action']=='nuevo'){
+            $insert = array();
+            $insert['ANI_desc'] = $_POST['txt_anio'];
+            $this->anio->nuevo($insert);
+            redirect('configuracion/configuracion/getAnioEscolar');
+        }else{
+            $data['titulo'] = 'Nuevo año escolar';
+            $data['action'] = 'nuevo';
+            $data['js'] = base_url().'js/'.$this->_assets.'.js';
+            $this->layout->view(NULL, $data);
+        }
     }
     function cerrarAnio($id){
         
