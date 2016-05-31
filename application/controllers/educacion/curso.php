@@ -337,6 +337,14 @@ class Curso extends CI_Controller {
         $data['titulo'] = 'LISTA DE CURSOS';
         $this->layout->view(NULL,$data);
     }
+    
+    public function horario($curso){
+        $this->load->model('configuracion/horario_model', 'horario');
+        $objHorario = $this->horario->getHorarioByCurso($curso);
+        imprimir($objHorario);
+        $data['titulo'] = 'LISTA DE CURSOS';
+        $this->layout->view(NULL,$data);
+    }
 
 }
 

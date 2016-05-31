@@ -47,4 +47,20 @@ class Horario_model extends CI_Controller{
         return NULL;
     }
     
+    public function getHorarioByCurso($id){
+        $where = array();
+        $where['horario.HOR_estado'] = 1;
+        $where['horario.CURS_id'] = $id;
+        
+        $query = $this->db->where($where)
+                ->join('curso', 'curso.CURS_id='.self::$_table.'.CURS_id')
+                ->order_by('horario.HOR_inicio')
+                ->get(self::$_table);
+        
+        if($query->num_rows > 0){
+            return $query->result();
+        }
+        return NULL;
+    }
+    
 }

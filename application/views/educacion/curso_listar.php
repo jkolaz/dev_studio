@@ -78,7 +78,7 @@
                     <th> GRADO </th>
                     <th> CURSO </th>
                     <th> CRITERIOS <br> DE EVALUACIÓN </th>
-                    <th> HORAS </th>
+                    <th> HORARIO </th>
                     <th> ESTADO </th>
                 </tr>
             </thead>
@@ -104,7 +104,11 @@
                             <img src="<?=base_url()?>img/pedidos.png" title="Criterios de Evaluacion - <?=$objeto->CURS_nombre?>">
                         </a>
                     </td>
-                    <td style="text-align: center"><?=$objeto->CURS_horas?></td>
+                    <td style="text-align: center">
+                        <a class="horario" href="<?=base_url()?>index.php/educacion/curso/horario/<?=$objeto->CURS_id?>">
+                            <img src="<?=base_url()?>img/calendar.png" title="Horario - <?=$objeto->CURS_nombre?>">
+                        </a>
+                    </td>
                     <td style="text-align: center"><?=$nombreEstado?></td>
                 </tr>
                 <?php
