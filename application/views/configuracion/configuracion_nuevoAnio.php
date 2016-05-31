@@ -14,18 +14,13 @@
 <div id="container">
     <div class="demo_jui">
     <!-- asa -->
-        <form name="form1" id="form1" action="<?=base_url() ?>index.php/configuracion/criterio/update" method="post">
-            <input type="hidden" name="criterio" id="criterio" value="<?=$idCriterio?>" />
+        <form name="form1" id="form1" action="<?=base_url() ?>index.php/configuracion/configuracion/nuevoAnio" method="post">
             <input type="hidden" name="action" id="action" value="<?=$action?>" />
             <table class="tabla" id="usuarios">
                 <tbody>
                     <tr>
-                        <td>Criterio de Evaluación:</td>
-                        <td><input type="input" name="nombre" id="nombre" class="require" value="<?=$criterio->CRIT_nombre?>"/></td>
-                    </tr>
-                    <tr>
-                        <td>Abreviatura:</td>
-                        <td><input type="input" name="abreviatura" id="abreviatura" class="require" value="<?=$criterio->CRIT_abreviatura?>"/></td>
+                        <td>Año</td>
+                        <td><input type="input" name="txt_anio" id="txt_anio" class="require" value=""/></td>
                     </tr>
                     <tr>
                         <td><input type="submit" class="btn add" name="guardar" id="guardar" value="Guardar"></td>
