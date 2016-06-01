@@ -17,14 +17,13 @@ class Padre extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->load->helper(array('url', 'form', 'log'));
-        $this->load->library('layout', 'layout');
         $this->load->library('pdf');
-        $this->pdf = new Pdf();
-        $this->load->model('seguridad/usuario_model', 'USUARIO');
-        $this->load->model('matricula/gradousuario_model', 'GXU');
+        $this->pdf = new Pdf();        
     }
     
     public function hijo(){
+        $this->load->model('seguridad/usuario_model', 'USUARIO');
+        $this->load->model('matricula/gradousuario_model', 'GXU');
         $padre = $this->session->userdata('idUsuario');
         $listaAlumnos = $this->USUARIO->listar_parientes_por_usuario_minimo1($padre, 'P');
         if($listaAlumnos){
@@ -42,10 +41,12 @@ class Padre extends CI_Controller{
     }
     
     function download($id){
+        $this->load->model('seguridad/usuario_model', 'USUARIO');
+        $this->load->model('configuracion/horario_model', 'HORARIO');
         $objUser = $this->USUARIO->getUserById($id);
         if($objUser){
             $obj = $this->USUARIO->getAlumnoNotasNowByDNI($objUser[0]->USUA_dni);
-            $this->load->model('configuracion/horario_model', 'HORARIO');
+            
             $objHorario = $this->HORARIO->getHorarioByGrado($obj[0]->GRAD_id);
 //            imprimir($objHorario);exit;
             $archivo = uniqid("Notas_".$obj[0]->USUA_dni."_".$obj[0]->GRAD_id."_".date('Y')."_").".pdf";
