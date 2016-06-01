@@ -51,7 +51,7 @@ class Matricula extends CI_Controller{
                 $listCurso = $CURSO->getCursoGrado($post['grado']);
                 $this->load->model('matricula/cursogradousuario_model', 'CURSOGRADOUSUARIO');
                 $CURSOGRADOUSUARIO = $this->CURSOGRADOUSUARIO;
-                $this->load->model('matricula/calificacion_model', 'CALIFICACION');
+                $this->load->model('nota/calificacion_model', 'CALIFICACION');
                 $this->load->model('matricula/bimestre_model', 'BIMESTRE');
                 $BIMESTRE = $this->BIMESTRE;
                 $CALIFICACION = $this->CALIFICACION;

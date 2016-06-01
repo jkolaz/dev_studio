@@ -20,7 +20,7 @@ class Profesor extends CI_Controller{
         $this->load->model('educacion/curso_model', 'Curso');
         $this->load->model('educacion/asignacion_model', 'Asignado');
         $this->load->model('matricula/bimestre_model', 'Bimestre');
-        $this->load->model('nota/calificacion_model', 'Calificacion');
+        //$this->load->model('nota/calificacion_model', 'Calificacion');
         $this->load->model('educacion/alumnocurso_model', 'AlumnoCurso');
         $this->load->library('layout', 'layout');
     }

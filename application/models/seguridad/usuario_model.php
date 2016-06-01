@@ -10,7 +10,7 @@ class Usuario_Model extends CI_Model {
         parent :: __construct();
         $this->load->database();
         $this->ci = &get_instance();
-        $this->ci->load->model('matricula/calificacion_model', 'CALIFICACION');
+        $this->ci->load->model('nota/calificacion_model', 'CALIFICACION');
     }
 
     // verifica si el nombre de usuario y clave ingresadas son correctas
