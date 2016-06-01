@@ -335,6 +335,7 @@ class Curso extends CI_Controller {
         $objCurso = $this->curso_model->cursoByProfesor($profesor);
         $data['lista'] = $objCurso;
         $data['titulo'] = 'LISTA DE CURSOS';
+        $data['rol'] = 2;
         $this->layout->view(NULL,$data);
     }
     
@@ -342,7 +343,8 @@ class Curso extends CI_Controller {
         $this->load->model('configuracion/horario_model', 'horario');
         $objHorario = $this->horario->getHorarioByCurso($curso);
         imprimir($objHorario);
-        $data['titulo'] = 'LISTA DE CURSOS';
+        $data['titulo'] = 'HORARIO';
+        $data['lista'] = $objHorario;
         $this->layout->view(NULL,$data);
     }
 

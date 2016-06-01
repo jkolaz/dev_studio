@@ -57,14 +57,20 @@
     }
 </script>
 
-<br><br>
+<br>
+<?php
+if($rol == 1){
+?>
+<br>
 <div id="botonera">
     <ul href="<?php echo base_url() ?>index.php/educacion/curso/mostrar_nuevo" id="nuevo_curso" 
         class="lista_botones">
         <li id="nuevo"> Agregar Curso </li>
     </ul>
 </div>
-
+<?php
+}
+?>
 <br>
 <div class="header"><?php echo $titulo ?></div>
 
