@@ -73,7 +73,7 @@ class Calificacion_model extends CI_Model{
         $insertar['CALI_parcial1'] = $this->_CALI_parcial1;
         $insertar['CALI_parcial2'] = $this->_CALI_parcial2;
         $insertar['GXU_id'] = $this->_GXU_id;
-        $query = $this->db->insert(self::$_table, $insertar);
+        $query = $this->db->insert(self::$tabla, $insertar);
         if($query){
             return $this->db->insert_id();
         }
@@ -106,7 +106,7 @@ class Calificacion_model extends CI_Model{
         $where['CURS_id'] = $curso;
         $where['CALI_estado'] = 1;
         $query = $this->db->where($where)
-                ->get(self::$_table);
+                ->get(self::$tabla);
         
         $data = array();
         

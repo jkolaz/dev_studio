@@ -1,4 +1,38 @@
-
+<style>
+    #horario th{
+        background-color: #494C73;
+        font-weight: bold;
+        color: #EBEFFC;
+        text-align: center;
+        padding: 10px;
+        font-size: 12px;
+    }
+    .padre{
+        background-color: #B2B7D6;
+        color: #494C73;
+        font-weight: bold;
+        border-top: 1px #000; 
+    }
+    .info{
+        background-color: #A5A9CF;
+        color: #404366;
+        font-weight: bold;
+    }
+    .number{
+        background-color: #494C73;
+        color: #EBEFFC;
+        font-weight: bold;
+    }
+    .padre a{
+        font-weight: bold;
+        color: white;
+    }
+    a{
+        font-weight: bold;
+        text-decoration: none;
+        color: #B2B7D6;
+    }
+</style>
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
@@ -9,8 +43,8 @@
 <div class="header"><?php echo $titulo ?></div>
 
 <div id="container">
-    <div class="demo_jui">
-        <table cellpadding="0" cellspacing="0" border="0" class="display" id="cursos">
+    <div class="demo_jui" style="padding: 5px;">
+        <table cellpadding="0" cellspacing="0" border="1" class="display" id="horario">
             <thead>
                 <tr>
                     <th> INICIO </th>
@@ -36,27 +70,31 @@
                     if($i==4){
                         $hf = $hi+(20*60);
                     }
-                    if($lista){
+                    
                         
-                    }
+                    
                 ?>
                 <tr>
-                    <td style="text-align: center"><?=date('H:i', $hi)?></td>
-                    <td style="text-align: center"><?=date('H:i', $hf)?></td>
+                    <td class="info" style="text-align: center"><?=date('H:i', $hi)?></td>
+                    <td class="info" style="text-align: center"><?=date('H:i', $hf)?></td>
                 <?php
                     for($j=1; $j <= 5; $j++){
                         $curso = '';
-                        foreach($lista as $value){
-                            if($i == 4){
-                                $curso = 'RECREO';
-                            }else{
-                                if($j == $value->HOR_num_dia){
-                                    if(date('H:i', $hi).':00' == $value->HOR_inicio){
-                                        $curso = $value->CURS_nombre;
-                                        if($dia == $value->HOR_num_dia){
-                                            $curso = '<a title="Asistencia">'.$curso.'</a>';
+                        if($lista){
+                            foreach($lista as $value){
+                                if($i == 4){
+                                    $curso = 'RECREO';
+                                }else{
+                                    if($j == $value->HOR_num_dia){
+                                        if(date('H:i', $hi).':00' == $value->HOR_inicio){
+                                            $curso = $value->CURS_nombre;
+                                            if($dia == $value->HOR_num_dia){
+                                                if(strtotime($dia_actual. ' '.$value->HOR_inicio) <= strtotime($actual) && strtotime($dia_actual. ' '.$value->HOR_fin) >= strtotime($actual)){
+                                                    $curso = '<a href="'.  base_url().'index.php/profesor/asistencia/'.$value->CURS_id.'" title="Asistencia">'.$curso.'</a>';
+                                                }
+                                            }
+                                            break;
                                         }
-                                        break;
                                     }
                                 }
                             }
