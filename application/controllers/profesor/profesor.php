@@ -22,6 +22,7 @@ class Profesor extends CI_Controller{
         $this->load->model('matricula/bimestre_model', 'Bimestre');
         //$this->load->model('nota/calificacion_model', 'Calificacion');
         $this->load->model('educacion/alumnocurso_model', 'AlumnoCurso');
+        $this->load->model('matricula/gradousuario_model', 'GXU');
         $this->load->library('layout', 'layout');
     }
     
@@ -52,9 +53,21 @@ class Profesor extends CI_Controller{
             if($obCursoAlumno){
                 $redireccion = TRUE;
                 foreach($obCursoAlumno as $id=>$value){
-                    $listaNotas = $this->Curso->obtener_notas_por_curso_alumno($value->USUA_id, $value->GRAD_id, $value->CURS_id);
-                    $arrayNotas = $this->pasar_formato_notas($listaNotas, $objCurso[0]->CURS_nombre);
-                    $obCursoAlumno[$id]->notas = $arrayNotas;
+                    $objGrado = $this->GXU->getGradoByUsuario($value->USUA_id);
+                    $gradoID = 0;
+                    if($objGrado){
+                        $gradoID = $objGrado[0]->GRAD_id;
+                        $listaNotas = $this->Curso->obtener_notas_por_curso_alumno($value->USUA_id, $gradoID, $value->CURS_id);
+                        $arrayNotas = $this->pasar_formato_notas($listaNotas, $objCurso[0]->CURS_nombre);
+                    }else{
+                        $arrayNotas = array();
+                        for($i = 1; $i<=4; $i++){
+                            $arrayNotas[$i]['id'] = 0;
+                            $arrayNotas[$i]['promedio'] = 0;
+                            $arrayNotas[$i]['parciales'] = 0;
+                        }
+                    }
+                     $obCursoAlumno[$id]->notas = $arrayNotas;
                 }
                 $data['titulo'] = $objCurso[0]->CURS_nombre;
                 $data['lista'] = $obCursoAlumno;
