@@ -1,6 +1,27 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>css/usuario.css" media="screen" />
 <script type="text/javascript">
     $(document).ready( function() {
+        
+        $('.exist_dni').keyup(function(e){
+            //e.preventDefault();
+            $.ajax({
+                type: "POST",
+                cache: false,
+                url: "<?=base_url() ?>index.php/seguridad/usuario/exits_dni",
+                data: {value: $(this).val()},
+                dataType: 'json',
+                success: function(data)
+                {
+                    if(data.return == "1"){
+                        
+                    }else{
+                        
+                    }
+                    
+                }
+            });
+        });
+        
         $("#nivel").change(function(){
             var nivel = $('#nivel').val();
             $.ajax({
@@ -108,6 +129,11 @@
             <table class="tabla" id="usuarios">
                 <tbody>
                     <tr>
+                        <td>D.N.I. :</td>
+                        <td><input type="input" name="dni" id="dni" class="require exist_dni"/></td>
+                        <td><span id="dni_mensaje" style="display:none; color: red; font-family: initial, sans-serif; font-size: 9px;">DNI ya existe.</span></td>
+                    </tr>
+                    <tr>
                         <td>Nombre :</td>
                         <td><input type="input" name="nombre" id="nombre" class="require"/></td>
                     </tr>
@@ -115,10 +141,6 @@
                         <td>Apellidos :</td>
                         <td><input type="input" name="paterno" id="paterno" class="require"/>
                             <input type="input" name="materno" id="materno" class="require"/></td>
-                    </tr>
-                    <tr>
-                        <td>D.N.I. :</td>
-                        <td><input type="input" name="dni" id="dni" class="require"/></td>
                     </tr>
                     <tr>
                         <td>E-mail :</td>

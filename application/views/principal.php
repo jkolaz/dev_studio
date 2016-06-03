@@ -35,7 +35,7 @@ $idRol = $objUsuario[0]->ROL_id;
 </div>
 <div class="col-md-8">
 <?php
-if($idRol == 5){
+if($idRol == 15){
 ?>
     <div class="row">
         <div class="col-md-4 centro">

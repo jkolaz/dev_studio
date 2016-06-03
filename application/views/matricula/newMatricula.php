@@ -69,7 +69,7 @@
                         $('#paterno').val(data.paterno);
                         $('#materno').val(data.materno);
                         $('#nombre').val(data.nombre);
-                        $('#email').val('');
+                        $('#email').val(data.correo);
                         $("#paterno").attr('style','background-color: #E8E9EC');
                         $("#materno").attr('style','background-color: #E8E9EC');
                         $("#nombre").attr('style','background-color: #E8E9EC');
@@ -78,6 +78,7 @@
                         $('#paterno').val('');
                         $('#materno').val('');
                         $('#nombre').val('');
+                        $('#email').val('');
                         $("#paterno").removeAttr('style');
                         $("#materno").removeAttr('style');
                         $("#nombre").removeAttr('style');

@@ -329,8 +329,8 @@ class Usuario_Model extends CI_Model {
             }
             
         }
-        $insertar['USUA_codigo'] = $newCodigo;
-        $insertar['USUA_login'] = $newCodigo;
+        $insertar['USUA_codigo'] = $insert->dni;
+        $insertar['USUA_login'] = $insert->dni;
         if(isset($insert->email) && $insert->email!=""){
             $insertar['USUA_email'] = $insert->email;
         }
@@ -394,6 +394,7 @@ class Usuario_Model extends CI_Model {
         $select[] = 'USUA_apellidoMaterno';
         $select[] = 'USUA_sexo';
         $select[] = 'USUA_telefonos';
+        $select[] = 'USUA_email';
         
         $where = array();
         $where['USUA_flagActivo'] = "A";

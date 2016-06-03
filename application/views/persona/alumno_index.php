@@ -63,11 +63,10 @@
             <thead>
                 <tr>
                     <th> N </th>
-                    <th> CÓDIGO </th>
                     <th> APELLIDO<br>PATERNO </th>
                     <th> APELLIDO<br>MATERNO </th>
                     <th> NOMBRES </th>
-                    <th> USUARIO </th>
+                    <th> DNI </th>
                     <!--<th> ROL </th>-->
                     <th> GRADO </th>
                     <th> NIVEL </th>
@@ -85,11 +84,10 @@
                         $nombreEstado = describir_estado($objeto->USUA_estado);
                         echo '<tr>';
                         echo "<td align='center'>" . $i . '</td>';
-                        echo "<td align='center'>" . $objeto->USUA_codigo . '</td>';
                         echo "<td align='left'>" . utf8_encode($objeto->USUA_apellidoPaterno) . '</td>';
                         echo "<td align='left'>" . utf8_encode($objeto->USUA_apellidoMaterno) . '</td>';
                         echo "<td align='left'>" . utf8_encode($objeto->USUA_nombres) . '</td>';
-                        echo "<td align='center'>" . $objeto->USUA_login . '</td>';
+                        echo "<td align='center'>" . $objeto->USUA_dni . '</td>';
 //                        echo "<td align='center'>" . utf8_encode($objeto->ROL_nombre) . '</td>';
                         echo "<td align='center'>" . utf8_encode($objeto->GRAD_abreviatura) . '</td>';
                         echo "<td align='center'>" . utf8_encode($objeto->NIVE_abreviatura) . '</td>';

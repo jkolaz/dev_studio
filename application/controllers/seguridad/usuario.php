@@ -527,6 +527,7 @@ class Usuario extends CI_Controller {
                         $datos['paterno'] = $value->USUA_apellidoPaterno;
                         $datos['materno'] = $value->USUA_apellidoMaterno;
                         $datos['telefono'] = $value->USUA_telefonos;
+                        $datos['correo'] = $value->USUA_email;
                     }
 //                }
             }
@@ -601,6 +602,10 @@ class Usuario extends CI_Controller {
      *
      */
     $this->pdf->Output("Lista de alumnos.pdf", 'I');
+    }
+    
+    public function exits_dni(){
+        
     }
 }
 
