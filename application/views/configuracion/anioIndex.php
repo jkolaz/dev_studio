@@ -4,13 +4,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
 <script type="text/javascript" src="<?php echo $js ?>"></script>
 
-<br><br>
-<div id="botonera">
-    <ul href="<?php echo $this->_controlador ?>nuevoAnio" id="nuevo" 
-        class="lista_botones">
-        <li id="nuevo"> Agregar Anio Escolar </li>
-    </ul>
-</div>
+<br>
 
 <br>
 <div class="header"><?php echo $titulo ?></div>

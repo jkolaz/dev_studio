@@ -33,6 +33,9 @@ $(document).ready( function() {
 } );
 
 function cerrar_anio(id){
-    var url = controlador+'cerrarAnio/'+id;
-    location.href=url;
+    var R = confirm('¿Estás seguro de cerrar el año escolar?')
+    if(R === true){
+        var url = controlador+'cerrarAnio/'+id;
+        location.href=url;
+    }
 }

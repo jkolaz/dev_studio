@@ -44,4 +44,13 @@ class Gradousuario_model extends CI_Controller{
         }
         return NULL;
     }
+    
+    public function cerrarNotas($id, $update){
+        /*
+         * AC: Activo
+         * DS: Desactivo
+         * AN: Anulado
+         */
+        $this->db->where('GXU_id', $id)->update(self::$tabla, $update);
+    }
 }

@@ -18,6 +18,22 @@ class Anio_model extends CI_Model{
         parent::__construct();
         $this->load->database();
     }
+    public function generarAnio(){
+        $arreglo = array();
+        $arreglo['ACTIVO'] = 0;
+        $arreglo['NUEVO'] = 0;
+        $this->db->where('ANI_estado', '1');
+        $this->db->select('ANI_id, ANI_desc');
+        $query = $this->db->get(self::$_table, 1);
+        if ($query->num_rows > 0){
+            $devuelto = $query->result();
+            $arreglo['ACTIVO'] = $devuelto[0]->ANI_id;
+            $anio_new = intval($devuelto[0]->ANI_desc)+1;
+            $insert['ANI_desc'] = $anio_new;
+            $arreglo['NUEVO'] = $this->nuevo($insert);
+        }
+        return $arreglo;
+    }
     public function getAnio(){
         $this->db->order_by('ANI_desc', 'desc');
         $query = $this->db->get(self::$_table);
@@ -41,8 +57,9 @@ class Anio_model extends CI_Model{
         return null;
     }
     public function nuevo($insert){
-        $update['ANI_estado'] = 0;
+        $update['ANI_estado'] = '0';
         $this->db->where('ANI_estado', '1')->update(self::$_table, $update);
         $this->db->insert(self::$_table, $insert);
+        return $this->db->insert_id();
     }
 }

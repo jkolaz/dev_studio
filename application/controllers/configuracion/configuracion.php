@@ -134,41 +134,61 @@ class Configuracion extends CI_Controller{
     }
     
     function nuevoAnio(){
-        if(isset($_POST['action']) && $_POST['action']=='nuevo'){
-            $insert = array();
-            $insert['ANI_desc'] = $_POST['txt_anio'];
-            $this->anio->nuevo($insert);
-            redirect('configuracion/configuracion/getAnioEscolar');
-        }else{
-            $data['titulo'] = 'Nuevo año escolar';
-            $data['action'] = 'nuevo';
-            $data['js'] = base_url().'js/'.$this->_assets.'.js';
-            $this->layout->view(NULL, $data);
-        }
+        redirect('configuracion/configuracion/getAnioEscolar');
     }
+    
+    function generar_anio(){
+        $arregloAnio = $this->anio->generarAnio();
+    }
+    
     function cerrarAnio($id){
         
         $obGXU = $this->GXU->getRegistroByAnio($id);
         if($obGXU){
-            
-            foreach ($obGXU as $val){
+            $numDesaprobado = 0;
+            $tipoAprob = 1;
+            foreach ($obGXU as $in=>$val){
                 $idUsuario = $val->USUA_id;
                 $idGrado = $val->GRAD_id;
                 $listaCursos = $this->CURSO->listar_cursos_por_alumno($idUsuario);
-                print_r($listaCursos);
                 if($listaCursos){
-                    foreach ($listaCursos as $curso){
+                    foreach ($listaCursos as $index=>$curso){
                         $idCurso = $curso->CURS_id;
                         $nombreCurso = $curso->CURS_abreviatura;
                         $listaNotas = $this->CURSO->obtener_notas_por_curso_alumno($idUsuario, $idGrado, $idCurso);
-                        $curso->notas = $this->pasar_formato_notas($listaNotas, $nombreCurso);
+                        $notaCurso = $this->pasar_formato_notas($listaNotas, $nombreCurso);
+                        $cantBimestres = 4;
+                        $sumNota = 0;
+                        foreach($notaCurso as $value){
+                            $sumNota += $value['parciales'];
+                        }
+                        $promedioCurso = $sumNota/$cantBimestres;
+                        if($promedioCurso < 10.5){
+                            $numDesaprobado += 1;
+                        }
                         
+                        $listaCursos[$index]->Prom = $promedioCurso;
                     }
                 }
-                imprimir($listaCursos);
+                if($numDesaprobado >0){
+                    /*
+                     * 1 o 2 cursos desaprobados, vacacional
+                     * >2 cursos desaprobados, repite de año
+                     */
+                    $tipoAprob = 2;
+                    if($numDesaprobado > 2){
+                        $tipoAprob = 3;
+                    }
+                }
+                $update['GXUS_estado'] = 'DS';
+                $update['GXU_status'] = $tipoAprob;
+                $this->GXU->cerrarNotas($val->GXU_id, $update);
+                $obGXU[$in]->TIPOAPROBADOS = $tipoAprob;
+                $obGXU[$in]->NUMDESAPROBADOS = $numDesaprobado;
             }
         }
-        imprimir($obGXU);
+        $this->generar_anio();
+        redirect('configuracion/configuracion/getAnioEscolar');
     }
     private function pasar_formato_notas($listaNotas, $nombreCurso) {
         $NOTAS = array();
