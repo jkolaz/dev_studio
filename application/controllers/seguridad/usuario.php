@@ -12,6 +12,7 @@ class Usuario extends CI_Controller {
         $this->load->model('educacion/documento_model');
         $this->load->model('educacion/nivel_model');
         $this->load->model('educacion/grado_model', 'GRADO');
+        $this->load->model('matricula/cursogrado_model', 'CURSOGRADOUSUARIO');
         $this->load->model('matricula/gradousuario_model', 'GXU');
         $this->load->library('layout', 'layout');
     }
@@ -152,8 +153,7 @@ class Usuario extends CI_Controller {
         if($alumno){
             $alumno[0]->GRAD_abreviatura = '';
             $alumno[0]->NIVE_abreviatura = '';
-            $this->load->model('matricula/cursogrado_model', 'GRADOUSUARIO');
-            $objGrado = $this->GRADOUSUARIO->getGradoById($alumno[0]->USUA_id);
+            $objGrado = $this->CURSOGRADOUSUARIO->getGradoById($alumno[0]->USUA_id);
             if($objGrado){
                 $alumno[0]->GRAD_abreviatura = $objGrado[0]->GRAD_abreviatura;
                 $alumno[0]->NIVE_abreviatura = $objGrado[0]->NIVE_abreviatura;

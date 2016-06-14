@@ -1,20 +1,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>css/usuario.css" media="screen" />
 <script type="text/javascript">
     $(document).ready( function() {
-        $("#nivel").change(function(){
-            var nivel = $('#nivel').val();
-            $.ajax({
-                type: "GET",
-                cache: false,
-                url: "<?=base_url() ?>index.php/educacion/grado/getGradoAjax/"+nivel,
-                context: document.body,
-                async: false,
-                success: function(html)
-                {
-                    $("#grado").html(html);
-                }
-            });
-        });
         $("#grado").change(function(){
             var grado = $(this).val();
             $.ajax({
@@ -66,8 +52,31 @@
                 {
                     if(data.return == "1"){
                         if(data.estado===0){
+                            var html_nivel = '';
+                            html_nivel += '<select name="nivel_cbo" id="nivel_cbo" onchange="cbo_nivel(this.value)" class="require">';
+                            html_nivel      += '<option value="">--Seleccione Nivel--</option>';
+                            <?php
+                            if($nivel){
+                                foreach ($nivel as $val){
+                            ?>
+                            html_nivel      += '<option value="<?=$val->NIVE_id?>"><?=$val->NIVE_nombre?></option>';
+                            <?php
+                                }
+                            }
+                            ?>
+                            html_nivel += '</select>';
+                            
+                            var html_grado = ''
+                            html_grado += '<select name="grado_cbo" id="grado_cbo" onchange="cbo_grado(this.value)" class="require">';
+                            html_grado += '<option value="">--Seleccione Grado--</option>';
+                            html_grado += '</select>';
+                            
                             $('#tex_tipo_matricula').text('Matricula Nueva');
                             $('#tipo_matricula').val(1);
+                            $('#text_nivel').html(html_nivel);
+                            $('#nivel').val('');
+                            $('#text_grado').html(html_grado);
+                            $('#grado').val();
                         }else{
                             $('#tex_tipo_matricula').text('Retificacion de matricula');
                             $('#tipo_matricula').val(3);
@@ -97,6 +106,8 @@
                         $('#tipo_matricula').val('');
                         $('#text_nivel').text('');
                         $('#nivel').val('');
+                        $('#text_grado').text('');
+                        $('#grado').val('');
                     }
                     
                 }
@@ -116,6 +127,24 @@
         });
             
     } );
+    
+    function cbo_nivel(nivel){
+        $.ajax({
+            type: "GET",
+            cache: false,
+            url: "<?=base_url() ?>index.php/educacion/grado/getGradoAjax/"+nivel,
+            context: document.body,
+            async: false,
+            success: function(html)
+            {
+                $("#nivel").val(nivel);
+                $("#grado_cbo").html(html);
+            }
+        });
+    }
+    function cbo_grado(grado){
+        $("#grado").val(grado);
+    }
 </script>
 <style>
     #cursos{
