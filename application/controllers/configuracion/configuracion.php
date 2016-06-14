@@ -152,6 +152,8 @@ class Configuracion extends CI_Controller{
                 $idGrado = $val->GRAD_id;
                 $listaCursos = $this->CURSO->listar_cursos_por_alumno($idUsuario);
                 if($listaCursos){
+                    $numDesaprobado = 0;
+                    $tipoAprob = 1;
                     foreach ($listaCursos as $index=>$curso){
                         $idCurso = $curso->CURS_id;
                         $nombreCurso = $curso->CURS_abreviatura;

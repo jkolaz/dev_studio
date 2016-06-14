@@ -525,11 +525,22 @@ class Usuario extends CI_Controller {
                     foreach ($data as $value){
                         $aEst = $this->GXU->getRow($value->USUA_id);
 //                        imprimir($aEst);
+                        $datos['estado'] = 0;
+                        $datos['nivel'] = '';
+                        $datos['nivel_id'] = 0;
+                        $datos['grado_id'] = 0;
+                        $datos['grado'] = '';
                         if($aEst){
                             $datos['estado'] = $aEst[0]->GXU_status;
                             switch($aEst[0]->GXU_status){
                                 case 1:
-                                    
+                                    $objGrado = $this->GRADO->nextGrado($aEst[0]->GRAD_id);
+                                    if($objGrado){
+                                        $datos['nivel'] = $objGrado[0]->NIVE_abreviatura;
+                                        $datos['nivel_id'] = $objGrado[0]->NIVE_id;
+                                        $datos['grado_id'] = $objGrado[0]->GRAD_nombre;
+                                        $datos['grado'] = $objGrado[0]->GRAD_id;
+                                    }
                                     break;
                                 case 2:
                                     break;
@@ -540,12 +551,6 @@ class Usuario extends CI_Controller {
                                     $datos['grado_id'] = $aEst[0]->GRAD_id;
                                     break;
                             }
-                        }else{
-                            $datos['estado'] = 0;
-                            $datos['nivel'] = '';
-                            $datos['nivel_id'] = 0;
-                            $datos['grado_id'] = 0;
-                            $datos['grado'] = '';
                         }
                         $datos['return'] = 1;
                         $datos['key'] = $value->USUA_id;

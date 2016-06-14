@@ -88,6 +88,18 @@ class Grado_model extends CI_Model {
             return $query->result();
         return null;
     }
+    
+    public function nextGrado($grado=0){
+        $arreglo = array();
+        $new_grado = $grado+1;
+        $where['GRAD_estado'] = 'AC';
+        $where['GRAD_numero'] = $new_grado;
+        $where['NIVE_estado'] = 'AC';
+        $query = $this->db->where($where)->join('nivel','grado.NIVE_id=nivel.NIVE_id')->get(self::$tabla);
+        if ($query->num_rows > 0)
+            return $query->result();
+        return null;
+    }
 
 }
 
