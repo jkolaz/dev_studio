@@ -53,4 +53,19 @@ class Gradousuario_model extends CI_Controller{
          */
         $this->db->where('GXU_id', $id)->update(self::$tabla, $update);
     }
+    
+    public function getRow($id){
+        $where = array();
+        $where['USUA_id'] = $id;
+        $where['GXUS_estado'] = "DS";
+        $query = $this->db->where($where)
+                ->join('grado', 'grado.GRAD_id='.self::$tabla.'.GRAD_id')
+                ->join('nivel', 'nivel.NIVE_id=grado.NIVE_id')
+                ->order_by('GXU_id', 'desc')
+                ->get(self::$tabla, 1);
+        if($query->num_rows > 0){
+            return $query->result();
+        }
+        return NULL;
+    }
 }

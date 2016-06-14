@@ -7,10 +7,12 @@ class Usuario extends CI_Controller {
         $this->load->helper(array('url', 'form', 'utilitarios'));
         $this->load->library('form_validation', 'pagination', 'html');
         $this->load->model('seguridad/usuario_model');
+        $this->load->model('usuario/pariente_model', 'Pariente');
         $this->load->model('educacion/curso_model');
         $this->load->model('educacion/documento_model');
         $this->load->model('educacion/nivel_model');
         $this->load->model('educacion/grado_model', 'GRADO');
+        $this->load->model('matricula/gradousuario_model', 'GXU');
         $this->load->library('layout', 'layout');
     }
 
@@ -280,8 +282,8 @@ class Usuario extends CI_Controller {
         $datosAlumno = $this->usuario_model->obtener_usuario_por_id($idUsuario);
         $data['alumno'] = $datosAlumno[0];
         $listaCursos = $this->curso_model->listar_cursos_por_alumno($idUsuario);
-        $this->load->model('matricula/gradousuario_model', 'GRADO_USUARIO');
-        $objGradoUsuario = $this->GRADO_USUARIO->getGradoByUsuario($datosAlumno[0]->USUA_id);
+        //$this->load->model('matricula/gradousuario_model', 'GRADO_USUARIO');
+        $objGradoUsuario = $this->GXU->getGradoByUsuario($datosAlumno[0]->USUA_id);
         $objGrado = new stdClass();
         $objGrado->GRAD_id = 0;
         $objGrado->GRAD_nombre = "---";
@@ -469,7 +471,7 @@ class Usuario extends CI_Controller {
                 $ObjPadre->grado    = 3;
                 $padre = $this->usuario_model->insert($ObjPadre);
             }
-            $this->load->model('usuario/pariente_model', 'Pariente');
+            
             $relacion           = new stdClass();
             $relacion->alumno   = $alumno;
             $relacion->padre    = $padre;
@@ -521,6 +523,30 @@ class Usuario extends CI_Controller {
 //                    }
 //                }else{
                     foreach ($data as $value){
+                        $aEst = $this->GXU->getRow($value->USUA_id);
+//                        imprimir($aEst);
+                        if($aEst){
+                            $datos['estado'] = $aEst[0]->GXU_status;
+                            switch($aEst[0]->GXU_status){
+                                case 1:
+                                    
+                                    break;
+                                case 2:
+                                    break;
+                                case 3:
+                                    $datos['nivel'] = $aEst[0]->NIVE_abreviatura;
+                                    $datos['nivel_id'] = $aEst[0]->NIVE_id;
+                                    $datos['grado'] = $aEst[0]->GRAD_nombre;
+                                    $datos['grado_id'] = $aEst[0]->GRAD_id;
+                                    break;
+                            }
+                        }else{
+                            $datos['estado'] = 0;
+                            $datos['nivel'] = '';
+                            $datos['nivel_id'] = 0;
+                            $datos['grado_id'] = 0;
+                            $datos['grado'] = '';
+                        }
                         $datos['return'] = 1;
                         $datos['key'] = $value->USUA_id;
                         $datos['nombre'] = $value->USUA_nombres;

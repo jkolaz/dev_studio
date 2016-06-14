@@ -410,7 +410,7 @@ class Usuario_Model extends CI_Model {
             $return = $sql->result();
             $sql_anio = $this->db->where('ANI_estado','1')->limit(1)->order_by('ANI_desc', 'desc')->select('ANI_id')->get('anio');
             $return_anio = $sql_anio->result();
-            $sql_grado_usuario = $this->db->where('USUA_id',$return[0]->USUA_id)->where('ANIO_id', $return_anio[0]->ANI_id)->get('grado_x_usuario');
+            $sql_grado_usuario = $this->db->where('USUA_id',$return[0]->USUA_id)->where('ANIO_id', $return_anio[0]->ANI_id)->where('GXUS_estado','AC')->get('grado_x_usuario');
             if($sql_grado_usuario->num_rows > 0){
                 $return = array();
             }else{

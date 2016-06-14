@@ -65,6 +65,17 @@
                 success: function(data)
                 {
                     if(data.return == "1"){
+                        if(data.estado===0){
+                            $('#tex_tipo_matricula').text('Matricula Nueva');
+                            $('#tipo_matricula').val(1);
+                        }else{
+                            $('#tex_tipo_matricula').text('Retificacion de matricula');
+                            $('#tipo_matricula').val(3);
+                            $('#text_nivel').text(data.nivel);
+                            $('#nivel').val(data.nivel_id);
+                            $('#text_grado').text(data.grado);
+                            $('#grado').val(data.grado_id);
+                        }
                         $('#alu_id').val(data.key);
                         $('#paterno').val(data.paterno);
                         $('#materno').val(data.materno);
@@ -82,6 +93,10 @@
                         $("#paterno").removeAttr('style');
                         $("#materno").removeAttr('style');
                         $("#nombre").removeAttr('style');
+                        $('#tex_tipo_matricula').text('');
+                        $('#tipo_matricula').val('');
+                        $('#text_nivel').text('');
+                        $('#nivel').val('');
                     }
                     
                 }
@@ -119,25 +134,17 @@
             <table class="tabla" id="usuarios">
                 <tbody>
                     <tr>
-                        <td>Tipo Matricula</td>
-                        <td>
-                            <select name="tipo_matricula" id="tipo_matricula" class="require">
-                                <option value="">--Seleccione Tipo Matricula--</option>
-                                <?php
-                                foreach ($tipo_matricula as $value){
-                                ?>
-                                <option value="<?=$value->tm_id?>"><?=$value->tm_nombre?></option>
-                                <?php
-                                }
-                                ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
                         <td>D.N.I. :</td>
                         <td>
                             <input type="input" name="dni" id="dni" class="require relacion" maxlength="8" tipo="ALU"/>
                             <input type="hidden" name="alu_id" id="alu_id" value="2"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tipo Matricula</td>
+                        <td>
+                            <input type="hidden" name="tipo_matricula" id="tipo_matricula" value="" class="requyire"/>
+                            <span style="color: green;" id="tex_tipo_matricula"></span>
                         </td>
                     </tr>
                     <tr>
@@ -159,7 +166,9 @@
                     <tr>
                         <td>Nivel</td>
                         <td>
-                            <select name="nivel" id="nivel" class="require">
+                            <input name="nivel" type="hidden" id="nivel" class="require"/>
+                            <span style="color: green;" id="text_nivel"></span>
+                            <!--<select name="nivel" id="nivel" class="require">
                                 <option value="">--Seleccione Nivel--</option>
                                 <?php
                                 foreach ($nivel as $val){
@@ -168,12 +177,14 @@
                                 <?php
                                 }
                                 ?>
-                            </select>
+                            </select>-->
                         </td>
                         <td>
-                            <select name="grado" id="grado" class="require">
+                            <input type="hidden" name="grado" id="grado" class="require"/>
+                            <span style="color: green;" id="text_grado"></span>
+                            <!--<select name="grado" id="grado" class="require">
                                 <option value="">--Seleccione Grado--</option>
-                            </select>
+                            </select>-->
                         </td>
                     </tr>
                     <tr>
