@@ -30,6 +30,24 @@ $(document).ready( function() {
         var ruta = $(this).attr('href');
         location.href = ruta;
     });
+    
+    $('#a_inicio_clases').click(function(){
+        $(this).hide();
+        $('#div_inicio_clases').show();
+    });
+    $('#cancelar_inicio_clases').click(function(){
+        $('#a_inicio_clases').show();
+        $('#div_inicio_clases').hide();
+    });
+    
+    $('#inicio_matricula').datepicker({
+        dateFormat: "yy-mm-dd",
+        dayNamesMin: [ "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa" ],
+        showButtonPanel: true,
+        onSelect: function(date){
+            inicio(date);
+        }
+    });
 } );
 
 function cerrar_anio(id){
@@ -38,4 +56,27 @@ function cerrar_anio(id){
         var url = controlador+'cerrarAnio/'+id;
         location.href=url;
     }
+}
+
+function inicio(fecha){
+    $.ajax({
+        type: "POST",
+        cache: false,
+        url: controlador+"fecha_inicio/"+$('#anio_').val(),
+        data: {fecha: fecha},
+        context: document.body,
+        async: false,
+        success: function(html)
+        {
+            $("#grado").html(html);
+        }
+    });
+}
+
+function inicio_clases(id){
+    alert(id);
+}
+
+function fin_clases(id){
+    alert(id);
 }

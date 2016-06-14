@@ -12,6 +12,7 @@
         <!--<script src="<?php echo base_url(); ?>css/js/docs.min.js"></script>-->
         <link rel="stylesheet" href="<?php echo base_url() ?>css/calendario/calendar-win2k-2.css" type="text/css" media="all" title="win2k-cold-1" />
         <script type="text/javascript" src="<?php echo base_url() ?>js/jquery.js"></script>
+        <script type="text/javascript" src="<?php echo base_url() ?>js/jquery-ui.js"></script>
         <title>Mi Jazmincito | <?php echo TITULO ?></title>
 
         <link rel="stylesheet" href="<?php echo base_url() ?>js/datatable/media/css/demo_page.css" type="text/css" />

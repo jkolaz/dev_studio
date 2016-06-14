@@ -31,11 +31,53 @@
                         $objeto->ANI_estado_html = estado_anio($objeto->ANI_estado);
 ?>
                 <tr>
-                    <td><?=$i?></td>
+                    <td>
+                        <?=$i?>
+                        <input type="hidden" name="anio_h" id="anio_h" value="<?=$objeto->ANI_id?>"/>
+                    </td>
                     <td><?=$objeto->ANI_desc?></td>
-                    <td><?=$objeto->ANI_inicio_matricula?></td>
-                    <td><?=$objeto->ANI_inicio_clases?></td>
-                    <td><?=$objeto->ANI_fin_clases?></td>
+                    <td>
+                        <?php
+                        if($objeto->ANI_estado == 1){
+                        ?>
+                        <a id="a_inicio_clases" href="javascript:;" ><?=$objeto->ANI_inicio_matricula?></a>
+                        <div id="div_inicio_clases" style="height: 80px; display: none;">
+                            <input type="text" name="inicio_matricula" id="inicio_matricula" value="" />
+                            <br>
+                            <label>
+                                <button class="btn btn-success">Guardar</button>
+                                <button id="cancelar_inicio_clases" class="btn btn-danger">Cancelar</button>
+                            </label>
+                            <small></small>
+                        </div>
+                        <?php
+                        }else{
+                            echo $objeto->ANI_inicio_matricula;
+                        }
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        if($objeto->ANI_estado == 1){
+                        ?>
+                        <a href="javascript:;" onclick="inicio_clases(<?=$objeto->ANI_id?>)"><?=$objeto->ANI_inicio_clases?></a>
+                        <?php
+                        }else{
+                            echo $objeto->ANI_inicio_clases;
+                        }
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        if($objeto->ANI_estado == 1){
+                        ?>
+                        <a href="javascript:;" onclick="fin_clases(<?=$objeto->ANI_id?>)"><?=$objeto->ANI_fin_clases?></a>
+                        <?php
+                        }else{
+                            echo $objeto->ANI_fin_clases;
+                        }
+                        ?>
+                    </td>
                     <td><?=$objeto->ANI_estado_html?></td>
                     <td>
                         <?php
