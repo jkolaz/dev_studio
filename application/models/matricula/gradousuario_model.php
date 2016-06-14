@@ -45,6 +45,23 @@ class Gradousuario_model extends CI_Controller{
         return NULL;
     }
     
+    public function getRegistroByAnioComplete($anio, $grado=0, $estado = 'AC'){
+        $where = array();
+        $where['ANIO_id'] = $anio;
+        $where['GXUS_estado'] = $estado;
+        if($grado > 0){
+            $where[self::$tabla.'.GRAD_id'] = $grado;
+        }
+        //$where['GXU_status'] = 1;
+        $query = $this->db->where($where)
+                ->join('usuario', 'usuario.USUA_id='.self::$tabla.'.USUA_id')
+                ->get(self::$tabla);
+        if($query->num_rows > 0){
+            return $query->result();
+        }
+        return NULL;
+    }
+    
     public function cerrarNotas($id, $update){
         /*
          * AC: Activo

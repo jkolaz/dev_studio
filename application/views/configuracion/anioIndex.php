@@ -19,6 +19,7 @@
                     <th> INICIO MATRICULA</th>
                     <th> INICIO DE CLASES</th>
                     <th> FIN DE CLASES</th>
+                    <th> ALUMNOS</th>
                     <th> ESTADO </th>
                     <th> ACCIONES </th>
                 </tr>
@@ -75,6 +76,19 @@
                         <?php
                         }else{
                             echo $objeto->ANI_fin_clases;
+                        }
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        if($objeto->ANI_estado == 1){
+                            echo '---';
+                        }else{
+                        ?>
+                        <a href="<?=base_url()?>index.php/matricula/record/listar/<?=$objeto->ANI_id?>">
+                            <img src="<?=base_url()?>img/usuarios.png">
+                        </a>
+                        <?php
                         }
                         ?>
                     </td>

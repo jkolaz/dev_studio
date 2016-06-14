@@ -100,6 +100,16 @@ class Grado_model extends CI_Model {
             return $query->result();
         return null;
     }
+    
+    public function getGradoByNivel($nivel){
+        $this->db->where('NIVE_id', $nivel);
+        $this->db->where('GRAD_flagActivo', 'A');
+        $this->db->order_by('GRAD_numero');
+        $query = $this->db->get(self::$tabla);
+        if ($query->num_rows > 0)
+            return $query->result();
+        return null;
+    }
 
 }
 

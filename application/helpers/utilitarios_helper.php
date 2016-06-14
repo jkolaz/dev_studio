@@ -333,6 +333,24 @@ if (!function_exists('describir_estado')) {
 
 }
 
+if(!function_exists('estado_record')){
+    function estado_record($estado){
+        $descripcion = '---';
+        switch ($estado){
+            case 1:
+                $descripcion = '<span style="color: green; font-weight: bold;">APROBÓ</span>';
+                break;
+            case 2:
+                $descripcion = '<span style="color: orange; font-weight: bold;">VACACIONAL</span>';
+                break;
+            case 3:
+                $descripcion = '<span style="color: red; font-weight: bold;">REPROBÓ</span>';
+                break;
+        }
+        return $descripcion;
+    }
+}
+
 if(!function_exists('estado_anio')){
     function estado_anio($anio){
         $estado_html= "";
