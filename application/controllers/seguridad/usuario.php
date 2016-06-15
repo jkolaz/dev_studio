@@ -449,6 +449,7 @@ class Usuario extends CI_Controller {
         $ObjAlumno->dni = $post['dni'];
         $ObjAlumno->email = $post['email'];
         $ObjAlumno->sexo = $post['sexo'];
+        $ObjAlumno->telefono = '';
         $ObjAlumno->grado = 1;
         $alumno = $this->usuario_model->insert($ObjAlumno);
         $tipo = "PAD";

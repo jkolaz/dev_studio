@@ -280,6 +280,7 @@ class Usuario_Model extends CI_Model {
                         "USUA_apellidoMaterno"=>$insert->materno,
                         "USUA_clave"=>  md5($insert->dni),
                         "USUA_dni"=>$insert->dni,
+                        "USUA_telefonos"=>$insert->telefono,
                         "USUA_flagActivo"=>"A",
                         "USUA_estado"=>"AC");
         $newCodigo = '';

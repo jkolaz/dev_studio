@@ -130,7 +130,7 @@
                 <tbody>
                     <tr>
                         <td>D.N.I. :</td>
-                        <td><input type="input" name="dni" id="dni" class="require exist_dni"/></td>
+                        <td><input type="input" name="dni" id="dni" class="require exist_dni" maxlength="8"/></td>
                         <td><span id="dni_mensaje" style="display:none; color: red; font-family: initial, sans-serif; font-size: 9px;">DNI ya existe.</span></td>
                     </tr>
                     <tr>
