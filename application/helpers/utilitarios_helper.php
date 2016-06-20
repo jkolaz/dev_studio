@@ -421,13 +421,13 @@ if(!function_exists('url_estado')){
 				$function = "";
 		}
 		switch($estado){
-			case 'AC' : $descripcion = '<a class="pop_up" href="'.$function.'">ACTIVO</a>';
+			case 'AC' : $descripcion = 'ACTIVO';
                 break;
             case 'DE' : $descripcion = '<a class="pop_up" href="'.$function.'">CON DEUDA</a>';
                 break;
-            case 'BL' : $descripcion = '<a class="pop_up" href="'.$function.'">BLOQUEADO</a>';
+            case 'BL' : $descripcion = '<a class="pop_up" href="¿">BLOQUEADO</a>';
                 break;
-            case 'IN' : $descripcion = '<a class="pop_up" href="'.$function.'">INACTIVO</a>';
+            case 'IN' : $descripcion = '<a class="pop_up" href="">INACTIVO</a>';
                 break;
             case 'OB' : $descripcion = '<a class="pop_up" href="'.$function.'">OBSERVADO</a>';
                 break;
@@ -484,9 +484,9 @@ if (!function_exists('formar_nombre_reducido')) {
 if (!function_exists('formar_nombre_completo')) {
 
     function formar_nombre_completo($objPersona) {
-        return utf8_encode($objPersona->USUA_apellidoPaterno . ' '
+        return $objPersona->USUA_apellidoPaterno . ' '
                         . $objPersona->USUA_apellidoMaterno . ', '
-                        . $objPersona->USUA_nombres);
+                        . $objPersona->USUA_nombres;
     }
 
 }

@@ -60,11 +60,11 @@
                         $nombreEstado = url_estado($objeto->USUA_estado, $objeto->ROL_id);
                         echo '<tr>';
                         echo "<td align='center'>" . $i . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_apellidoPaterno) . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_apellidoMaterno) . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_nombres) . '</td>';
+                        echo "<td align='left'>" . $objeto->USUA_apellidoPaterno . '</td>';
+                        echo "<td align='left'>" . $objeto->USUA_apellidoMaterno . '</td>';
+                        echo "<td align='left'>" . $objeto->USUA_nombres . '</td>';
                         echo "<td align='center'>" . $objeto->USUA_login . '</td>';
-                        echo "<td align='center'>" . utf8_encode($objeto->ROL_nombre) . '</td>';
+                        echo "<td align='center'>" . $objeto->ROL_nombre . '</td>';
                         echo "<td align='center'>";
                         echo  $nombreEstado;
                         echo '</td>';

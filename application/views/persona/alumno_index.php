@@ -84,13 +84,13 @@
                         $nombreEstado = describir_estado($objeto->USUA_estado);
                         echo '<tr>';
                         echo "<td align='center'>" . $i . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_apellidoPaterno) . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_apellidoMaterno) . '</td>';
-                        echo "<td align='left'>" . utf8_encode($objeto->USUA_nombres) . '</td>';
+                        echo "<td align='left'>" . $objeto->USUA_apellidoPaterno . '</td>';
+                        echo "<td align='left'>" . $objeto->USUA_apellidoMaterno . '</td>';
+                        echo "<td align='left'>" . $objeto->USUA_nombres . '</td>';
                         echo "<td align='center'>" . $objeto->USUA_dni . '</td>';
 //                        echo "<td align='center'>" . utf8_encode($objeto->ROL_nombre) . '</td>';
-                        echo "<td align='center'>" . utf8_encode($objeto->GRAD_abreviatura) . '</td>';
-                        echo "<td align='center'>" . utf8_encode($objeto->NIVE_abreviatura) . '</td>';
+                        echo "<td align='center'>" . $objeto->GRAD_abreviatura . '</td>';
+                        echo "<td align='center'>" . $objeto->NIVE_abreviatura . '</td>';
 
                         echo "<td align='center'>";
                         echo "<a class='ver_padres' href='" . base_url()

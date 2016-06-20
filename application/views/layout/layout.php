@@ -54,7 +54,7 @@
             <div style="display:inline; margin-right: 8px; padding-left: 20px;">
                 Institución: <b>Mi Jazmincito</b>
             </div> 
-            Usuario: <b><?=$this->session->userdata('nombreUsuario') ?></b>
+            Usuario: <b><?= utf8_decode($this->session->userdata('nombreUsuario')) ?></b>
               
             <?php echo $content_for_layout ?>
            
