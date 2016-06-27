@@ -109,7 +109,7 @@
                         <?php
                         if($value->CALD_estado == 1){
                         ?>
-                        <input type="text" class="criterio" id_nota="<?=$value->CALD_id?>" name="criterio[<?=$value->CALD_id?>]" id="criterio_<?=$value->CALD_id?>" value="<?=$value->CALD_nota?>" style="width: 40px;"/>
+                        <input type="text" class="criterio" id_nota="<?=$value->CALD_id?>" name="criterio[<?=$value->CALD_id?>]" id="criterio_<?=$value->CALD_id?>" value="<?=$value->CALD_nota?>" style="width: 40px;" <?=$readonly?>/>
                         <?php    
                         }else{
                             echo $value->CALD_nota;
@@ -129,6 +129,9 @@
                     </td>
                 </tr>
             </tbody>
+            <?php
+            if($rol==2){
+            ?>
             <tfoot>
                 <tr>
                     <td colspan="2"></td>
@@ -137,6 +140,9 @@
                     </td>
                 </tr>
             </tfoot>
+            <?php
+            }
+            ?>
         </table>
         </form>
     </body>

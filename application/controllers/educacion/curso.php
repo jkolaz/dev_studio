@@ -152,6 +152,7 @@ class Curso extends CI_Controller {
     }
 
     public function ver_detalle_curso($id){
+        $rol = $this->session->userdata('idRol');
         $objCalificacion = $this->calificacion->getCalificacionByID($id);
         
         $this->load->model('matricula/bimestre_model', 'bimestre');
@@ -164,8 +165,13 @@ class Curso extends CI_Controller {
         $listaDetalleNotas = $this->curso_model->listar_detalle_notas_new($objCalificacion[0]->CALI_id);
         $data['lista'] = $listaDetalleNotas;
         
-        //imprimir($objCalificacion);
+        $readonly = '';
+        if($rol != 2){
+            $readonly = 'readonly';
+        }
+        $data['readonly'] = $readonly;
         $data['calificacion'] = $objCalificacion;
+        $data['rol'] = $rol;
         $this->load->view($this->_view, $data);
     }
     
