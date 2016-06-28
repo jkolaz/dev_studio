@@ -29,10 +29,14 @@ class Padre extends CI_Controller{
         if($listaAlumnos){
             foreach ($listaAlumnos as $id=>$value){
                 $grado = $this->GXU->getGradoByUsuario($value->USUA_id);
+                $grado_texto = '---';
+                $nivel_texto = '---';
                 if($grado){
-                    $listaAlumnos[$id]->GRAD_abreviatura = $grado[0]->GRAD_abreviatura;
-                    $listaAlumnos[$id]->NIVE_nombre = $grado[0]->NIVE_nombre;
+                    $grado_texto = $grado[0]->GRAD_abreviatura;
+                    $nivel_texto = $grado[0]->NIVE_nombre;
                 }
+                $listaAlumnos[$id]->GRAD_abreviatura = $grado_texto;
+                $listaAlumnos[$id]->NIVE_nombre = $nivel_texto;
             }
         }
         $data['titulo'] = 'PADRE FAMILIA';
