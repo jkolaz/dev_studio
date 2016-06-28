@@ -37,7 +37,7 @@ class Gradousuario_model extends CI_Controller{
         $where = array();
         $where['ANIO_id'] = $anio;
         $where['GXUS_estado'] = 'AC';
-        $where['GXU_status'] = 1;
+//        $where['GXU_status'] = 1;
         $query = $this->db->where($where)->get(self::$tabla);
         if($query->num_rows > 0){
             return $query->result();
@@ -84,5 +84,15 @@ class Gradousuario_model extends CI_Controller{
             return $query->result();
         }
         return NULL;
+    }
+    
+    public function cerrar_curso($grado, $usuario){
+        $where['USUA_id'] = $usuario;
+        $where['GRAD_id'] = $grado;
+        $where['CGU_stado'] = 1;
+        
+        $update['CGU_stado'] = 2;
+        
+        $this->db->where($where)->update('curso_x_grado_x_usuario',$update);
     }
 }

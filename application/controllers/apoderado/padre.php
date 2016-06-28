@@ -171,4 +171,17 @@ class Padre extends CI_Controller{
             exit;
         }
     }
+    
+    public function nota($id){
+        $this->load->model('seguridad/usuario_model', 'USUARIO');
+        $objUser = $this->USUARIO->getUserById($id);
+        if($objUser){
+            $obj = $this->USUARIO->getAlumnoNotasNowByDNI($objUser[0]->USUA_dni);
+            $data['lista'] = $obj;
+            $data['titulo'] = 'NOTAS';
+            $this->layout->view(NULL, $data);
+        }else{
+            redirect('apoderado/padre/hijo');
+        }
+    }
 }

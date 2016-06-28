@@ -60,9 +60,9 @@ if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
 }
 ?>
 
-<table width="90%" border="0">
+<table width="90%" border="0" style="padding-left: 10px;">
     <tr>
-        <td valign="top">
+        <!--<td valign="top">
             <table border="1">
                 <tr>
                     <td>
@@ -75,7 +75,7 @@ if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
                     </td>
                 </tr>
             </table>
-        </td>        
+        </td>     -->   
         <td valign="top">
             <table border="0">
                 <tr>
@@ -103,7 +103,7 @@ if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
                     <td> : </td>
                     <td><b> <?php echo describir_sexo($alumno->USUA_sexo) ?> </b></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td> Fecha de nacimiento </td>
                     <td> : </td>
                     <td><b> <?php echo dame_fecha_estandar($alumno->USUA_fechaNacimiento) ?> </b></td>
@@ -127,7 +127,7 @@ if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
                     <td> --- </td>
                     <td> : </td>
                     <td><b> <?php echo '-' ?> </b></td>
-                </tr>
+                </tr>-->
             </table>
         </td>
         <td valign="top">
@@ -147,7 +147,7 @@ if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
                     <td> : </td>
                     <td><b> <?=$grado->NIVE_nombre ?> </b></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td> Orden de m&eacute;rito </td>
                     <td> : </td>
                     <td><b> <?php echo $alumno->USUA_ordenMerito ?> </b></td>
@@ -156,7 +156,7 @@ if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
                     <td> Estado </td>
                     <td> : </td>
                     <td><b> <?php echo describir_estado($alumno->USUA_estado) ?> </b></td>
-                </tr>
+                </tr>-->
             </table>
             <br>
 
@@ -167,6 +167,7 @@ if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
                 $texto = 'El alumno no tiene documentos pendientes';
             }
             ?>
+            <!--
             <table>
                 <tr>
                     <td>
@@ -177,6 +178,7 @@ if($file_headers[0] == 'HTTP/1.1 404 Not Found') {
                     </td>
                 </tr>
             </table>
+            -->
         </td>
     </tr>
 </table>

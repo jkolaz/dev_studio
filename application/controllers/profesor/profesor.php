@@ -72,6 +72,8 @@ class Profesor extends CI_Controller{
                 $data['titulo'] = $objCurso[0]->CURS_nombre;
                 $data['lista'] = $obCursoAlumno;
                 $this->layout->view(NULL, $data);
+            }else{
+                redirect('educacion/curso/listar');
             }
         }
         

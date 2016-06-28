@@ -23,6 +23,7 @@ class Alumnocurso_model extends CI_Model{
     public function getAlumnoByCurso($id){
         $where = array();
         $where['a.CURS_id'] = $id;
+        $where['a.CGU_stado'] = 1;
         $where['b.USUA_flagActivo'] = "A";
         $query = $this->db->where($where)->join('usuario b', 'b.USUA_id=a.USUA_id')
                 ->order_by('b.USUA_apellidoPaterno')

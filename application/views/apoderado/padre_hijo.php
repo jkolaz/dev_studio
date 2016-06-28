@@ -40,6 +40,9 @@
                     <?php
                     if($objeto->matricula > 0){
                     ?>
+                        <a href="<?=  base_url()?>index.php/apoderado/padre/nota/<?=$objeto->USUA_id?>" title="ver notas y horario">
+                            Notas
+                        </a>&nbsp;&nbsp;
                         <a href="<?=  base_url()?>index.php/apoderado/padre/download/<?=$objeto->USUA_id?>" title="Descarga notas y horario">
                             <img src="<?=base_url()?>img/down.png" width="16" height="16"/>
                         </a>

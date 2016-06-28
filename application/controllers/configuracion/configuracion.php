@@ -150,6 +150,7 @@ class Configuracion extends CI_Controller{
             foreach ($obGXU as $in=>$val){
                 $idUsuario = $val->USUA_id;
                 $idGrado = $val->GRAD_id;
+                $this->GXU->cerrar_curso($idGrado, $idUsuario);
                 $listaCursos = $this->CURSO->listar_cursos_por_alumno($idUsuario);
                 if($listaCursos){
                     $numDesaprobado = 0;
