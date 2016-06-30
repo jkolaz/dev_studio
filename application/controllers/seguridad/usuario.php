@@ -539,8 +539,8 @@ class Usuario extends CI_Controller {
                                     if($objGrado){
                                         $datos['nivel'] = $objGrado[0]->NIVE_abreviatura;
                                         $datos['nivel_id'] = $objGrado[0]->NIVE_id;
-                                        $datos['grado_id'] = $objGrado[0]->GRAD_nombre;
-                                        $datos['grado'] = $objGrado[0]->GRAD_id;
+                                        $datos['grado_id'] = $objGrado[0]->GRAD_id;
+                                        $datos['grado'] = $objGrado[0]->GRAD_nombre;
                                     }
                                     break;
                                 case 2:
